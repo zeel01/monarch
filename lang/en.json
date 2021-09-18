@@ -1,0 +1,13 @@
+{
+	"monarch": {
+		"title": "🦋 Monarch",
+		"ui": {
+
+		},
+		"console": {
+			"log": {
+				"ready": "🦋 Monarch | Ready."
+			}
+		}
+	}
+}
