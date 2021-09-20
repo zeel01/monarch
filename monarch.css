@@ -1,29 +1,74 @@
 .window-app.monarch-hand {
 	background-image: none;
 	box-shadow: none;
+	margin: 0;
+	background-color: transparent;
+}
+.window-app.monarch-hand:not(.minimized) {
 	flex-direction: row;
 	align-items: start;
+	padding: 6px;
+	transition: background-color .5s, box-shadow .5s;
+	border-radius: 6px;
 }
 
-.window-app.monarch-hand .window-header .header-button {
-	font-size: 0px;
+.window-app.monarch-hand:not(.minimized):hover {
+	background-color: rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
-.window-app.monarch-hand .window-header .header-button i {
+
+.window-app.monarch-hand:not(.minimized) .window-header .header-button {
+	font-size: 0px;
+	margin: 0;
+}
+.window-app.monarch-hand:not(.minimized) .window-header .header-button i {
 	font-size: var(--font-size-14);
 }
 
+.window-app.monarch-hand .window-header .header-button.drag:hover {
+	text-shadow: none;
+}
+.window-app.monarch-hand .window-header .header-button.drag {
+	cursor: move;
+	color: rgba(255, 255, 255, 0.5);
+}
+.window-app.monarch-hand .window-resizable-handle {
+	opacity: 0;
+	transition: opacity .5s;
+}
+.window-app.monarch-hand:not(.minimized):hover .window-resizable-handle {
+	opacity: 1;
+}
 
 .window-app.monarch-hand .window-header {
 	background: url(/ui/denim075.png) repeat;
 	border: none;
 	border-radius: 8px;
 	box-shadow: 0 0 8px black;
+}
+.window-app.monarch-hand:not(.minimized) .window-header {
 	order: 2;
 	margin-top: 10px;
+	place-items: center;
+	place-content: center;
+	padding-left: 1.4ch;
+	flex-direction: column;
+	padding-top: .75em;
+	opacity: 0;
+	transition: opacity .5s;
 }
 
-.window-app.monarch-hand .window-header .window-title {
+.window-app.monarch-hand:not(.minimized):hover .window-header {
+	opacity: 1;
+}
+
+
+.window-app.monarch-hand:not(.minimized) .window-header .window-title {
 	display: none;
+	font-size: 0;
+	visibility: hidden;
+	flex-basis: 0;
+	height: 0;
 }
 
 .window-app.monarch-hand .window-content {
@@ -43,7 +88,7 @@
 	overflow: hidden;
 	padding: 10px 14px 10px 10px;
 	margin: 0;
-	height: calc(var(--card-height) + 40px);
+	height: calc(var(--card-height) + 20px);
 }
 
 .monarch-hand .card-wrapper {
@@ -174,15 +219,17 @@
 	opacity: 1;
 }
 
-.monarch-hand .sheet-footer {
+.monarch-hand footer.sheet-footer {
 	background: url(/ui/denim075.png) repeat;
 	padding: .5em;
+	margin: 0 8px;
 	border-radius: 8px;
 	box-shadow: 0 0 8px black;
 	display: flex;
 	flex-direction: row;
 	align-items: stretch;
 	gap: 4px;
+	line-height: unset;
 }
 
 .monarch-hand .sheet-footer button,
