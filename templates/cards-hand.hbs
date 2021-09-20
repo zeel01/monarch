@@ -1,0 +1,43 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<div>
+		<ol class="cards">
+			{{#each cards as |card|}}
+				<li class="card-wrapper">
+					<div class="card" data-card-id="{{card.id}}" style="--card-image: url(/{{card.img}})">
+						<figure class="tooltip-wrapper">
+							<section class="tooltip">
+								<h4 class="card-name">{{card.name}}</h4>
+							</section>
+						</figure>
+						<section class="card-hud">
+							{{#if card.showFace}}
+								<span class="card-type" title="{{localize 'CARD.Type'}}">{{card.type}}</span>
+								<span class="card-suit" title="{{localize 'CARD.Suit'}}">{{card.data.suit}}</span>
+								<span class="card-value" title="{{localize 'CARD.Value'}}">{{card.data.value}}</span>
+							{{/if}}
+							<section class="card-faces">
+								<a class="card-control" title="{{localize 'CARD.FaceNext'}}" data-action="nextFace" {{#unless
+									card.hasNextFace}}disabled{{/unless}}><i class="fas fa-caret-up"></i></a>
+								<a class="card-control" title="{{localize 'CARD.FacePrevious'}}" data-action="prevFace"
+									{{#unless card.hasPreviousFace}}disabled{{/unless}}><i class="fas fa-caret-down"></i></a>
+							</section>
+						</section>
+					</div>
+				</li>
+			{{/each}}
+		</ol>
+	</div>
+
+	<!-- Sheet Footer -->
+	<footer class="sheet-footer">
+		{{#if owner}}
+			<input type="text" name="name" value="{{data.name}}" placeholder="{{localize 'Name'}}" />
+			<button class="card-control" type="button" data-action="draw">
+				<i class="fas fa-plus"></i> {{localize "CARDS.Draw"}}
+			</button>
+			<button class="card-control" type="button" data-action="pass">
+				<i class="fas fa-share-square"></i> {{localize "CARDS.Pass"}}
+			</button>
+		{{/if}}
+	</footer>
+</form>
