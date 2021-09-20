@@ -1,18 +1,35 @@
 .window-app.monarch-hand {
 	background-image: none;
 	box-shadow: none;
+	flex-direction: row;
+	align-items: start;
 }
+
+.window-app.monarch-hand .window-header .header-button {
+	font-size: 0px;
+}
+.window-app.monarch-hand .window-header .header-button i {
+	font-size: var(--font-size-14);
+}
+
 
 .window-app.monarch-hand .window-header {
 	background: url(/ui/denim075.png) repeat;
 	border: none;
 	border-radius: 8px;
 	box-shadow: 0 0 8px black;
+	order: 2;
+	margin-top: 10px;
+}
+
+.window-app.monarch-hand .window-header .window-title {
+	display: none;
 }
 
 .window-app.monarch-hand .window-content {
 	background: none;
 	color: white;
+	padding: 0;
 }
 
 .monarch-hand {
@@ -24,7 +41,8 @@
 	display: flex;
 	flex-direction: row;
 	overflow: hidden;
-	padding: 30px 14px 10px 10px;
+	padding: 10px 14px 10px 10px;
+	margin: 0;
 	height: calc(var(--card-height) + 40px);
 }
 
@@ -37,7 +55,7 @@
 	flex-basis: 0;
 	max-width: var(--card-width);
 	height: var(--card-height);
-	transition: flex-basis .3s ease-in-out, transform .3s, box-shadow .5s;
+	transition: flex-basis .3s ease-in-out, box-shadow .5s;
 	box-shadow: -2px 0 6px black;
 	border-radius: 4px 0 0 4px;
 	margin-right: -4px;
@@ -53,7 +71,6 @@
 	box-shadow: 
 		0 0 10px black,
 		0 0 6px black;
-	transform: scale(1.01);
 }
 
 .monarch-hand .card {
@@ -86,7 +103,7 @@
 	box-shadow: 0 0 6px black;
 	opacity: 0;
 	transition: opacity .2s;
-	display: grid;
+	display: flex;
 	place-content: center;
 }
 
