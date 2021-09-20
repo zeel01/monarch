@@ -38,4 +38,15 @@ class MonarchHand extends CardsHand {
 			});
 		});
 	}
+
+	_getHeaderButtons() {
+		const buttons = super._getHeaderButtons();
+		buttons.unshift({
+			class: "drag",
+			icon: "fas fa-grip-horizontal",
+			onclick: () => null
+		});
+
+		return buttons;
+	}
 }
