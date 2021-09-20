@@ -1,0 +1,184 @@
+.window-app.monarch-hand {
+	background-image: none;
+	box-shadow: none;
+}
+
+.window-app.monarch-hand .window-header {
+	background: url(/ui/denim075.png) repeat;
+	border: none;
+	border-radius: 8px;
+	box-shadow: 0 0 8px black;
+}
+
+.window-app.monarch-hand .window-content {
+	background: none;
+	color: white;
+}
+
+.monarch-hand {
+	--card-height: 200px;
+	--card-width: calc(var(--card-height) * .66);
+}
+
+.monarch-hand .cards {
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+	padding: 30px 14px 10px 10px;
+	height: calc(var(--card-height) + 40px);
+}
+
+.monarch-hand .card-wrapper {
+	position: relative;
+	display: flex;
+	flex-grow: 1;
+	flex-shrink: 1;
+	overflow: hidden;
+	flex-basis: 0;
+	max-width: var(--card-width);
+	height: var(--card-height);
+	transition: flex-basis .3s ease-in-out, transform .3s, box-shadow .5s;
+	box-shadow: -2px 0 6px black;
+	border-radius: 4px 0 0 4px;
+	margin-right: -4px;
+}
+
+.monarch-hand .card-wrapper:hover,
+.monarch-hand .card-wrapper:last-child {
+	flex-basis: var(--card-width);
+	border-radius: 4px;
+}
+.monarch-hand .card-wrapper:hover {
+	z-index: 1;
+	box-shadow: 
+		0 0 10px black,
+		0 0 6px black;
+	transform: scale(1.01);
+}
+
+.monarch-hand .card {
+	background-color: rgba(0, 0, 0, 0.7); /* temporary until the fix the card images */
+	position: relative;
+	padding: 8px;
+	background-image: var(--card-image);
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: var(--card-height);
+	min-width: var(--card-width);
+
+	cursor: pointer;
+}
+
+.monarch-hand .card .tooltip-wrapper {
+	position: fixed;
+	margin: 0;
+	margin-left: -8px;
+}
+
+.monarch-hand .tooltip {
+	background: url(/ui/denim075.png) repeat;
+	position: absolute;
+	width: var(--card-width);
+	padding: 4px;
+	height: 1.75em;
+	bottom: 1em;
+	border-radius: 4px;
+	box-shadow: 0 0 6px black;
+	opacity: 0;
+	transition: opacity .2s;
+	display: grid;
+	place-content: center;
+}
+
+.monarch-hand .tooltip h4 {
+	margin: 0;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.monarch-hand .card-wrapper:hover .tooltip {
+	opacity: 1;
+}
+
+.monarch-hand .card-hud {
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity .2s;
+	width: 100%;
+	height: 100%;
+	display: grid;
+
+	grid-template-rows: 1.5em 1.5em 1fr 1.5em;
+	grid-template-columns: 1fr 1fr;
+
+	grid-template-areas:
+		"info1 info2"
+		"info3 info4"
+		"body body"
+		"control1 control2";
+
+	place-items: stretch;
+
+	gap: .5em;
+}
+
+.monarch-hand .card-value {
+	grid-area: info2;
+}
+
+.monarch-hand .card-suit {
+	grid-area: info1;
+}
+
+.monarch-hand .card-type {
+	grid-area: info3;
+}
+
+.monarch-hand .card-faces {
+	grid-area: control2;
+	gap: .5ch;
+}
+
+.monarch-hand .card-hud > * {
+	pointer-events: all;
+	background: url(/ui/denim075.png) repeat;
+	padding: .5em;
+	border-radius: 4px;
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.monarch-hand .card-wrapper:hover .card-hud {
+	opacity: 1;
+}
+
+.monarch-hand .sheet-footer {
+	background: url(/ui/denim075.png) repeat;
+	padding: .5em;
+	border-radius: 8px;
+	box-shadow: 0 0 8px black;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	gap: 4px;
+}
+
+.monarch-hand .sheet-footer button,
+.monarch-hand .sheet-footer input[type="text"] {
+	color: white;
+	border: 1px solid white;
+	padding: 2px;
+	height: unset;
+}
+
+/*.monarch-hand .card > * {
+	display: none;
+}
+.monarch-hand .card > .tooltip-wrapper {
+	display: block;
+}*/
