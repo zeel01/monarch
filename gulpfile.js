@@ -2,14 +2,14 @@ const { src, dest, watch, series } = require('gulp');
 const sass = require("gulp-sass")(require('sass'));
 const sourcemaps = require("gulp-sourcemaps");
 
-const sources = "*.{scss,sass}";
+const sources = "sass/*.{scss,sass}";
 
 function css() {
 	return src(sources)
 		.pipe(sourcemaps.init())
 		.pipe(
 			sass(
-				{ includePaths: ["./"] }
+				{ includePaths: ["./sass"] }
 			).on("error", sass.logError))
 		.pipe(sourcemaps.write())
 		.pipe(dest("./"))
