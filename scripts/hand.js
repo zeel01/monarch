@@ -1,8 +1,8 @@
 export default class MonarchHand extends CardsHand {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
-			template: "modules/monarch/templates/cards-hand.hbs",
-			classes: ["monarch-hand", "sheet"],
+			template: "modules/monarch/templates/monarch-hand.hbs",
+			classes: ["monarch", "monarch-hand", "sheet"],
 			width: 600,
 			resizable: true
 		})
