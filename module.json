@@ -14,7 +14,7 @@
 	"version": "0.1.0",
 	"minimumCoreVersion": "9.224",
 	"compatibleCoreVersion": "9",
-	"scripts": [
+	"esmodules": [
 		"monarch.js"
 	],
 	"styles": [

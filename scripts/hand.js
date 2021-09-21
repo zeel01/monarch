@@ -1,16 +1,4 @@
-Hooks.on("ready", () => {
-	console.log(game.i18n.localize("monarch.console.log.ready"));
-
-	DocumentSheetConfig
-	.registerSheet(Cards, "monarch", MonarchHand, {
-		label: game.i18n.localize("monarch.title"),
-		types: ["hand"]
-	})
-
-	game.cards.get("JZ9wbWp8U2aA6Nh4").sheet.render(true);
-});
-
-class MonarchHand extends CardsHand {
+export default class MonarchHand extends CardsHand {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/cards-hand.hbs",
