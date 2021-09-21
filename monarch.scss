@@ -101,7 +101,7 @@
 	max-width: var(--card-width);
 	height: var(--card-height);
 	transition: flex-basis .3s ease-in-out, box-shadow .5s;
-	box-shadow: -2px 0 6px black;
+	box-shadow: -2px 0 6px rgba(0, 0, 0, 0.6);
 	border-radius: 4px 0 0 4px;
 	margin-right: -4px;
 }
@@ -127,7 +127,6 @@
 	background-repeat: no-repeat;
 	height: var(--card-height);
 	min-width: var(--card-width);
-
 	cursor: pointer;
 }
 
