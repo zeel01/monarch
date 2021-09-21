@@ -1,0 +1,33 @@
+.window-app.monarch {
+	background-image: none;
+	box-shadow: none;
+	margin: 0;
+	background-color: transparent;
+
+	.window-header {
+		background: url(/ui/denim075.png) repeat;
+		border: none;
+		border-radius: 8px;
+		box-shadow: 0 0 8px black;
+	}
+
+	.window-content {
+		background: none;
+		color: white;
+		padding: 0;
+	}
+}
+
+.monarch {
+	button, select, textarea,
+	input[type="text"],
+	input[type="number"],
+	input[type="password"],
+	input[type="date"],
+	input[type="time"] {
+		color: white;
+		border: 1px solid white;
+		padding: 2px;
+		height: unset;
+	}
+}

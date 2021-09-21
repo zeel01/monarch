@@ -1,22 +1,4 @@
 .window-app.monarch-hand {
-	background-image: none;
-	box-shadow: none;
-	margin: 0;
-	background-color: transparent;
-
-	.window-header {
-		background: url(/ui/denim075.png) repeat;
-		border: none;
-		border-radius: 8px;
-		box-shadow: 0 0 8px black;
-	}
-
-	.window-content {
-		background: none;
-		color: white;
-		padding: 0;
-	}
-
 	.window-resizable-handle {
 		opacity: 0;
 		transition: opacity .5s;
@@ -209,12 +191,5 @@
 		align-items: stretch;
 		gap: 4px;
 		line-height: unset;
-		
-		button, input[type="text"] {
-			color: white;
-			border: 1px solid white;
-			padding: 2px;
-			height: unset;
-		}
 	}
 }
