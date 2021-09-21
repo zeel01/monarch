@@ -8,6 +8,10 @@
 			"log": {
 				"ready": "🦋 Monarch | Ready."
 			}
+		},
+		"sheetTitle": {
+			"myHand": "🦋 Monarch - My hand",
+			"card": "🦋 Monarch - Card"
 		}
 	}
 }

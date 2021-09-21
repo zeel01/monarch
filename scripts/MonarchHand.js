@@ -16,13 +16,14 @@ export default class MonarchHand extends CardsHand {
 			card.addEventListener("click", (event) => {
 				event.stopPropagation();
 				const cardDocumwnt = this.object.cards.get(card.dataset.cardId);
-				//cardDocumwnt.sheet.render(true);
-				new ImagePopout(cardDocumwnt.img, {
+				cardDocumwnt.sheet.render(true);
+				
+				/*new ImagePopout(cardDocumwnt.img, {
 					title: cardDocumwnt.data.name,
 					uuid: cardDocumwnt.data.uuid,
 					sharable: true,
 					editable: false
-				}).render(true);
+				}).render(true);*/
 			});
 		});
 	}
