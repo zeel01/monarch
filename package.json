@@ -1,0 +1,25 @@
+{
+  "name": "monarch",
+  "version": "0.1.0",
+  "description": "A card UI fit for royalty.",
+  "main": "monarch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeel01/monarch.git"
+  },
+  "author": "Josh Olsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeel01/monarch/issues"
+  },
+  "homepage": "https://github.com/zeel01/monarch#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "sass": "^1.42.0"
+  }
+}
