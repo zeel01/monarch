@@ -1,0 +1,40 @@
+.monarch-card {
+	form {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 5em 3em 1fr 3em;
+		grid-template-areas:
+			"display header"
+			"display tabs"
+			"display body"
+			"display footer";
+
+		row-gap: .5em;
+		column-gap: .75em;
+
+		place-items: stretch;
+		padding-top: .5em;
+	}
+
+	.card-display { 
+		grid-area: display;
+		cursor: pointer;
+	}
+	.sheet-header { grid-area: header; }
+	.sheet-tabs { grid-area: tabs; }
+	.tab { grid-area: body; }
+	.sheet-footer { grid-area: footer; }
+
+	.sheet-header, .sheet-tabs, .tab, .sheet-footer {
+		background: url(/ui/denim075.png) repeat;
+		padding: .5em;
+		margin: 0 8px;
+		border-radius: 8px;
+		box-shadow: 0 0 8px black;
+		margin: 0;
+	}
+
+	nav.sheet-tabs {
+		border: none;
+	}
+}
