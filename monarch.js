@@ -1,4 +1,4 @@
-import MonarchHand from "./scripts/hand.js";
+import MonarchHand from "./scripts/MonarchHand.js";
 
 Hooks.on("ready", () => {
 	console.log(game.i18n.localize("monarch.console.log.ready"));
