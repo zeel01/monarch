@@ -5,7 +5,9 @@ export default class MonarchCard extends CardConfig {
 			classes: ["monarch", "monarch-card", "sheet"],
 			width: 600,
 			height: "auto",
-			resizable: true
+			resizable: true,
+			clsoeOnSubmit: false,
+			submitOnClose: true,
 		})
 	}
 
@@ -15,14 +17,86 @@ export default class MonarchCard extends CardConfig {
 
 		html.querySelector(".card-display").addEventListener("click", (event) => {
 			event.stopPropagation();
-			const cardDocumwnt = this.object;
+			const cardDocument = this.object;
 
-			new ImagePopout(cardDocumwnt.img, {
-				title: cardDocumwnt.data.name,
-				uuid: cardDocumwnt.data.uuid,
+			new ImagePopout(cardDocument.img, {
+				title: cardDocument.data.name,
+				uuid: cardDocument.data.uuid,
 				sharable: true,
 				editable: false
 			}).render(true);
 		});
+
+		html.querySelectorAll(".config-button").forEach(button => {
+			button.addEventListener("click", (event) => {
+				event.stopPropagation();
+				const element = event.currentTarget;
+				const configRef = element.dataset.config;
+		
+				let configApp = null;
+
+				switch (configRef) {
+					case "faces": 
+						configApp = new MonarchFaceConfig(this.object);
+						break;
+					case "back": 
+						configApp = new MonarchBackConfig(this.object);
+						break;
+				}
+				
+				configApp.render(true);
+			});
+		});
+	}
+
+	_getHeaderButtons() {
+		const buttons = super._getHeaderButtons();
+
+		// TODO: Needs an ownership check
+		buttons.unshift({
+			class: "save",
+			icon: "fas fa-save",
+			onclick: this._onSubmit.bind(this)
+		});
+
+		return buttons;
+	}
+
+	constructor(...args) {
+		super(...args);
+
+		this._getSubmitData = DocumentSheet.prototype._getSubmitData.bind(this);
+	}
+}
+
+class MonarchCardConfigDialog extends CardConfig {
+	static get defaultOptions() {
+		return foundry.utils.mergeObject(super.defaultOptions, {
+			width: 400,
+			classes: ["monarch-face", "sheet"],
+		})
+	}
+}
+class MonarchFaceConfig extends MonarchCardConfigDialog {
+	static get defaultOptions() {
+		return foundry.utils.mergeObject(super.defaultOptions, {
+			id: "monarch-face-config",
+			template: "modules/monarch/templates/monarch-face.hbs"
+		})
+	}
+
+	constructor(...args) {
+		super(...args);
+
+		this._getSubmitData = CardConfig.prototype._getSubmitData.bind(this);
+	}
+}
+
+class MonarchBackConfig extends MonarchCardConfigDialog {
+	static get defaultOptions() {
+		return foundry.utils.mergeObject(super.defaultOptions, {
+			id: "monarch-back-config",
+			template: "modules/monarch/templates/monarch-back.hbs"
+		})
 	}
 }
