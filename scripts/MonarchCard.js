@@ -3,10 +3,10 @@ export default class MonarchCard extends CardConfig {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-card.hbs",
 			classes: ["monarch", "monarch-card", "sheet"],
-			width: 600,
+			width: 400,
 			height: "auto",
 			resizable: true,
-			clsoeOnSubmit: false,
+			closeOnSubmit: false,
 			submitOnClose: true,
 		})
 	}

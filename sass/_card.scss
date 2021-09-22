@@ -1,40 +1,126 @@
+.window-app.monarch-card:not(.minimized) {
+	.window-header {
+		gap: 1ch;
+		align-items: center;
+		justify-content: end;
+
+		opacity: 0;
+		transition: opacity .5s;
+
+		.window-title {
+			display: none;
+			font-size: 0;
+			visibility: hidden;
+			flex-basis: 0;
+			height: 0;
+		}
+
+		.header-button {
+			font-size: 0px;
+			margin: 0;
+			line-height: 1em;
+
+			i {
+				font-size: var(--font-size-14);
+			}
+		}
+	}
+
+	.window-resizable-handle {
+		opacity: 0;
+		transition: opacity .5s;
+	}
+
+	&:hover {
+		.window-header {
+			opacity: 1;
+		}
+		.window-resizable-handle {
+			opacity: 1;
+		}
+	}
+}
+
 .monarch-card {
+	padding: .5em;
+
+	.window-content {
+		overflow: visible;
+	}
+
+	.name {
+		position: absolute;
+		top: calc(.5em - 2px);
+		left: .5em;
+		height: 30px;
+		margin: 0;
+		border: none;
+		font-size: var(--font-size-18);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		input {
+			margin-left: .5ch;
+			border-bottom: 1px solid transparent;
+			margin-bottom: -1px;
+
+			&:hover {
+				border-bottom: 1px dashed white;
+			}
+		}
+	}
+
 	form {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 5em 3em 1fr 3em;
+		grid-template-columns: 1fr;
+		grid-template-rows: 2.5em 2.5em 2.5em 1fr auto;
 		grid-template-areas:
-			"display header"
-			"display tabs"
-			"display body"
-			"display footer";
+			"head"
+			"details"
+			"configs"
+			"display"
+			"footer";
 
 		row-gap: .5em;
-		column-gap: .75em;
 
-		place-items: stretch;
+		justify-items: start;
 		padding-top: .5em;
+
+		> *:not(.card-display):not(.name) {
+			background: url(/ui/denim075.png) repeat;
+			border-radius: 8px;
+			box-shadow: 0 0 8px black;
+			padding: .2em;
+		}
+
+		> *:not(.card-display) {
+			opacity: 0;
+			transition: opacity .5s;
+		}
+	}
+
+	&:hover {
+		form {
+			> *:not(.card-display) {
+				opacity: 1;
+			}
+		}
 	}
 
 	.card-display { 
-		grid-area: display;
+		grid-row: head-start / footer-end;
+		grid-column: head-start / footer-end;
 		cursor: pointer;
+		min-height: 400px;
+		
+		img {
+			box-shadow: 0 0 8px black;
+		}
 	}
-	.sheet-header { grid-area: header; }
-	.sheet-tabs { grid-area: tabs; }
-	.tab { grid-area: body; }
+	.sheet-header { grid-area: head; }
+	.details { grid-area: details; }
+	.configs { grid-area: configs; }
 	.sheet-footer { grid-area: footer; }
-
-	.sheet-header, .sheet-tabs, .tab, .sheet-footer {
-		background: url(/ui/denim075.png) repeat;
-		padding: .5em;
-		margin: 0 8px;
-		border-radius: 8px;
-		box-shadow: 0 0 8px black;
-		margin: 0;
-	}
-
-	nav.sheet-tabs {
-		border: none;
-	}
+	.sheet-footer { grid-area: footer; }
 }

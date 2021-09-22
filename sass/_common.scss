@@ -26,8 +26,18 @@
 	input[type="date"],
 	input[type="time"] {
 		color: white;
-		border: 1px solid white;
 		padding: 2px;
 		height: unset;
+		border: none;
+		border-radius: unset;
+	}
+
+	input[type="text"],
+	input[type="number"],
+	input[type="password"],
+	input[type="date"],
+	input[type="time"] {
+		line-height: 1em;
+		border-bottom: 1px dashed white;
 	}
 }
