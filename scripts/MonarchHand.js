@@ -15,9 +15,9 @@ export default class MonarchHand extends CardsHand {
 		html.querySelectorAll(".card").forEach(card => {
 			card.addEventListener("click", (event) => {
 				event.stopPropagation();
-				const cardDocumwnt = this.object.cards.get(card.dataset.cardId);
-				cardDocumwnt.sheet.render(true);
-				
+				const cardDocument = this.object.cards.get(card.dataset.cardId);
+				cardDocument.sheet.render(true);
+
 				/*new ImagePopout(cardDocumwnt.img, {
 					title: cardDocumwnt.data.name,
 					uuid: cardDocumwnt.data.uuid,
