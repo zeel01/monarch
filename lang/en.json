@@ -12,6 +12,10 @@
 		"sheetTitle": {
 			"myHand": "🦋 Monarch - My hand",
 			"card": "🦋 Monarch - Card"
+		},
+		"label": {
+			"faces": "Faces",
+			"back": "Back"
 		}
 	}
 }
