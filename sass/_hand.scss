@@ -3,6 +3,12 @@
 		opacity: 0;
 		transition: opacity .5s;
 	}
+	.window-header {
+		background: url(/ui/denim075.png) repeat;
+		border: none;
+		border-radius: 8px;
+		box-shadow: 0 0 8px black;
+	}
 }
 
 .window-app.monarch-hand:not(.minimized) {

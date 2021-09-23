@@ -4,13 +4,6 @@
 	margin: 0;
 	background-color: transparent;
 
-	.window-header {
-		background: url(/ui/denim075.png) repeat;
-		border: none;
-		border-radius: 8px;
-		box-shadow: 0 0 8px black;
-	}
-
 	.window-content {
 		background: none;
 		color: white;
@@ -30,6 +23,13 @@
 		height: unset;
 		border: none;
 		border-radius: unset;
+
+		box-shadow: none;
+
+		&:focus {
+			border-radius: 4px;
+			outline: 1px solid rgba(255, 255, 255, 0.1);
+		}
 	}
 
 	input[type="text"],
