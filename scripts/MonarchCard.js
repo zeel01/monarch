@@ -13,9 +13,16 @@ export default class MonarchCard extends CardConfig {
 
 	activateListeners(html) {
 		super.activateListeners(html);
+		
+		new Draggable(this, html, 
+			html.find(".card-display")[0], 
+			false
+		);
+		
 		html = html[0];
 
-		html.querySelector(".card-display").addEventListener("click", (event) => {
+
+		html.querySelector(".card-display .magnify").addEventListener("click", (event) => {
 			event.stopPropagation();
 			const cardDocument = this.object;
 
