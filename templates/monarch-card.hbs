@@ -1,14 +1,20 @@
 <form class="{{cssClass}}" autocomplete="off">
+	<section class="card-display">
+		<img class="card-face" src="{{document.img}}" title="{{data.name}}" />{{~" "~}}
+		<a class="magnify"><i class="fas fa-search-plus"></i></a>
+	</section>
+	
 	<h1 class="name">
 		<input type="text" name="name" value="{{data.name}}" placeholder="{{localize 'Name'}}" />
 	</h1>
 
-	<section class="card-display">
-		<img class="card-face" src="{{document.img}}" title="{{data.name}}" />
-	</section>
+	<section class="card-data">
+		<nav class="configs">
+			<a class="config-button" data-config="faces"><i class="fas fa-id-badge"></i> {{localize "monarch.label.faces"}}</a>
+			<a class="config-button" data-config="back"><i class="fas fa-id-badge"></i> {{localize "monarch.label.back"}}</a>
+		</nav>
 
-	<header class="sheet-header flexrow">
-		<div class="form-group">
+		<div class="form-group type">
 			<label>{{ localize "CARD.Type" }}</label>
 			<div class="form-fields">
 				<select name="type">
@@ -17,44 +23,34 @@
 			</div>
 		</div>
 		
-		<div class="form-group">
+		<div class="form-group suit">
 			<label>{{ localize "CARD.Suit" }}</label>
 			<div class="form-fields">
 				<input type="text" name="suit" value="{{data.suit}}">
 			</div>
 		</div>
 		
-		<div class="form-group">
+		<div class="form-group value">
 			<label>{{ localize "CARD.Value" }}</label>
 			<div class="form-fields">
 				{{numberInput data.value name="value" step=1}}
 			</div>
 		</div>
-	</header>
-	<!-- Tab Navigation -->
-	<nav class="configs">
-		<a class="config-button" data-config="faces"><i class="fas fa-id-badge"></i> {{localize "CARD.HeaderFaces"}}</a>
-		<a class="config-button" data-config="back"><i class="fas fa-id-badge"></i> {{localize "CARD.HeaderBack"}}</a>
-	</nav>
 
-	<!-- Details Tab -->
-	<div class="form-group details">
-		<label>{{localize "CARD.Dimensions"}}</label>
-		<div class="form-fields">
-			<label>{{localize "Width"}}</label>
-			{{numberInput data.width name="width" step=1}}
-			<label>{{localize "Height"}}</label>
-			{{numberInput data.height name="height" step=1}}
-			<label>{{localize "Rotation"}}</label>
-			{{numberInput data.rotation name="rotation" step=1 min=0 max=360}}
+		<div class="form-group dimensions">
+			<div class="form-fields">
+				<label>{{localize "Width"}}</label>
+				{{numberInput data.width name="width" step=1}}
+				<label>{{localize "Height"}}</label>
+				{{numberInput data.height name="height" step=1}}
+				<label>{{localize "Rotation"}}</label>
+				{{numberInput data.rotation name="rotation" step=1 min=0 max=360}}
+			</div>
 		</div>
-	</div>
 
-	<!-- Sheet Footer -->
-	<footer class="sheet-footer flexrow">
-		<div class="form-group stacked">
+		<div class="form-group stacked description">
 			<label>{{ localize "CARD.Description" }}</label>
 			<textarea name="description">{{ data.description }}</textarea>
 		</div>
-	</footer>
+	</section>
 </form>
