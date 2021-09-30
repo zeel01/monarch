@@ -95,8 +95,8 @@
 		&:hover {
 			z-index: 1;
 			box-shadow: 
-				0 0 10px black,
-				0 0 6px black;
+				0 0 10px var(--color-shadow-highlight),
+				0 0 4px var(--color-shadow-primary);
 
 			.tooltip { opacity: 1; }
 			.card-hud { opacity: 1; }
