@@ -1,3 +1,4 @@
+import * as utils from "./scripts/utils.js";
 import MonarchCard from "./scripts/MonarchCard.js";
 import MonarchHand from "./scripts/MonarchHand.js";
 
@@ -16,6 +17,5 @@ Hooks.on("ready", () => {
 			types: ["base"]
 		})
 
-	// For testing, open the test hand sheet
-	game.cards.get("JZ9wbWp8U2aA6Nh4").sheet.render(true);
+	utils.restoreWindows();
 });
