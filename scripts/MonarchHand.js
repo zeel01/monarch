@@ -1,6 +1,6 @@
-import * as utils from "./utils.js";
+import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
 
-export default class MonarchHand extends CardsHand {
+export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-hand.hbs",
@@ -39,16 +39,5 @@ export default class MonarchHand extends CardsHand {
 		});
 
 		return buttons;
-	}
-
-	setPosition(...args) {
-		const position = super.setPosition(...args);
-		utils.storeWindowPosition(this.object.uuid, position);
-		return position;
-	}
-
-	async close(...args) {
-		utils.removePositon(this.object.uuid);
-		return await super.close(args);
 	}
 }

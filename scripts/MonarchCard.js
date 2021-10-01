@@ -1,6 +1,6 @@
-import * as utils from "./utils.js";
+import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
 
-export default class MonarchCard extends CardConfig {
+export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-card.hbs",
@@ -75,18 +75,6 @@ export default class MonarchCard extends CardConfig {
 		super(...args);
 
 		this._getSubmitData = DocumentSheet.prototype._getSubmitData.bind(this);
-	}
-
-	
-	setPosition(...args) {
-		const position = super.setPosition(...args);
-		utils.storeWindowPosition(this.object.uuid, position);
-		return position;
-	}
-
-	async close(...args) {
-		utils.removePositon(this.object.uuid);
-		return await super.close(args);
 	}
 }
 
