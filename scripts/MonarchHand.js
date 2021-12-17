@@ -5,6 +5,7 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-hand.hbs",
 			classes: ["monarch", "monarch-hand", "sheet"],
+			dragDrop: [{ dragSelector: "ol.cards div.card", dropSelector: "ol.cards" }],
 			width: 600,
 			resizable: true
 		})
