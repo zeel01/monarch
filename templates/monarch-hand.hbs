@@ -16,8 +16,8 @@
 								<span class="card-value" title="{{localize 'CARD.Value'}}">{{card.data.value}}</span>
 							{{/if}}
 							<section class="card-faces">
-								<a class="card-control" title="{{localize 'CARD.FaceNext'}}" data-action="nextFace" {{#unless
-									card.hasNextFace}}disabled{{/unless}}><i class="fas fa-caret-up"></i></a>
+								<a class="card-control" title="{{localize 'CARD.FaceNext'}}" data-action="nextFace" 
+									{{#unless card.hasNextFace}}disabled{{/unless}}><i class="fas fa-caret-up"></i></a>
 								<a class="card-control" title="{{localize 'CARD.FacePrevious'}}" data-action="prevFace"
 									{{#unless card.hasPreviousFace}}disabled{{/unless}}><i class="fas fa-caret-down"></i></a>
 							</section>

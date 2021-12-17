@@ -40,4 +40,9 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 
 		return buttons;
 	}
+
+	async _onCardControl(event) {
+		event.stopPropagation();
+		return await super._onCardControl(event);
+	}
 }
