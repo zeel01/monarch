@@ -92,6 +92,10 @@
 			flex-basis: var(--card-width);
 			border-radius: 4px;
 		}
+		&.drag-over {
+			flex-basis: calc(var(--card-width) / 1.5);
+			border-radius: 4px;
+		}
 		&:hover {
 			z-index: 1;
 			box-shadow: 

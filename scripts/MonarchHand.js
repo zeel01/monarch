@@ -20,14 +20,12 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 				event.stopPropagation();
 				const cardDocument = this.object.cards.get(card.dataset.cardId);
 				cardDocument.sheet.render(true);
-
-				/*new ImagePopout(cardDocumwnt.img, {
-					title: cardDocumwnt.data.name,
-					uuid: cardDocumwnt.data.uuid,
-					sharable: true,
-					editable: false
-				}).render(true);*/
 			});
+		});
+
+		html.querySelectorAll(".card-wrapper").forEach(wrap => {
+			wrap.addEventListener("dragenter", this._onDragEnter.bind(this));
+			wrap.addEventListener("dragleave", this._onDragLeave.bind(this));
 		});
 	}
 
@@ -45,5 +43,14 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 	async _onCardControl(event) {
 		event.stopPropagation();
 		return await super._onCardControl(event);
+	}
+
+	_onDragEnter(event) {
+		const target = event.currentTarget;
+		target.classList.add("drag-over");
+	}
+	_onDragLeave(event) {
+		const target = event.currentTarget;
+		target.classList.remove("drag-over");
 	}
 }
