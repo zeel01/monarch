@@ -18,6 +18,12 @@
 		"label": {
 			"faces": "Faces",
 			"back": "Back"
+		},
+		"settings": {
+			"cardHeight": {
+				"name": "Card height",
+				"hint": "How tall in pixels cards in the hand/deck/pile should be displayed."
+			}
 		}
 	}
 }

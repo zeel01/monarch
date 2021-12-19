@@ -20,6 +20,9 @@ const MonarchApplicationMixin = Base => class extends Base {
 		return await super.close(args);
 	}
 
+	/** @type {boolean} */
+	get isMonarch() { return true; }
+
 
 	/**
 	 * Handle sorting a Card relative to other siblings within this document
@@ -41,7 +44,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 	}
 
 	/** @type {number} The height of all cards in the hand */
-	get cardHeight() { return 200; }
+	get cardHeight() { return game.settings.get("monarch", "cardHeight"); }
 
 
 	/**
