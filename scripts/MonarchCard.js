@@ -58,6 +58,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 		});
 	}
 
+	/** @override */
 	_getHeaderButtons() {
 		const buttons = super._getHeaderButtons();
 

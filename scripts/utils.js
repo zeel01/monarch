@@ -82,6 +82,13 @@ export function removePositon(uuid) {
 	);
 }
 
+/**
+ * Obtains the dimensions of an image based on the provided path.
+ *
+ * @export
+ * @param {string} path - The path to the image to get the dimensions of.
+ * @return {Promise<{width: number, height: number}>} The dimensions of the image.
+ */
 export async function getImageDimensions(path) {
 	const img = new Image();
 	img.src = path;

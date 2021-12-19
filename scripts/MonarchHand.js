@@ -22,8 +22,24 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 		return data;
 	}
 
+	/** @type {number} The height of all cards in the hand */
 	get cardHeight() { return 200; }
 
+
+	/**
+	 * Calculate the visual dimensions of a card, storing that
+	 * data in the card object.
+	 *
+	 * If the card has an explicit width and height, these will be
+	 * used in the calculation. Otherwise, the dimensions will be
+	 * obtained from the image.
+	 *
+	 * The height will be set to a fixed value, and the width will
+	 * be calculated to maintain the aspect ratio of the image.
+	 *
+	 * @param {object} card - The card data object
+	 * @memberof MonarchHand
+	 */
 	async _calcCardDimensions(card) {
 		let width  = card.data.width  ?? 0;
 		let height = card.data.height ?? 0;
@@ -41,6 +57,7 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 		super.activateListeners(html);
 		html = html[0];
 
+		// Clicking the card will open its sheet
 		html.querySelectorAll(".card").forEach(card => {
 			card.addEventListener("click", (event) => {
 				event.stopPropagation();
@@ -49,6 +66,7 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 			});
 		});
 
+		// Handle drag and drop events
 		html.querySelectorAll(".card-wrapper").forEach(wrap => {
 			wrap.addEventListener("dragenter", this._onDragEnter.bind(this));
 			wrap.addEventListener("dragleave", this._onDragLeave.bind(this));
@@ -66,15 +84,30 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 		return buttons;
 	}
 
+	/** @override Stop event propogation after a button is clicked */
 	async _onCardControl(event) {
 		event.stopPropagation();
 		return await super._onCardControl(event);
 	}
 
+	
+	/**
+	 * Add a class to the target element when a drag event enters it.
+	 *
+	 * @param {Event} event - The triggered drag event
+	 * @memberof MonarchHand
+	 */
 	_onDragEnter(event) {
 		const target = event.currentTarget;
 		target.classList.add("drag-over");
 	}
+
+	/**
+	 * Remove a class from the target element when a drag event leaves it.
+	 *
+	 * @param {Event} event - The triggered drag event
+	 * @memberof MonarchHand
+	 */
 	_onDragLeave(event) {
 		const target = event.currentTarget;
 		target.classList.remove("drag-over");
