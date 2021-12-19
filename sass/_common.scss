@@ -78,6 +78,10 @@
 			grid-area: control2;
 			gap: .5ch;
 		}
+		.card-controls {
+			grid-area: control1;
+			gap: 1ch;
+		}
 
 		> * {
 			pointer-events: all;

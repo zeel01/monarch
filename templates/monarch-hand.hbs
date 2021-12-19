@@ -21,6 +21,12 @@
 								<a class="card-control" title="{{localize 'CARD.FacePrevious'}}" data-action="prevFace"
 									{{#unless card.hasPreviousFace}}disabled{{/unless}}><i class="fas fa-caret-down"></i></a>
 							</section>
+							<div class="card-controls">
+								{{#if @root.editable}}
+									<a class="card-control" title="{{localize 'CARD.Play'}}" data-action="play"><i
+											class="fas fa-chevron-circle-right"></i></a>
+								{{/if}}
+							</div>
 						</section>
 					</div>
 				</li>
