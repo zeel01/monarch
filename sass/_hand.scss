@@ -151,45 +151,9 @@
 	}
 
 	.card-hud {
-		pointer-events: none;
 		opacity: 0;
-		transition: opacity .2s;
 		width: 100%;
 		height: 100%;
-		display: grid;
-
-		grid-template-rows: 1.5em 1.5em 1fr 1.5em;
-		grid-template-columns: 1fr 1fr;
-
-		grid-template-areas:
-			"info1 info2"
-			"info3 info4"
-			"body body"
-			"control1 control2";
-
-		place-items: stretch;
-
-		gap: .5em;
-
-		.card-value { grid-area: info2; }
-		.card-suit { grid-area: info1; }
-		.card-type { grid-area: info3; }
-		.card-faces {
-			grid-area: control2;
-			gap: .5ch;
-		}
-
-		> * {
-			pointer-events: all;
-			background: url(/ui/denim075.png) repeat;
-			padding: .5em;
-			border-radius: 4px;
-			box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-		}
 	}
 
 	footer.sheet-footer {

@@ -1,0 +1,81 @@
+.window-app.monarch-deck,
+.window-app.monarch-pile {
+	padding: 6px;
+	transition: background-color .5s, box-shadow .5s;
+	border-radius: 6px;
+
+	background-color: rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.5);
+		box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+	}
+}
+
+.monarch-deck, .monarch-pile {
+	// These are just sane defaults, but will be overridden by
+	// the particular card.
+	--card-height: 200px;
+	--card-width: calc(var(--card-height) * .66);
+	--max-width: var(--card-width);
+
+	.cards-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: end;
+		gap: 1ch;
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(var(--max-width), 1fr));
+		grid-auto-rows: var(--card-height);
+		gap: 2em;
+		max-height: 40em;
+		overflow-y: auto;
+		padding: .5em;
+	}
+
+	.card {
+		width: var(--card-width);
+		place-self: center;
+		border-radius: 4px;
+
+		display: grid;
+		grid-template: "body" 1fr / 1fr ;
+
+		&:hover {
+			.card-hud { opacity: 1; }
+		}
+		
+		.face {
+			grid-area: body;
+			z-index: -1;
+
+			.card-face {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+		}
+		
+		.card-hud {
+			grid-area: body;
+			padding: 8px;
+			opacity: .5;
+
+			.card-name { 
+				grid-area: info0;
+				font-size: inherit;
+				margin: 0;
+				padding: .2em;
+			}
+			.card-controls {
+				grid-area: control1;
+				gap: 1ch;
+			}
+			.card-drawn { grid-area: info5; }
+		}
+	}
+}
