@@ -20,7 +20,6 @@ export default class MonarchPile extends MonarchApplicationMixin(CardsConfig) {
 
 		data.cardWidth = Math.max(...data.cards.map(card => card.width));
 
-		console.log(data);
 		return data;
 	}
 }

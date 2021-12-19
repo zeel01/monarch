@@ -19,8 +19,7 @@ export default class MonarchDeck extends MonarchApplicationMixin(CardsConfig) {
 		data.cardHeight = this.cardHeight;
 
 		data.cardWidth = Math.max(...data.cards.map(card => card.width));
-
-		console.log(data);
+		
 		return data;
 	}
 }
