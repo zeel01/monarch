@@ -30,7 +30,7 @@ jobs:
       env:
         version: ${{steps.get_version.outputs.version-without-v}}
         manifest: https://github.com/${{github.repository}}/releases/latest/download/module.json
-        download: https://github.com/${{github.repository}}/releases/download/${{steps.get_version.outputs.version}}/monsterblock.zip
+        download: https://github.com/${{github.repository}}/releases/download/${{steps.get_version.outputs.version}}/monarch.zip
 
     # Create a zip file with all files required by the module to add to the release
     - run: zip -r ./monarch.zip module.json monarch.js monarch.css templates/ scripts/ lang/
