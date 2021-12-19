@@ -1,0 +1,60 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<header class="sheet-header flexrow">
+		<h1 class="name">
+			<input type="text" name="name" value="{{data.name}}" placeholder="{{localize 'Name'}}" />
+		</h1>
+	</header>
+
+	<div>
+		<header class="cards-header">
+			<a class="card-control sort-mode" title="{{localize " CARDS.SortMode"}}" data-action="toggleSort">
+				<i class="fas fa-sort fa-fw"></i>
+			</a>
+		</header>
+		<ol class="cards" style="--card-height: {{cardHeight}}px; --max-width: {{cardWidth}}px;">
+			{{#each cards as |card|}}
+				<li class="card" style="--card-width: {{card.width}}px;" data-card-id="{{card.id}}">
+					<section class="face">
+						<img class="card-face" data-src="{{card.img}}" alt="{{card.name}}" height="48">
+					</section>
+					<section class="card-hud">
+						<h4 class="card-name">{{card.name}}</h4>
+						{{#if card.showFace}}
+							<span class="card-type">{{card.type}}</span>
+							<span class="card-suit">{{card.data.suit}}</span>
+							<span class="card-value">{{card.data.value}}</span>
+						{{/if}}
+						<div class="card-faces">
+							<a class="card-control" title="{{localize 'CARD.FaceNext'}}" data-action="nextFace"
+								{{#unless card.hasNextFace}}disabled{{/unless}}><i class="fas fa-caret-up"></i></a>
+							<a class="card-control" title="{{localize 'CARD.FacePrevious'}}" data-action="prevFace"
+								{{#unless card.hasPreviousFace}}disabled{{/unless}}><i class="fas fa-caret-down"></i></a>
+						</div>
+						<div class="card-controls">
+							{{#if @root.editable}}
+								<a class="card-control" title="{{localize 'CARD.Play'}}" data-action="play"><i
+										class="fas fa-chevron-circle-right"></i></a>
+							{{/if}}
+						</div>
+					</section>
+				</li>
+			{{else}}
+				<li>
+					<p class="hint">{{localize "CARDS.NoCards"}}</p>
+				</li>
+			{{/each}}
+		</ol>
+	</div>
+
+	<!-- Sheet Footer -->
+	<footer class="sheet-footer flexrow">
+		{{#if owner}}
+			<button class="card-control" type="button" data-action="shuffle">
+				<i class="fas fa-random"></i> {{localize "CARDS.Shuffle"}}
+			</button>
+			<button class="card-control" type="button" data-action="pass">
+				<i class="fas fa-share-square"></i> {{localize "CARDS.Pass"}}
+			</button>
+		{{/if}}
+	</footer>
+</form>
