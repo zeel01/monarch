@@ -1,0 +1,33 @@
+{
+	"I18N": {
+		"LANGUAGE": "Espanol",
+		"MAINTAINERS": "@Viriato139ac#0342"
+	},
+	"monarch": {
+		"title": "🦋 Monarch",
+		"ui": {
+
+		},
+		"console": {
+			"log": {
+				"ready": "🦋 Monarch | Listo"
+			}
+		},
+		"sheetTitle": {
+			"myHand": "🦋 Monarch - Mi mano",
+			"deck": "🦋 Monarch - Mazo",
+			"pile": "🦋 Monarch - Pila",
+			"card": "🦋 Monarch - Carta"
+		},
+		"label": {
+			"faces": "Anversos",
+			"back": "Reverso"
+		},
+		"settings": {
+			"cardHeight": {
+				"name": "Altura de la carta",
+				"hint": "Altura en pixeles que desea que tengan las cartas al mostrarlas en la mano/mazo/pila"
+			}
+		}
+	}
+}
