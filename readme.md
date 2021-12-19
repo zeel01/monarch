@@ -1,3 +1,7 @@
+![](https://img.shields.io/badge/Foundry-v9-informational)
+![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fmonarchk&colorB=4aa94a)
+![Latest Release Download Count](https://img.shields.io/github/downloads/zeel01/monarch/latest/monarch.zip) 
+
 # 🦋 Monarch - A card UI fit for royalty.
 
 **Monarch is currently in beta. There are some rough edges and incomplete features. Feel free to open [issues](https://github.com/zeel01/monarch/issues) if you find problems.**
