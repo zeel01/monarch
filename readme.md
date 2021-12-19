@@ -40,7 +40,7 @@ The pile sheet is very similar to the deck sheet, but with slightly different co
 
 ![A discard pile app.](examples/pile.png)
 
-## Using Monarh
+## Using Monarch
 
 To use Monarch, open one of the supported documents (card, deck, pile, hand) and click the "⚙️ Sheet" button in the title bar. This will open the sheet config window. You can then choose to set either "This Sheet" for this specific document, or "Default Sheet" for all documents of this type to use the corresponding 🦋 Monarch sheet.
 
