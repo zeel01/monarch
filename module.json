@@ -11,8 +11,8 @@
 			"discord": "zeel#4200"
 		}
 	],
-	"version": "0.2.0",
-	"minimumCoreVersion": "9.224",
+	"version": "0.2.1",
+	"minimumCoreVersion": "9.236",
 	"compatibleCoreVersion": "9",
 	"esmodules": [
 		"monarch.js"
