@@ -41,8 +41,7 @@ Hooks.on("ready", () => {
 
 	DocumentSheetConfig
 		.registerSheet(Card, "monarch", MonarchCard, {
-			label: game.i18n.localize("monarch.sheetTitle.card"),
-			types: ["base"]
+			label: game.i18n.localize("monarch.sheetTitle.card")
 		})
 
 	utils.restoreWindows();
