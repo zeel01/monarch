@@ -81,3 +81,11 @@ export function removePositon(uuid) {
 		JSON.stringify(windowPositions)
 	);
 }
+
+export async function getImageDimensions(path) {
+	const img = new Image();
+	img.src = path;
+	await new Promise(resolve => img.onload = resolve);
+
+	return { width: img.width, height: img.height };
+}

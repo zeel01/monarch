@@ -62,6 +62,8 @@
 }
 
 .monarch-hand {
+	// These are just sane defaults, but will be overridden by
+	// the particular card.
 	--card-height: 200px;
 	--card-width: calc(var(--card-height) * .66);
 	

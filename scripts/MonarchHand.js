@@ -1,4 +1,5 @@
 import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
+import { getImageDimensions } from "./utils.js";
 
 export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 	static get defaultOptions() {
@@ -9,6 +10,31 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 			width: 600,
 			resizable: true
 		})
+	}
+
+	async getData(options) {
+		const data = super.getData(options);
+
+		await Promise.all(data.cards.map(this._calcCardDimensions.bind(this)));
+		data.cardHeight = this.cardHeight;
+
+		console.log(data);
+		return data;
+	}
+
+	get cardHeight() { return 200; }
+
+	async _calcCardDimensions(card) {
+		let width  = card.data.width  ?? 0;
+		let height = card.data.height ?? 0;
+
+		if (!width || !height) {
+			if (!card.img) width = height = this.cardHeight;
+			else ({ width, height } = await getImageDimensions(card.img));
+		}
+
+		card.height = this.cardHeight;
+		card.width = width * (this.cardHeight / height);
 	}
 
 	activateListeners(html) {

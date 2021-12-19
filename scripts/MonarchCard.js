@@ -5,7 +5,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-card.hbs",
 			classes: ["monarch", "monarch-card", "sheet"],
-			width: 300,
+			width: 250,
 			height: "auto",
 			resizable: true,
 			closeOnSubmit: false,

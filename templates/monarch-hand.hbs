@@ -1,8 +1,8 @@
 <form class="{{cssClass}}" autocomplete="off">
 	<div>
-		<ol class="cards">
+		<ol class="cards" style="--card-height: {{cardHeight}}px;">
 			{{#each cards as |card|}}
-				<li class="card-wrapper">
+				<li class="card-wrapper" style="--card-width: {{card.width}}px;">
 					<div class="card" data-card-id="{{card.id}}" style="--card-image: url(/{{card.img}})">
 						<figure class="tooltip-wrapper">
 							<section class="tooltip">
