@@ -25,6 +25,11 @@
 			"lang": "en",
 			"name": "English",
 			"path": "lang/en.json"
+		},
+		{
+			"lang": "es",
+			"name": "Español",
+			"path": "lang/es.json"
 		}
 	],
 	"manifest": "https://github.com/zeel01/monarch/releases/latest/download/module.json",
