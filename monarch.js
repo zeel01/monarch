@@ -4,9 +4,7 @@ import MonarchHand from "./scripts/MonarchHand.js";
 import MonarchDeck from "./scripts/MonarchDeck.js";
 import MonarchPile from "./scripts/MonarchPile.js";
 
-Hooks.on("ready", () => {
-	console.log(game.i18n.localize("monarch.console.log.ready"));
-
+Hooks.on("init", () => {
 	game.settings.register("monarch", "cardHeight", {
 		name: game.i18n.localize("monarch.settings.cardHeight.name"),
 		hint: game.i18n.localize("monarch.settings.cardHeight.hint"),
@@ -43,6 +41,10 @@ Hooks.on("ready", () => {
 		.registerSheet(Card, "monarch", MonarchCard, {
 			label: game.i18n.localize("monarch.sheetTitle.card")
 		})
+});
+
+Hooks.on("ready", () => {
+	console.log(game.i18n.localize("monarch.console.log.ready"));
 
 	utils.restoreWindows();
 });
