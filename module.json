@@ -42,6 +42,10 @@
 		{
 			"type": "icon",
 			"url": "https://avatars2.githubusercontent.com/u/1721836"
+		},
+		{
+			"type": "cover",
+			"url": "https://raw.githubusercontent.com/zeel01/monarch/master/examples/monarch.png"
 		}
 	]
 }
