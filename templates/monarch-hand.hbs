@@ -23,7 +23,7 @@
 							</section>
 							<div class="card-controls">
 								{{#if @root.editable}}
-									<a class="card-control" title="{{localize 'CARD.Play'}}" data-action="play"><i
+									<a class="card-control" tabindex="0" title="{{localize 'CARD.Play'}}" data-action="play" aria-label="{{card.name}}, Play"><i
 											class="fas fa-chevron-circle-right"></i></a>
 								{{/if}}
 							</div>
