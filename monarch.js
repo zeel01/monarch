@@ -48,3 +48,31 @@ Hooks.on("ready", () => {
 
 	utils.restoreWindows();
 });
+
+/**
+ * A proof of concept for dropping cards onto the canvas as tiles.
+ *//*
+Hooks.on("dropCanvasData", async (canvas, data) => {
+	if (data.type !== "Card") return;
+
+	const pile = game.cards.get(data.cardsId);
+	const card = pile.data.cards.get(data.cardId);
+	const dims = await utils.getImageDimensions(card.img);
+
+	const height = game.settings.get("monarch", "cardHeight");
+	dims.width  = dims.width * (height / dims.height);;
+	dims.height = height;
+	
+	const x = data.x - (dims.width / 2);
+	const y = data.y - (dims.height / 2);
+
+	await canvas.scene.createEmbeddedDocuments("Tile", [
+		{
+			img: card.img,
+			x, y, ...dims
+		}
+	]);
+
+	console.log(data, card);
+});
+*/
