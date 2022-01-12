@@ -20,6 +20,8 @@ export default class MonarchPile extends MonarchApplicationMixin(CardsConfig) {
 
 		data.cardWidth = Math.max(...data.cards.map(card => card.width));
 
+		data.cards.forEach(this._getCssImageUrl);
+
 		return data;
 	}
 }

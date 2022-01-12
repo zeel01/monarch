@@ -19,6 +19,8 @@ export default class MonarchDeck extends MonarchApplicationMixin(CardsConfig) {
 		data.cardHeight = this.cardHeight;
 
 		data.cardWidth = Math.max(...data.cards.map(card => card.width));
+
+		data.cards.forEach(this._getCssImageUrl);
 		
 		return data;
 	}

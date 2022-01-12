@@ -17,6 +17,8 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 		await Promise.all(data.cards.map(this._calcCardDimensions.bind(this)));
 		data.cardHeight = this.cardHeight;
 
+		data.cards.forEach(this._getCssImageUrl);
+
 		console.log(data);
 		return data;
 	}

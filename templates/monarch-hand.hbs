@@ -3,7 +3,7 @@
 		<ol class="cards" style="--card-height: {{cardHeight}}px;">
 			{{#each cards as |card|}}
 				<li class="card-wrapper" style="--card-width: {{card.width}}px;">
-					<div class="card" data-card-id="{{card.id}}" style="--card-image: url(/{{card.img}})">
+					<div class="card" data-card-id="{{card.id}}" style="--card-image: {{card.cssImage}};">
 						<figure class="tooltip-wrapper">
 							<section class="tooltip">
 								<h4 class="card-name">{{card.name}}</h4>

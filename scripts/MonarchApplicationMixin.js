@@ -59,7 +59,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * be calculated to maintain the aspect ratio of the image.
 	 *
 	 * @param {object} card - The card data object
-	 * @memberof MonarchHand
+	 * @memberof MonarchApplicationMixin
 	 */
 	async _calcCardDimensions(card) {
 		let width = card.data.width ?? 0;
@@ -72,6 +72,20 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 		card.height = this.cardHeight;
 		card.width = width * (this.cardHeight / height);
+	}
+
+
+	/**
+	 * Creates a cssImage string on a card containing an
+	 * appropriate CSS url() to reference the image.
+	 *
+	 * @param {object} card - The card data object
+	 * @memberof MonarchApplicationMixin
+	 */
+	_getCssImageUrl(card) {
+		const image = card.img;
+		const prefix = (image.startsWith("/") ||  image.startsWith("http")) ? "" : "/";
+		card.cssImage = `url('${prefix}${image}')`;
 	}
 }
 
