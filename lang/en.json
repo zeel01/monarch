@@ -17,7 +17,8 @@
 		},
 		"label": {
 			"faces": "Faces",
-			"back": "Back"
+			"back": "Back",
+			"magnify": "Show card image. Hold shift to show players."
 		},
 		"settings": {
 			"cardHeight": {

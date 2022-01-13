@@ -1,7 +1,9 @@
 <form class="{{cssClass}}" autocomplete="off">
 	<section class="card-display">
 		<img class="card-face" src="{{document.img}}" title="{{data.name}}" />{{~" "~}}
-		<a class="magnify"><i class="fas fa-search-plus"></i></a>
+		<a class="magnify" title="{{localize "monarch.label.magnify"}}">
+			<i class="fas fa-search-plus"></i>
+		</a>
 	</section>
 	
 	<h1 class="name">

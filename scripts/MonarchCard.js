@@ -28,12 +28,14 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 			event.stopPropagation();
 			const cardDocument = this.object;
 
-			new ImagePopout(cardDocument.img, {
+			const popout = new ImagePopout(cardDocument.img, {
 				title: cardDocument.data.name,
 				uuid: cardDocument.data.uuid,
-				sharable: true,
-				editable: false
+				shareable: true,
+				editable: true
 			}).render(true);
+
+			if (event.shiftKey) popout.shareImage();
 		});
 
 		html.querySelectorAll(".config-button").forEach(button => {
