@@ -1,4 +1,4 @@
-{
+﻿{
 	"I18N": {
 		"LANGUAGE": "Espanol",
 		"MAINTAINERS": "@Viriato139ac#0342"
@@ -21,13 +21,17 @@
 		},
 		"label": {
 			"faces": "Anversos",
-			"back": "Reverso"
+			"back": "Reverso",
+			"magnify": "Mostrar imagen de la carta. Presione Mayus para mostrar a los jugadores"
 		},
 		"settings": {
 			"cardHeight": {
 				"name": "Altura de la carta",
 				"hint": "Altura en pixeles que desea que tengan las cartas al mostrarlas en la mano/mazo/pila"
 			}
+		},
+		"aria": {
+			"playCard": "{name}, jugar"
 		}
 	}
 }
