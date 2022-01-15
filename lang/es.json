@@ -22,7 +22,7 @@
 		"label": {
 			"faces": "Anversos",
 			"back": "Reverso",
-			"magnify": "Mostrar imagen de la carta. Presione Mayus para mostrar a los jugadores"
+			"magnify": "Mostrar imagen de la carta. Presione Mayús para mostrar a los jugadores"
 		},
 		"settings": {
 			"cardHeight": {
