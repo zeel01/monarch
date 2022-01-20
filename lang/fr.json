@@ -1,0 +1,33 @@
+{
+	"monarch": {
+		"title": "🦋 Monarch",
+		"ui": {
+
+		},
+		"console": {
+			"log": {
+				"ready": "🦋 Monarch | Prêt."
+			}
+		},
+		"sheetTitle": {
+			"myHand": "🦋 Monarch - Ma main",
+			"deck": "🦋 Monarch - Deck",
+			"pile": "🦋 Monarch - Pile",
+			"card": "🦋 Monarch - Carte"
+		},
+		"label": {
+			"faces": "Faces",
+			"back": "Dos",
+			"magnify": "Afficher la carte en image. Appuyez sur Shift pour la montrer aux joueurs."
+		},
+		"settings": {
+			"cardHeight": {
+				"name": "Hauteur de carte",
+				"hint": "Quelle hauteur en pixels pour les cartes dans un(e) main/deck/pile."
+			}
+		},
+		"aria": {
+			"playCard": "{name}, Jouer"
+		}
+	}
+}
