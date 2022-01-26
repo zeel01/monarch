@@ -1,7 +1,30 @@
+{{#*inline "badge"}}
+	<span class="badge {{badge.class}}" title="{{localize badge.tooltip}}">{{{ badge.text }}}</span>
+{{/inline}}
+{{#*inline "controlBlock" }}
+	<div class="card-controls {{control.class}}">
+		{{#if control.controls.length}}
+			{{#each control.controls as |control|}}
+				{{> control control=control card=card}}
+			{{/each}}
+		{{else}}
+			{{> control control=control card=card}}
+		{{/if}}
+	</div>
+{{/inline}}
+{{#*inline "control"}}
+	<a class="card-control {{control.class}}"
+		tabindex="0" 
+		title="{{localize control.tooltip}}" 
+		aria-label="{{localize control.tooltip}}"
+		{{#if control.disabled}}disabled{{/if}}>
+		<i class="{{control.icon}}"></i>
+	</a>
+{{/inline}}
 <form class="{{cssClass}}" autocomplete="off">
 	<div>
 		<ol class="cards" style="--card-height: {{cardHeight}}px;">
-			{{#each cards as |card|}}
+			{{#each cardData as |card|}}
 				<li class="card-wrapper" style="--card-width: {{card.width}}px;">
 					<div class="card" data-card-id="{{card.id}}" style="--card-image: {{card.cssImage}};">
 						<figure class="tooltip-wrapper">
@@ -10,28 +33,16 @@
 							</section>
 						</figure>
 						<section class="card-hud">
-							{{#if card.showFace}}
-								<span class="card-type" title="{{localize 'CARD.Type'}}">{{card.type}}</span>
-								<span class="card-suit" title="{{localize 'CARD.Suit'}}">{{card.data.suit}}</span>
-								<span class="card-value" title="{{localize 'CARD.Value'}}">{{card.data.value}}</span>
-							{{/if}}
-							<section class="card-faces">
-								<a class="card-control" title="{{localize 'CARD.FaceNext'}}" data-action="nextFace" 
-									{{#unless card.hasNextFace}}disabled{{/unless}}><i class="fas fa-caret-up"></i></a>
-								<a class="card-control" title="{{localize 'CARD.FacePrevious'}}" data-action="prevFace"
-									{{#unless card.hasPreviousFace}}disabled{{/unless}}><i class="fas fa-caret-down"></i></a>
+							<section class="badges">
+								{{#each card.badges as |badge|}}
+									{{> badge card=card badge=badge}}
+								{{/each}}
 							</section>
-							<div class="card-controls">
-								{{#if @root.editable}}
-									<a class="card-control" 
-										tabindex="0" 
-										title="{{localize 'CARD.Play'}}" 
-										data-action="play" 
-										aria-label="{{localize "monarch.aria.playCard" name=card.name}}">
-										<i class="fas fa-chevron-circle-right"></i>
-									</a>
-								{{/if}}
-							</div>
+							<section class="controls">
+								{{#each card.controls as |control|}}
+									{{> controlBlock control=control card=card}}
+								{{/each}}
+							</section>
 						</section>
 					</div>
 				</li>
