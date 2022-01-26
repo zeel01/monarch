@@ -1,6 +1,8 @@
-import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
+import MonarchCardsConfig from "./MonarchCardsConfig.js";
 
-export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
+export default class MonarchHand extends MonarchCardsConfig {
+	static appName = "Hand";
+
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-hand.hbs",
@@ -9,18 +11,6 @@ export default class MonarchHand extends MonarchApplicationMixin(CardsHand) {
 			width: 600,
 			resizable: true
 		})
-	}
-
-	async getData(options) {
-		const data = super.getData(options);
-
-		await Promise.all(data.cards.map(this._calcCardDimensions.bind(this)));
-		data.cardHeight = this.cardHeight;
-
-		data.cards.forEach(this._getCssImageUrl);
-
-		console.log(data);
-		return data;
 	}
 
 	activateListeners(html) {
