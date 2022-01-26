@@ -87,6 +87,181 @@ const MonarchApplicationMixin = Base => class extends Base {
 		const prefix = (image.startsWith("/") ||  image.startsWith("http")) ? "" : "/";
 		card.cssImage = `url('${prefix}${image}')`;
 	}
+
+
+	/**
+	 * @typedef  {Object} CardBadge                     An object defining a badge to display information on a card.
+	 * @property {string|Function<string>}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
+	 * @property {string|Function<string>}   text       - The label of the badge, or a function that returns the label. May contain HTML.
+	 * @property {string}                    class      - The css class to apply to the badge
+	 *
+	 * @typedef  {Object} CardControl                   An object defining a control to display on a card.
+	 * @property {string|Function<string>}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
+	 * @property {string|Function<string>}   [icon]     - The icon to display for the control, or a function that returns the icon
+	 * @property {string}                    [class]    - The css class to apply to the control
+	 * @property {boolean|Function<boolean>} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
+	 * @property {Function}                  [onclick]  - The function to call when the control is clicked
+	 * @property {Array<CardControl>}        [controls] - An array of controls to display as a group
+	 *
+	 * @typedef  {Object} AppControl                    An object defining a control to display on the application.
+	 * @property {string}                    label      - The label of the control
+	 * @property {string|Function<string>}   tooltip    - The tooltip of the control, or a function that returns the tooltip
+	 * @property {string}                    class      - The css class to apply to the control
+	 * @property {string|Function<string>}   icon       - The icon to display for the control, or a function that returns the icon
+	 * @property {Function}                  onclick    - The function to call when the control is clicked
+	 */
+
+	/**
+	 * The name of this application for use in named hooks.
+	 * @type {string}
+	 * @static
+	 * @memberof MonarchApplicationMixin
+	 */
+	static appName = "Application";
+
+	/** @type {Array<CardControl>} */
+	get controls() {
+		return [
+			{
+				class: "card-faces",
+				controls: [
+					{
+						tooltip: "Next Face",
+						icon: "fas fa-caret-up",
+						class: "next-face",
+						disabled: (card) => !card.hasNextFace,
+						onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : card.data.face + 1 })
+					},
+					{
+						tooltip: "Previous Face",
+						icon: "fas fa-caret-down",
+						class: "prev-face",
+						disabled: (card) => !card.hasPreviousFace,
+						onclick: (event, card) => card.update({ face: card.data.face === 0 ? null : card.data.face - 1 })
+					}
+				]
+			}
+		];
+	}
+
+	/** @type {Array<CardBadge>} */
+	get badges() {
+		return [
+			{
+				tooltip: "Suit",
+				text: card => card.data.suit,
+				class: "card-suit"
+			},
+			{
+				tooltip: "Value",
+				text: card => card.data.value,
+				class: "card-value"
+			},
+			{
+				tooltip: "Type",
+				text: card => card.data.type,
+				class: "card-type"
+			}
+		];
+	}
+
+	/** @type {Array<AppControl>} */
+	get appControls() {
+		return [];
+	}
+
+	
+	/**
+	 * Generate the data for controls on the provided card.
+	 *
+	 * @param {Card}               card     - The card to place the control on
+	 * @param {Array<CardControl>} controls - The controls to generate
+	 * @return {Array<CardControl>}
+	 */
+	applyCardControls(card, controls) {
+		return controls.map(control => this.applyCardControl(card, control));
+	}
+
+	/**
+	 * Generate the data for a control on the provided card.
+	 *
+	 * @param {Card}               card     - The card to place the control on
+	 * @param {Array<CardControl>} controls - The controls to generate
+	 * @return {Array<CardControl>}
+	 */
+	applyCardControl(card, control) {
+		return {
+			tooltip: typeof control.tooltip === "function" ? control.tooltip(card) : (control.tooltip ?? ""),
+			icon: typeof control.icon === "function" ? control.icon(card) : (control.icon ?? ""),
+			class: control.class ?? "",
+			disabled: typeof control.disabled === "function" ? control.disabled(card) : (control.disabled ?? false),
+			controls: control.controls ? this.applyCardControls(card, control.controls) : []
+		}
+	}
+
+	/**
+	 * Generate the data for controls on the provided card.
+	 *
+	 * @param {Card}             card   - The card to place the control on
+	 * @param {Array<CardBadge>} badges - The controls to generate
+	 * @return {Array<CardBadge>} 
+	 */
+	applyCardBadges(card, badges) {
+		return badges.map(badge => ({
+			tooltip: typeof badge.tooltip === "function" ? badge.tooltip(card) : (badge.tooltip ?? ""),
+			text: typeof badge.text === "function" ? badge.text(card) : (badge.text ?? ""),
+			class: badge.class ?? "",
+		}));
+	}
+
+	/**
+	 * Reduce a nested array of controls into a flat object of control functions.
+	 *
+	 * @param {Array<[string, Function]>} controls - Entries for each control function and its class
+	 * @param {CardControl}               control  - The control to extract the function from                    
+	 * @return {Array<[string, Function]>} Entries for each control function and its class
+	 */
+	controlReducer(controls, control) {
+		if (control.onclick && control.class) {
+			controls.push([control.class, control.onclick]);
+		}
+
+		if (control.controls) control.controls.reduce(this.controlReducer.bind(this), controls);
+
+		return controls;
+	}
+
+	async getData(...args) {
+		const data = await super.getData(...args);
+
+		data.controls    = this.controls;
+		data.badges      = this.badges;
+		data.appControls = this.appControls;
+
+		/**
+		 * A hook that is called before this application is rendered which collects,
+		 * a set of badges and controls to display on the application.
+		 *
+		 * @param {MonarchApplicationMixin} app          - The application object
+		 * @param {Array<CardBadge>}        badges       - The badges to display for each card
+		 * @param {Array<CardControl>}      controls     - The controls to display for each card
+		 * @param {Array<AppControl>}       appControls  - The controls to display on the application
+		 */
+		Hooks.callAll(`getMonarch${this.constructor.appName}Controls`, this, data.controls, data.badges, data.appControls);
+
+		/**
+		 * All the callback functions from the controls mapped to their class names.
+		 *
+		 * @type {Object<string, Function>}
+		 */
+		this._controlFns = Object.fromEntries(data.controls.reduce(this.controlReducer.bind(this), []));
+
+	//	this._controls    = data.controls;
+	//	this._badges      = data.badges;
+	//	this._appControls = data.appControls;
+
+		return data;
+	}
 }
 
 export default MonarchApplicationMixin;
