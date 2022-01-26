@@ -54,16 +54,12 @@
 
 	.card-hud {
 		display: grid;
-		grid-template-rows: minmax(0, max-content) 1.5em 1.5em 1.5em 1fr 1.5em;
-		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto;
+		grid-template-columns: 1fr;
 
 		grid-template-areas:
-			"info0 info0"
-			"info1 info2"
-			"info3 info4"
-			"info5 info6"
-			"body body"
-			"control1 control2";
+			"badges"
+			"controls";
 
 		place-items: stretch;
 
@@ -71,19 +67,24 @@
 
 		transition: opacity .2s;
 
-		.card-value { grid-area: info2; }
-		.card-suit { grid-area: info1; }
-		.card-type { grid-area: info3; }
-		.card-faces {
-			grid-area: control2;
-			gap: .5ch;
+		.badges, .controls {
+			display: flex;
+			flex-wrap: wrap;
+			gap: .5em;
 		}
-		.card-controls {
-			grid-area: control1;
-			gap: 1ch;
+		.badges {
+			grid-area: badges;
+			flex-direction: row;
+			align-content: start;
+		}
+		.controls {
+			grid-area: controls;
+			flex-direction: row-reverse;
+			align-content: end;
 		}
 
-		> * {
+		.badges > *, .controls > * {
+			height: 1.5em;
 			pointer-events: all;
 			background: url(/ui/denim075.png) repeat;
 			padding: .5em;
@@ -93,6 +94,11 @@
 			align-items: center;
 			justify-content: center;
 			text-align: center;
+			gap: 1ch;
+		}
+		
+		.card-faces {
+			gap: .5ch;
 		}
 	}
 }
