@@ -1,11 +1,13 @@
 import * as utils from "./scripts/utils.js";
+import Monarch from "./scripts/Monarch.js";
 import MonarchCard from "./scripts/MonarchCard.js";
 import MonarchHand from "./scripts/MonarchHand.js";
 import MonarchDeck from "./scripts/MonarchDeck.js";
 import MonarchPile from "./scripts/MonarchPile.js";
+import { Controls, Badges } from "./scripts/Controls.js";
 
 Hooks.on("init", () => {
-	game.settings.register("monarch", "cardHeight", {
+	game.settings.register(Monarch.name, "cardHeight", {
 		name: game.i18n.localize("monarch.settings.cardHeight.name"),
 		hint: game.i18n.localize("monarch.settings.cardHeight.hint"),
 		scope: "world",
@@ -19,26 +21,36 @@ Hooks.on("init", () => {
 		}
 	});
 
+	game.settings.register(Monarch.name, "discardPile", {
+		name: game.i18n.localize("monarch.settings.discardPile.name"),
+		hint: game.i18n.localize("monarch.settings.discardPile.hint"),
+		scope: "world",
+		config: true,
+		type: String,
+		default: "",
+		onChange: () => {}
+	});
+
 	DocumentSheetConfig
-		.registerSheet(Cards, "monarch", MonarchHand, {
+		.registerSheet(Cards, Monarch.name, MonarchHand, {
 			label: game.i18n.localize("monarch.sheetTitle.myHand"),
 			types: ["hand"]
 		})
 
 	DocumentSheetConfig
-		.registerSheet(Cards, "monarch", MonarchDeck, {
+		.registerSheet(Cards, Monarch.name, MonarchDeck, {
 			label: game.i18n.localize("monarch.sheetTitle.deck"),
 			types: ["deck"]
 		})
 
 	DocumentSheetConfig
-		.registerSheet(Cards, "monarch", MonarchPile, {
+		.registerSheet(Cards, Monarch.name, MonarchPile, {
 			label: game.i18n.localize("monarch.sheetTitle.pile"),
 			types: ["pile"]
 		})
 
 	DocumentSheetConfig
-		.registerSheet(Card, "monarch", MonarchCard, {
+		.registerSheet(Card, Monarch.name, MonarchCard, {
 			label: game.i18n.localize("monarch.sheetTitle.card")
 		})
 });
@@ -50,10 +62,6 @@ Hooks.on("ready", async () => {
 });
 
 Hooks.on("getMonarchHandControls", (monarch, controls, badges) => {
-	return;
-	badges.splice(0, 3, {
-		tooltip: "Card Name",
-		text: (card) => card.name,
-		class: "card-name"
-	});
+	if (Monarch.discardPile) 
+		controls.find(c => c.class === "basic-controls")?.controls?.push(Controls.discard);
 });

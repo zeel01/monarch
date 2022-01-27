@@ -25,6 +25,10 @@
 			"cardHeight": {
 				"name": "Card height",
 				"hint": "How tall in pixels cards in the hand/deck/pile should be displayed."
+			},
+			"discardPile": {
+				"name": "Discard pile",
+				"hint": "The id of a Cards pile used for discarding cards. Leave blank to disable."
 			}
 		},
 		"aria": {

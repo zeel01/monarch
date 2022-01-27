@@ -1,3 +1,5 @@
+import Monarch from "./Monarch.js";
+
 /**
  * @typedef  {Object} CardBadge                     An object defining a badge to display information on a card.
  * @property {string|Function<string>}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
@@ -101,7 +103,7 @@ export class Controls {
 			tooltip: "monarch.label.discard",
 			icon: "fas fa-caret-square-down",
 			class: "discard-card",
-			onclick: (event, card) => card.pass(game.cards.getName("Discard"))
+			onclick: (event, card) => card.pass(Monarch.discardPile)
 		}
 	}
 }
