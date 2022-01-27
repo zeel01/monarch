@@ -28,6 +28,7 @@ export default class MonarchPile extends MonarchCardsConfig {
 				controls: [
 					{
 						tooltip: "CARD.Play",
+						aria: (card) => game.i18n.format("monarch.aria.playCard", { name: card.name }),
 						icon: "fas fa-chevron-circle-right",
 						class: "play-card",
 						onclick: (event, card) => this.object.playDialog(card)

@@ -3,14 +3,13 @@ import * as utils from "./utils.js";
 /**
  * @typedef  {Object} CardBadge                     An object defining a badge to display information on a card.
  * @property {string|Function<string>}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
- * @property {string|Function<string>}   aria       - The aria label of the badge, or a function that returns the aria label
  * @property {string|Function<string>}   text       - The label of the badge, or a function that returns the label. May contain HTML.
  * @property {string}                    class      - The css class to apply to the badge
  * @property {boolean|Function<boolean>} [hide]     - Whether or not to hide (not display) the badge at all.
  *
  * @typedef  {Object} CardControl                   An object defining a control to display on a card.
  * @property {string|Function<string>}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
- * @property {string|Function<string>}   [aria]     - The aria label of the control, or a function that returns the aria label
+ * @property {string|Function<string>}   [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
  * @property {string|Function<string>}   [icon]     - The icon to display for the control, or a function that returns the icon
  * @property {string}                    [class]    - The css class to apply to the control
  * @property {boolean|Function<boolean>} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
@@ -20,7 +19,7 @@ import * as utils from "./utils.js";
  * @typedef  {Object} AppControl                    An object defining a control to display on the application.
  * @property {string}                    label      - The label of the control
  * @property {string|Function<string>}   tooltip    - The tooltip of the control, or a function that returns the tooltip
- * @property {string|Function<string>}   aria       - The aria label of the control, or a function that returns the aria label
+ * @property {string|Function<string>}   aria       - The aria label (for screen readers) of the control, or a function that returns the aria label
  * @property {string}                    class      - The css class to apply to the control
  * @property {string|Function<string>}   icon       - The icon to display for the control, or a function that returns the icon
  * @property {Function}                  onclick    - The function to call when the control is clicked
@@ -213,7 +212,6 @@ const MonarchApplicationMixin = Base => class extends Base {
 	applyCardBadges(card, badges) {
 		return badges.map(badge => ({
 			tooltip: utils.functionOrString(badge.tooltip, "")(card),
-			aria:    utils.functionOrString(badge.aria, "")(card),
 			text:    utils.functionOrString(badge.text, "")(card),
 			hide:	 utils.functionOrString(badge.hide, false)(card),
 			class:   badge.class ?? "",
