@@ -168,7 +168,14 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * @return {Array<[string, Function]>} Entries for each control function and its class
 	 */
 	controlReducer(controls, control) {
-		if (control.onclick && control.class) {
+		if (!control.class) {			
+			const error = game.i18n.localize("monarch.console.error.noControlClass");
+			console.error(error);
+			ui.notifications.error(error);
+			return controls;
+		}
+
+		if (control.onclick) {
 			controls.push([control.class, control.onclick]);
 		}
 

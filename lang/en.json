@@ -7,6 +7,9 @@
 		"console": {
 			"log": {
 				"ready": "🦋 Monarch | Ready."
+			},
+			"error": {
+				"noControlClass": "🦋 Monarch | Error: Missing 'class' on control."
 			}
 		},
 		"sheetTitle": {
