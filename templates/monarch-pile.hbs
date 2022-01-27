@@ -12,36 +12,12 @@
 			</a>
 		</header>
 		<ol class="cards" style="--card-height: {{cardHeight}}px; --max-width: {{cardWidth}}px;">
-			{{#each cards as |card|}}
+			{{#each cardData as |card|}}
 				<li class="card" style="--card-width: {{card.width}}px;" data-card-id="{{card.id}}">
 					<section class="face">
 						<img class="card-face" data-src="{{card.img}}" alt="{{card.name}}" height="48">
 					</section>
-					<section class="card-hud">
-						<h4 class="card-name">{{card.name}}</h4>
-						{{#if card.showFace}}
-							<span class="card-type">{{card.type}}</span>
-							<span class="card-suit">{{card.data.suit}}</span>
-							<span class="card-value">{{card.data.value}}</span>
-						{{/if}}
-						<div class="card-faces">
-							<a class="card-control" title="{{localize 'CARD.FaceNext'}}" data-action="nextFace"
-								{{#unless card.hasNextFace}}disabled{{/unless}}><i class="fas fa-caret-up"></i></a>
-							<a class="card-control" title="{{localize 'CARD.FacePrevious'}}" data-action="prevFace"
-								{{#unless card.hasPreviousFace}}disabled{{/unless}}><i class="fas fa-caret-down"></i></a>
-						</div>
-						<div class="card-controls">
-							{{#if @root.editable}}
-								<a class="card-control" 
-									tabindex="0" 
-									title="{{localize 'CARD.Play'}}" 
-									data-action="play" 
-									aria-label="{{localize "monarch.aria.playCard" name=card.name}}">
-									<i class="fas fa-chevron-circle-right"></i>
-								</a>
-							{{/if}}
-						</div>
-					</section>
+					{{> "modules/monarch/templates/parts/card-hud.hbs" card=card}}
 				</li>
 			{{else}}
 				<li>

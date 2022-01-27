@@ -52,33 +52,12 @@
 			</div>
 		</header>
 		<ol class="cards" style="--card-height: {{cardHeight}}px; --max-width: {{cardWidth}}px;">
-			{{#each cards as |card|}}
+			{{#each cardData as |card|}}
 				<li class="card" style="--card-width: {{card.width}}px;" data-card-id="{{card.id}}">
 					<section class="face">
 						<img class="card-face" data-src="{{card.img}}" alt="{{card.name}}" height="48">
 					</section>
-					<section class="card-hud">
-						<h4 class="card-name">{{card.data.name}}</h4>
-						<span class="card-type" title="{{localize 'CARD.Type'}}">{{card.type}}</span>
-						<span class="card-suit" title="{{localize 'CARD.Suit'}}">{{card.data.suit}}</span>
-						<span class="card-value" title="{{localize 'CARD.Value'}}">{{card.data.value}}</span>
-						{{#if card.data.drawn}}
-							<div class="card-drawn">{{localize "CARD.Drawn"}}</div>
-						{{/if}}
-						<div class="card-faces">
-							<a class="card-control" title="{{localize 'CARD.FaceNext'}}" data-action="nextFace"
-								{{#unless card.hasNextFace}}disabled{{/unless}}><i class="fas fa-caret-up"></i></a>
-							<a class="card-control" title="{{localize 'CARD.FacePrevious'}}" data-action="prevFace"
-								{{#unless card.hasPreviousFace}}disabled{{/unless}}><i class="fas fa-caret-down"></i></a>
-						</div>
-						<div class="card-controls">
-							<a class="card-control" title="{{localize 'CARD.Edit'}}" data-action="edit"><i
-									class="fas fa-edit"></i></a>
-							<a class="card-control" title="{{localize 'CARD.Delete'}}" data-action="delete"><i
-									class="fas fa-trash"></i></a>
-						</div>
-					</section>
-				</li>
+					{{> "modules/monarch/templates/parts/card-hud.hbs" card=card}}
 			{{else}}
 				<li>
 					<p class="hint">{{localize "CARDS.NoCards"}}</p>
