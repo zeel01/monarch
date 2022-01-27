@@ -71,7 +71,7 @@
 
 		.badges, .controls {
 			display: flex;
-			flex-wrap: wrap;
+			flex-wrap: wrap-reverse;
 			gap: .5em;
 			justify-content: space-between;
 		}
