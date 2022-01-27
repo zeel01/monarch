@@ -1,8 +1,9 @@
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
+import { Controls, Badges } from "./Controls.js";
 
 /**
- * @typedef {import("./MonarchApplicationMixin.js").CardControl} CardControl
- * @typedef {import("./MonarchApplicationMixin.js").CardBadge} CardBadge
+ * @typedef {import("./Controls.js").CardControl} CardControl
+ * @typedef {import("./Controls.js").CardBadge} CardBadge
  */
 
 export default class MonarchDeck extends MonarchCardsConfig {
@@ -26,18 +27,8 @@ export default class MonarchDeck extends MonarchCardsConfig {
 			{
 				class: "basic-controls",
 				controls: [
-					{
-						tooltip: "CARD.Edit",
-						icon: "fas fa-edit",
-						class: "edit-card",
-						onclick: (event, card) => card.sheet.render(true)
-					},
-					{
-						tooltip: "CARD.Delete",
-						icon: "fas fa-trash",
-						class: "delete-card",
-						onclick: (event, card) => card.deleteDialog()
-					}
+					Controls.edit,
+					Controls.delete,
 				]
 			}
 		];
@@ -46,13 +37,9 @@ export default class MonarchDeck extends MonarchCardsConfig {
 	/** @type {Array<CardBadge>} */
 	get badges() {
 		return [
+			Badges.name,
 			...super.badges,
-			{
-				tooltip: "CARD.Drawn",
-				text: game.i18n.localize("CARD.Drawn"),
-				hide: (card) => !card.data.drawn,
-				class: "card-drawn"
-			}
+			Badges.drawn
 		];
 	}
 }

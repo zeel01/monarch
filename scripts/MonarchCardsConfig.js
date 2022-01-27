@@ -49,7 +49,7 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 					if (button.disabled) return;
 					button.classList.forEach(className => {
 						if (this._controlFns[className]) 
-							this._controlFns[className](event, cardDocument)
+							this._controlFns[className](event, cardDocument, this.object);
 					});
 				});
 			});

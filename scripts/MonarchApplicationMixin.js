@@ -1,29 +1,5 @@
 import * as utils from "./utils.js";
-
-/**
- * @typedef  {Object} CardBadge                     An object defining a badge to display information on a card.
- * @property {string|Function<string>}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
- * @property {string|Function<string>}   text       - The label of the badge, or a function that returns the label. May contain HTML.
- * @property {string}                    class      - The css class to apply to the badge
- * @property {boolean|Function<boolean>} [hide]     - Whether or not to hide (not display) the badge at all.
- *
- * @typedef  {Object} CardControl                   An object defining a control to display on a card.
- * @property {string|Function<string>}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
- * @property {string|Function<string>}   [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
- * @property {string|Function<string>}   [icon]     - The icon to display for the control, or a function that returns the icon
- * @property {string}                    [class]    - The css class to apply to the control
- * @property {boolean|Function<boolean>} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
- * @property {Function}                  [onclick]  - The function to call when the control is clicked
- * @property {Array<CardControl>}        [controls] - An array of controls to display as a group
- *
- * @typedef  {Object} AppControl                    An object defining a control to display on the application.
- * @property {string}                    label      - The label of the control
- * @property {string|Function<string>}   tooltip    - The tooltip of the control, or a function that returns the tooltip
- * @property {string|Function<string>}   aria       - The aria label (for screen readers) of the control, or a function that returns the aria label
- * @property {string}                    class      - The css class to apply to the control
- * @property {string|Function<string>}   icon       - The icon to display for the control, or a function that returns the icon
- * @property {Function}                  onclick    - The function to call when the control is clicked
- */
+import { Controls, Badges } from "./Controls.js";
 
 /** 
  * @param {typeof DocumentSheet} Base
@@ -123,48 +99,12 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 	/** @type {Array<CardControl>} */
 	get controls() {
-		return [
-			{
-				class: "card-faces",
-				controls: [
-					{
-						tooltip: "CARD.FaceNext",
-						icon: "fas fa-caret-up",
-						class: "next-face",
-						disabled: (card) => !card.hasNextFace,
-						onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : card.data.face + 1 })
-					},
-					{
-						tooltip: "CARD.FacePrevious",
-						icon: "fas fa-caret-down",
-						class: "prev-face",
-						disabled: (card) => !card.hasPreviousFace,
-						onclick: (event, card) => card.update({ face: card.data.face === 0 ? null : card.data.face - 1 })
-					}
-				]
-			}
-		];
+		return Controls.default;
 	}
 
 	/** @type {Array<CardBadge>} */
 	get badges() {
-		return [
-			{
-				tooltip: "CARD.Suit",
-				text: card => card.data.suit,
-				class: "card-suit"
-			},
-			{
-				tooltip: "CARD.Value",
-				text: card => card.data.value,
-				class: "card-value"
-			},
-			{
-				tooltip: "CARD.Type",
-				text: card => card.data.type,
-				class: "card-type"
-			}
-		];
+		return Badges.default;
 	}
 
 	/** @type {Array<AppControl>} */
@@ -193,11 +133,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 */
 	applyCardControl(card, control) {
 		return {
-			tooltip:  utils.functionOrString(control.tooltip, "")(card),
-			aria:     utils.functionOrString(control.aria, "")(card),
-			icon:     utils.functionOrString(control.icon, "")(card),
+			tooltip:  utils.functionOrString(control.tooltip, "")(card, this.object),
+			aria:     utils.functionOrString(control.aria, "")(card, this.object),
+			icon:     utils.functionOrString(control.icon, "")(card, this.object),
 			class:    control.class ?? "",
-			disabled: utils.functionOrString(control.disabled, false)(card),
+			disabled: utils.functionOrString(control.disabled, false)(card, this.object),
 			controls: control.controls ? this.applyCardControls(card, control.controls) : []
 		}
 	}
@@ -211,9 +151,9 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 */
 	applyCardBadges(card, badges) {
 		return badges.map(badge => ({
-			tooltip: utils.functionOrString(badge.tooltip, "")(card),
-			text:    utils.functionOrString(badge.text, "")(card),
-			hide:	 utils.functionOrString(badge.hide, false)(card),
+			tooltip: utils.functionOrString(badge.tooltip, "")(card, this.object),
+			text:    utils.functionOrString(badge.text, "")(card, this.object),
+			hide:	 utils.functionOrString(badge.hide, false)(card, this.object),
 			class:   badge.class ?? "",
 		}));
 	}

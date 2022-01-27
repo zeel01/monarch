@@ -1,8 +1,9 @@
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
+import { Controls, Badges } from "./Controls.js";
 
 /**
- * @typedef {import("./MonarchApplicationMixin.js").CardControl} CardControl
- * @typedef {import("./MonarchApplicationMixin.js").CardBadge} CardBadge
+ * @typedef {import("./Controls.js").CardControl} CardControl
+ * @typedef {import("./Controls.js").CardBadge} CardBadge
  */
 
 export default class MonarchPile extends MonarchCardsConfig {
@@ -26,13 +27,7 @@ export default class MonarchPile extends MonarchCardsConfig {
 			{
 				class: "basic-controls",
 				controls: [
-					{
-						tooltip: "CARD.Play",
-						aria: (card) => game.i18n.format("monarch.aria.playCard", { name: card.name }),
-						icon: "fas fa-chevron-circle-right",
-						class: "play-card",
-						onclick: (event, card) => this.object.playDialog(card)
-					}
+					Controls.play
 				]
 			}
 		];

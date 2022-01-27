@@ -18,7 +18,8 @@
 		"label": {
 			"faces": "Faces",
 			"back": "Back",
-			"magnify": "Show card image. Hold shift to show players."
+			"magnify": "Show card image. Hold shift to show players.",
+			"discard": "Discard"
 		},
 		"settings": {
 			"cardHeight": {
