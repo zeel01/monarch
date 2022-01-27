@@ -1,5 +1,10 @@
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
 
+/**
+ * @typedef {import("./MonarchApplicationMixin.js").CardControl} CardControl
+ * @typedef {import("./MonarchApplicationMixin.js").CardBadge} CardBadge
+ */
+ 
 export default class MonarchHand extends MonarchCardsConfig {
 	static appName = "Hand";
 
@@ -71,5 +76,23 @@ export default class MonarchHand extends MonarchCardsConfig {
 	_onDragLeave(event) {
 		const target = event.currentTarget;
 		target.classList.remove("drag-over");
+	}
+
+	/** @type {Array<CardControl>} */
+	get controls() {
+		return [
+			...super.controls,
+			{
+				class: "basic-controls",
+				controls: [
+					{
+						tooltip: "CARD.Play",
+						icon: "fas fa-chevron-circle-right",
+						class: "play-card",
+						onclick: (event, card) => this.object.playDialog(card)
+					}
+				]
+			}
+		];
 	}
 }

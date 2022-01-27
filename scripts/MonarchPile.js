@@ -1,5 +1,10 @@
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
 
+/**
+ * @typedef {import("./MonarchApplicationMixin.js").CardControl} CardControl
+ * @typedef {import("./MonarchApplicationMixin.js").CardBadge} CardBadge
+ */
+
 export default class MonarchPile extends MonarchCardsConfig {
 	static appName = "Pile";
 	
@@ -12,5 +17,23 @@ export default class MonarchPile extends MonarchCardsConfig {
 			height: "auto",
 			resizable: true
 		})
+	}
+
+	/** @type {Array<CardControl>} */
+	get controls() {
+		return [
+			...super.controls,
+			{
+				class: "basic-controls",
+				controls: [
+					{
+						tooltip: "CARD.Play",
+						icon: "fas fa-chevron-circle-right",
+						class: "play-card",
+						onclick: (event, card) => this.object.playDialog(card)
+					}
+				]
+			}
+		];
 	}
 }
