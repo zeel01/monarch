@@ -67,6 +67,8 @@
 
 		transition: opacity .2s;
 
+		pointer-events: none;
+
 		.badges, .controls {
 			display: flex;
 			flex-wrap: wrap;
@@ -96,6 +98,7 @@
 			justify-content: center;
 			text-align: center;
 			gap: 1ch;
+			pointer-events: auto;
 		}
 		
 		.card-faces {

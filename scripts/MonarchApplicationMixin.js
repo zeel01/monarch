@@ -127,17 +127,18 @@ const MonarchApplicationMixin = Base => class extends Base {
 	/**
 	 * Generate the data for a control on the provided card.
 	 *
-	 * @param {Card}               card     - The card to place the control on
-	 * @param {Array<CardControl>} controls - The controls to generate
+	 * @param {Card}               card      - The card to place the control on
+	 * @param {Array<CardControl>} controls  - The controls to generate
+	 * @param {Cards}              container - The cards container
 	 * @return {Array<CardControl>}
 	 */
-	applyCardControl(card, control) {
+	applyCardControl(card, control, container) {
 		return {
-			tooltip:  utils.functionOrString(control.tooltip, "")(card, this.object),
-			aria:     utils.functionOrString(control.aria, "")(card, this.object),
-			icon:     utils.functionOrString(control.icon, "")(card, this.object),
+			tooltip:  utils.functionOrString(control.tooltip, "")(card, container),
+			aria:     utils.functionOrString(control.aria, "")(card, container),
+			icon:     utils.functionOrString(control.icon, "")(card, container),
 			class:    control.class ?? "",
-			disabled: utils.functionOrString(control.disabled, false)(card, this.object),
+			disabled: utils.functionOrString(control.disabled, false)(card, container),
 			controls: control.controls ? this.applyCardControls(card, control.controls) : []
 		}
 	}
@@ -145,15 +146,16 @@ const MonarchApplicationMixin = Base => class extends Base {
 	/**
 	 * Generate the data for controls on the provided card.
 	 *
-	 * @param {Card}             card   - The card to place the control on
-	 * @param {Array<CardBadge>} badges - The controls to generate
+	 * @param {Card}             card      - The card to place the control on
+	 * @param {Array<CardBadge>} badges    - The controls to generate
+	 * @param {Cards}            container - The cards container
 	 * @return {Array<CardBadge>} 
 	 */
-	applyCardBadges(card, badges) {
+	applyCardBadges(card, badges, container) {
 		return badges.map(badge => ({
-			tooltip: utils.functionOrString(badge.tooltip, "")(card, this.object),
-			text:    utils.functionOrString(badge.text, "")(card, this.object),
-			hide:	 utils.functionOrString(badge.hide, false)(card, this.object),
+			tooltip: utils.functionOrString(badge.tooltip, "")(card, container),
+			text:    utils.functionOrString(badge.text, "")(card, container),
+			hide:	 utils.functionOrString(badge.hide, false)(card, container),
 			class:   badge.class ?? "",
 		}));
 	}

@@ -1,4 +1,5 @@
 import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
+import { Controls, Badges } from "./Controls.js";
 
 export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	static get defaultOptions() {
@@ -58,15 +59,31 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 				configApp.render(true);
 			});
 		});
+
+		html.querySelectorAll(".card-control").forEach(button => {
+			button.addEventListener("click", (event) => {
+				event.stopPropagation();
+				if (button.disabled) return;
+				button.classList.forEach(className => {
+					if (this._controlFns[className])
+						this._controlFns[className](event, this.object, this.object.parent);
+				});
+			});
+		});
 	}
 
-/*	getData() {
-		const data = super.getData();
-
-		this._getCssImageUrl(data.document);
-
-		return data;
-	}*/
+	/** @type {Array<CardControl>} */
+	get controls() {
+		return [
+			...super.controls,
+			{
+				class: "basic-controls",
+				controls: [
+					Controls.play
+				]
+			}
+		];
+	}
 
 	/** @override */
 	_getHeaderButtons() {
@@ -86,6 +103,19 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 		super(...args);
 
 		this._getSubmitData = DocumentSheet.prototype._getSubmitData.bind(this);
+	}
+
+	async getData() {
+		const data = await super.getData();
+
+		this.applyControls(data);
+
+		return data;
+	}
+
+	applyControls(data) {
+		data.data.controls = this.applyCardControls(this.object, data.controls, this.object.parent);
+		data.data.badges = this.applyCardBadges(this.object, data.badges, this.object.parent);
 	}
 }
 

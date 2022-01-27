@@ -45,7 +45,7 @@
 .monarch-card {
 	padding: .5em;
 
-	* { transition: opacity .5s;}
+	* { transition: opacity .5s; }
 
 	.window-content {
 		grid-row: header-start / content-end;
@@ -56,10 +56,10 @@
 	form {
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: 30px 30px 1fr auto;
+		grid-template-rows: 20px 1fr auto;
 		grid-template-areas:
 			"name"
-			"head"
+			"hud"
 			"display"
 			"data";
 
@@ -73,8 +73,14 @@
 		form {
 			.name { opacity: 1;}
 			.magnify { opacity: .25; }
-			.card-data { 
+			.card-hud { 
+				opacity: 1;
+				.card-controls { visibility: visible; } 
+			}
+			.card-data {		
 				opacity: .6;
+				height: auto;
+				padding: 1em;
 
 				&:hover, &:focus-within {
 					opacity: 1;
@@ -98,6 +104,7 @@
 		justify-content: center;
 		align-items: center;
 		margin: 0;
+		margin-bottom: -6px;
 		z-index: 2;
 		max-width: 50%;
 
@@ -110,6 +117,16 @@
 				border-bottom: 1px dashed white;
 				box-shadow: none;
 			}
+		}
+	}
+
+	.card-hud {
+		opacity: .5;
+		grid-area: hud;
+		z-index: 2;
+
+		.card-controls {
+			visibility: hidden;
 		}
 	}
 
@@ -143,6 +160,7 @@
 	.card-data { 
 		grid-area: data;
 		display: grid;
+		height: 0px;
 		
 		background: linear-gradient(to top, rgba(0, 0, 0, .75) 20%, rgba(0, 0, 0, .5) 80%, transparent);
 
@@ -162,7 +180,6 @@
 
 		z-index: 3;
 
-		padding: 1em;
 		border-radius: 4px;
 		overflow: hidden;
 		
