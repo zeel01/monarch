@@ -71,6 +71,7 @@
 			display: flex;
 			flex-wrap: wrap;
 			gap: .5em;
+			justify-content: space-between;
 		}
 		.badges {
 			grid-area: badges;
