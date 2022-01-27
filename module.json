@@ -11,7 +11,7 @@
 			"discord": "zeel#4200"
 		}
 	],
-	"version": "0.2.4",
+	"version": "0.3.0",
 	"minimumCoreVersion": "9.236",
 	"compatibleCoreVersion": "9",
 	"esmodules": [
