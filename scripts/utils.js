@@ -112,3 +112,7 @@ export async function preLoadTemplates() {
 		"modules/monarch/templates/parts/card-hud.hbs"
 	]);
 }
+
+export function functionOrString(value, defaultValue = null) {
+	return typeof value === "function" ? value : () => (value ?? defaultValue);
+}

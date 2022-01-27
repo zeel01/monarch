@@ -129,14 +129,14 @@ const MonarchApplicationMixin = Base => class extends Base {
 				class: "card-faces",
 				controls: [
 					{
-						tooltip: "Next Face",
+						tooltip: "CARD.FaceNext",
 						icon: "fas fa-caret-up",
 						class: "next-face",
 						disabled: (card) => !card.hasNextFace,
 						onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : card.data.face + 1 })
 					},
 					{
-						tooltip: "Previous Face",
+						tooltip: "CARD.FacePrevious",
 						icon: "fas fa-caret-down",
 						class: "prev-face",
 						disabled: (card) => !card.hasPreviousFace,
@@ -151,17 +151,17 @@ const MonarchApplicationMixin = Base => class extends Base {
 	get badges() {
 		return [
 			{
-				tooltip: "Suit",
+				tooltip: "CARD.Suit",
 				text: card => card.data.suit,
 				class: "card-suit"
 			},
 			{
-				tooltip: "Value",
+				tooltip: "CARD.Value",
 				text: card => card.data.value,
 				class: "card-value"
 			},
 			{
-				tooltip: "Type",
+				tooltip: "CARD.Type",
 				text: card => card.data.type,
 				class: "card-type"
 			}
@@ -194,10 +194,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 */
 	applyCardControl(card, control) {
 		return {
-			tooltip: typeof control.tooltip === "function" ? control.tooltip(card) : (control.tooltip ?? ""),
-			icon: typeof control.icon === "function" ? control.icon(card) : (control.icon ?? ""),
-			class: control.class ?? "",
-			disabled: typeof control.disabled === "function" ? control.disabled(card) : (control.disabled ?? false),
+			tooltip:  utils.functionOrString(control.tooltip, "")(card),
+			aria:     utils.functionOrString(control.aria, "")(card),
+			icon:     utils.functionOrString(control.icon, "")(card),
+			class:    control.class ?? "",
+			disabled: utils.functionOrString(control.disabled, false)(card),
 			controls: control.controls ? this.applyCardControls(card, control.controls) : []
 		}
 	}
@@ -211,9 +212,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 */
 	applyCardBadges(card, badges) {
 		return badges.map(badge => ({
-			tooltip: typeof badge.tooltip === "function" ? badge.tooltip(card) : (badge.tooltip ?? ""),
-			text: typeof badge.text === "function" ? badge.text(card) : (badge.text ?? ""),
-			class: badge.class ?? "",
+			tooltip: utils.functionOrString(badge.tooltip, "")(card),
+			aria:    utils.functionOrString(badge.aria, "")(card),
+			text:    utils.functionOrString(badge.text, "")(card),
+			hide:	 utils.functionOrString(badge.hide, false)(card),
+			class:   badge.class ?? "",
 		}));
 	}
 
