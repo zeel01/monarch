@@ -1,0 +1,9 @@
+<div class="card-controls {{control.class}}">
+	{{#if control.controls.length}}
+		{{#each control.controls as |control|}}
+			{{> "modules/monarch/templates/parts/card-control.hbs" control=control card=card}}
+		{{/each}}
+	{{else}}
+		{{> "modules/monarch/templates/parts/card-control.hbs" control=control card=card}}
+	{{/if}}
+</div>

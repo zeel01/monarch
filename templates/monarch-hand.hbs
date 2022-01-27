@@ -1,26 +1,3 @@
-{{#*inline "badge"}}
-	<span class="badge {{badge.class}}" title="{{localize badge.tooltip}}">{{{ badge.text }}}</span>
-{{/inline}}
-{{#*inline "controlBlock" }}
-	<div class="card-controls {{control.class}}">
-		{{#if control.controls.length}}
-			{{#each control.controls as |control|}}
-				{{> control control=control card=card}}
-			{{/each}}
-		{{else}}
-			{{> control control=control card=card}}
-		{{/if}}
-	</div>
-{{/inline}}
-{{#*inline "control"}}
-	<a class="card-control {{control.class}}"
-		tabindex="0" 
-		title="{{localize control.tooltip}}" 
-		aria-label="{{localize control.tooltip}}"
-		{{#if control.disabled}}disabled{{/if}}>
-		<i class="{{control.icon}}"></i>
-	</a>
-{{/inline}}
 <form class="{{cssClass}}" autocomplete="off">
 	<div>
 		<ol class="cards" style="--card-height: {{cardHeight}}px;">
@@ -32,18 +9,7 @@
 								<h4 class="card-name">{{card.name}}</h4>
 							</section>
 						</figure>
-						<section class="card-hud">
-							<section class="badges">
-								{{#each card.badges as |badge|}}
-									{{> badge card=card badge=badge}}
-								{{/each}}
-							</section>
-							<section class="controls">
-								{{#each card.controls as |control|}}
-									{{> controlBlock control=control card=card}}
-								{{/each}}
-							</section>
-						</section>
+						{{> "modules/monarch/templates/parts/card-hud.hbs" card=card}}
 					</div>
 				</li>
 			{{/each}}

@@ -1,0 +1,12 @@
+<section class="card-hud">
+	<section class="badges">
+		{{#each card.badges as |badge|}}
+			{{> "modules/monarch/templates/parts/card-badge.hbs" badge=badge card=card}}
+		{{/each}}
+	</section>
+	<section class="controls">
+		{{#each card.controls as |control|}}
+			{{> "modules/monarch/templates/parts/control-block.hbs" control=control card=card}}
+		{{/each}}
+	</section>
+</section>
