@@ -4,7 +4,7 @@ import MonarchCard from "./scripts/MonarchCard.js";
 import MonarchHand from "./scripts/MonarchHand.js";
 import MonarchDeck from "./scripts/MonarchDeck.js";
 import MonarchPile from "./scripts/MonarchPile.js";
-import { Controls, Badges } from "./scripts/Controls.js";
+import { Controls, Badges } from "./scripts/Components.js";
 
 Hooks.on("init", () => {
 	game.settings.register(Monarch.name, "cardHeight", {

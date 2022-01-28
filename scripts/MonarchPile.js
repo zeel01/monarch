@@ -1,9 +1,9 @@
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
-import { Controls, Badges } from "./Controls.js";
+import { Controls, Badges } from "./Components.js";
 
 /**
- * @typedef {import("./Controls.js").CardControl} CardControl
- * @typedef {import("./Controls.js").CardBadge} CardBadge
+ * @typedef {import("./Components.js").CardControl} CardControl
+ * @typedef {import("./Components.js").CardBadge} CardBadge
  */
 
 export default class MonarchPile extends MonarchCardsConfig {

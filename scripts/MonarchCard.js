@@ -1,5 +1,5 @@
 import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
-import { Controls, Badges } from "./Controls.js";
+import { Controls, Badges } from "./Components.js";
 
 export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	static appName = "Card";
