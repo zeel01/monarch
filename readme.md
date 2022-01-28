@@ -73,8 +73,8 @@ This hook fires just before any Monarch sheet renders, the name will depend on w
 | `components` | `Components` | An object containing arrays of different kinds of components. |
 | `components.badges` | `Array<CardBadge>` | An array of information badges to add to the application. These are added to each card individually for piles. |
 | `components.controls` | `Array<CardControl>` | An array of controls to add to the application. These are added to each card individually for piles. |
-| ~~`components.markers`~~ | ~~`Array<CardMarker>`~~ | *Not yet implemented* ~~An array of markers to add to the application. These are added to each card individually for piles.~~ |
-| ~~`components.appControls`~~ | ~~`Array<AppControl>`~~ | *Not Yet Implmented* ~~An array of controls to add to the application. These are added to the application for interacting with the pile itself.~~ |
+| ~~`components.markers`~~ | ~~`Array<CardMarker>`~~ | *Not yet implemented*<br>~~An array of markers to add to the application. These are added to each card individually for piles.~~ |
+| ~~`components.appControls`~~ | ~~`Array<AppControl>`~~ | *Not Yet Implmented*<br>~~An array of controls to add to the application. These are added to the application for interacting with the pile itself.~~ |
 
 #### Data Objects
 
@@ -87,10 +87,10 @@ Data to define an information badge that will display on a card.
 ###### Properties
 | Property | Type | Description |
 | -------- | ---- | ----------- |
-| `tooltip` | `string` or `Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this badge. May be a function that returns a string. |
-| `text` | `string` or `Function<string>` | The text to display on the badge, may contain HTML. May be a function that returns a string. |
-| `class` | `string` | *Optional* A CSS class to apply to the badge. |
-| `hide` | `boolean` of `Function<boolean>` | *Optional*. Whether or not to hide the badge, not including it in the HTML. May be a function that returns a boolean, useful for badges that only display under certain conditions. `false` by default. |
+| `tooltip` | `string`<br>`Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this badge. May be a function that returns a string. |
+| `text` | `string`<br>`Function<string>` | The text to display on the badge, may contain HTML. May be a function that returns a string. |
+| `class` | `string` | *Optional*. A CSS class to apply to the badge. |
+| `hide` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to hide the badge, not including it in the HTML. May be a function that returns a boolean, useful for badges that only display under certain conditions. `false` by default. |
 
 ##### `CardMarker`
 
@@ -99,11 +99,11 @@ Data to define an icon marker that will display on a card.
 ###### Properties
 | Property | Type | Description |
 | -------- | ---- | ----------- |
-| `tooltip` | `string` or `Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this marker. May be a function that returns a string. |
-| `class` | string` | *Optional* A CSS class to apply to the marker. |
-| `icon` | `string` or `Function<string>` | The font awesome icon class to display on the marker, defailt is `"fa fas-circle"` (a dot). May be a function that returns a string. |
-| `color` | `string` or `Function<string>` | The color of the marker, default is `"#FFFFFF"` (white). May be a function that returns a string. |
-| `show` | `boolean` of `Function<boolean>` | Whether or not to show the marker. May be a function that returns a boolean, useful for markers that only display under certain conditions. `false` by default. |
+| `tooltip` | `string`<br>`Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this marker. May be a function that returns a string. |
+| `class` | `string` | *Optional*. A CSS class to apply to the marker. |
+| `icon` | `string`<br>`Function<string>` | The font awesome icon class to display on the marker, defailt is `"fa fas-circle"` (a dot). May be a function that returns a string. |
+| `color` | `string`<br>`Function<string>` | The color of the marker, default is `"#FFFFFF"` (white). May be a function that returns a string. |
+| `show` | `boolean`<br>`Function<boolean>` | Whether or not to show the marker. May be a function that returns a boolean, useful for markers that only display under certain conditions. `false` by default. |
 ##### `CardControl`
 
 Data to define an interactive contrl that will display on a card.
@@ -111,11 +111,11 @@ Data to define an interactive contrl that will display on a card.
 ###### Properties
 | Property | Type | Description |
 | -------- | ---- | ----------- |
-| `tooltip` | `string` or `Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this control. May be a function that returns a string. |
-| `aria` | `string` or `Function<string>` | The ARIA label for the control, used by screen readers to identify it. When omitted, the `tooltip` will be used instead. May be a function that returns a string. |
-| `icon` | `string` or `Function<string>` | The classes used to display a font awesome icon (ex: `"fas fa-caret-up"`). May be a function that returns a string. |
+| `tooltip` | `string`<br>`Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this control. May be a function that returns a string. |
+| `aria` | `string`<br>`Function<string>` | The ARIA label for the control, used by screen readers to identify it. When omitted, the `tooltip` will be used instead. May be a function that returns a string. |
+| `icon` | `string`<br>`Function<string>` | The classes used to display a font awesome icon (ex: `"fas fa-caret-up"`). May be a function that returns a string. |
 | `class` | `string` | A unique CSS class to apply to the control. **IMPORTANT**: This property is required. Monarch used this clas to identify the control in order to attach event listeners. |
-| `disabled` | `boolean` or `Function<boolean>` | *Optional*. Whether or not to disable the control. The control will appear grayed out. May be a function that returns a boolean. `false` by default. |
+| `disabled` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to disable the control. The control will appear grayed out. May be a function that returns a boolean. `false` by default. |
 | `onclick` | `Function<void>` | A function that will run when the control is clicked. See blow for parameter information. |
 | `controls` | `Array<CardControl>` | *Optional*. An array of controls to be added as a control group. When included, you may omit all other properties except `class`. Instead, each item in this `controls` array should be a complete `CardControl` object. Does not support nesting. |
 
