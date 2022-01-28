@@ -71,7 +71,6 @@
 
 		.badges, .controls {
 			display: flex;
-			flex-wrap: wrap-reverse;
 			gap: .5em;
 			justify-content: space-between;
 		}
@@ -79,11 +78,13 @@
 			grid-area: badges;
 			flex-direction: row;
 			align-content: start;
+			flex-wrap: wrap;
 		}
 		.controls {
 			grid-area: controls;
 			flex-direction: row-reverse;
 			align-content: end;
+			flex-wrap: wrap-reverse;
 		}
 
 		.badges > *, .controls > * {
