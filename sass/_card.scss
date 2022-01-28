@@ -124,8 +124,22 @@
 		opacity: .5;
 		grid-area: hud;
 		z-index: 2;
-		padding: 0 .25em;
 
+		padding: 0 1.2em 0 .2em;
+
+		grid-template-rows: auto auto;
+		grid-template-columns: .8em 1fr;
+		grid-template-areas:
+			"markers badges"
+			"markers controls";
+
+		column-gap: .2em;
+
+		.markers {
+			margin: 0;
+			flex-direction: column;
+			align-content: center;
+		}
 		.card-controls {
 			visibility: hidden;
 		}
