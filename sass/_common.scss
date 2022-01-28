@@ -101,6 +101,7 @@
 			display: flex;
 			color: var(--marker-color);
 			text-shadow: 0 1px 2px black, 0 0 4px black;
+			pointer-events: auto;
 		}
 
 		.badge, .card-controls {
