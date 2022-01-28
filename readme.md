@@ -145,11 +145,11 @@ As an example we will create an info badge on the hand sheet indicating the numb
 
 ```js
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
-	components.badges.push({
-		tooltip: "Current Face",
-		text: (card) => `Face: ${card.data.face}`,
-		class: "card-face-num"
-	});
+    components.badges.push({
+        tooltip: "Current Face",
+        text: (card) => `Face: ${card.data.face}`,
+        class: "card-face-num"
+    });
 });
 ```
 We use the `getMonarchHandComponents` hook to respond when the hand is being displayed. This hook provieds two parameters, the first is the application instance itself, the second is an object containing arrays. Each array contains objects of data pertaining to some kind of component. One of these is `badges`.
@@ -170,12 +170,12 @@ Custom controls are created very similarly to badges, but they have a bit more d
 
 ```js
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
-	components.controls.push({
-		tooltip: "monarch.label.discard",
-		icon: "fas fa-trash",
-		class: "discard-card",
-		onclick: (event, card) => card.pass(game.cards.getName("Discard"))
-	});
+    components.controls.push({
+        tooltip: "monarch.label.discard",
+        icon: "fas fa-trash",
+        class: "discard-card",
+        onclick: (event, card) => card.pass(game.cards.getName("Discard"))
+    });
 });
 ```
 Of note, the `tooltip` here is being given a localization key rather than a plain string. Monarch will always attempt to localize the provided tooltip allowing you to use localization easily.
@@ -198,12 +198,12 @@ The control group created by Monarch is called `basic-controls`, if we search th
 
 ```js
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
-	components.controls.find(c => c.class === "basic-controls").controls.push({
-		tooltip: "monarch.label.discard",
-		icon: "fas fa-trash",
-		class: "discard-card",
-		onclick: (event, card) => card.pass(game.cards.getName("Discard"))
-	});
+    components.controls.find(c => c.class === "basic-controls").controls.push({
+        tooltip: "monarch.label.discard",
+        icon: "fas fa-trash",
+        class: "discard-card",
+        onclick: (event, card) => card.pass(game.cards.getName("Discard"))
+    });
 });
 ```
 Here we used `Array.find` to locate a control that has the class `basic-controls`. We then pushed our control onto its `controls` array.
@@ -213,23 +213,23 @@ Here we used `Array.find` to locate a control that has the class `basic-controls
 If we wanted to create our own control group, we could do so like this:
 ```js
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
-	components.controls.push({
-		class: "my-controls",
-		controls: [
-			{
-				tooltip: "monarch.label.discard",
-				icon: "fas fa-trash",
-				class: "discard-card",
-				onclick: (event, card) => card.pass(game.cards.getName("Discard"))
-			},
-			{
-				tooltip: "CARD.Play",
-				icon: "fas fa-play",
-				class: "play-card",
-				onclick: (event, card, pile) => pile.playDialog(card)
-			}
-		]
-	});
+    components.controls.push({
+        class: "my-controls",
+        controls: [
+            {
+                tooltip: "monarch.label.discard",
+                icon: "fas fa-trash",
+                class: "discard-card",
+                onclick: (event, card) => card.pass(game.cards.getName("Discard"))
+            },
+            {
+                tooltip: "CARD.Play",
+                icon: "fas fa-play",
+                class: "play-card",
+                onclick: (event, card, pile) => pile.playDialog(card)
+            }
+        ]
+    });
 });
 ```
 Here we push a new object into `components.controls`, and that object contains a `class` and its own `controls` array. That array contains two new controls we want to make.
@@ -243,13 +243,13 @@ Markers are similar to badges, but they don't contain text. They are also always
 In this example, we will create a custom "radioactive" marker that can be shown on cards.
 ```js
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
-	components.markers.push({
-		tooltip: `Radioactive`,
-		class: `marker-radioactive`,
-		icon: "fas fa-radiation",
-		color: "#EEEEEE",
-		show: (card) => card.data.flags.monarch.markers.radioactive
-	})
+    components.markers.push({
+        tooltip: `Radioactive`,
+        class: `marker-radioactive`,
+        icon: "fas fa-radiation",
+        color: "#EEEEEE",
+        show: (card) => card.data.flags.monarch.markers.radioactive
+    })
 });
 ```
 By default a marker will show a white dot, using the `fa fas-circle` icon. By specifying icon and color we can choose any font awesome icon and any color. The color should be a valid CSS color value.
