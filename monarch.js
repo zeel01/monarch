@@ -61,7 +61,7 @@ Hooks.on("ready", async () => {
 	console.log(game.i18n.localize("monarch.console.log.ready"));
 });
 
-Hooks.on("getMonarchHandControls", (monarch, controls, badges) => {
+Hooks.on("getMonarchHandComponents", (monarch, controls, badges) => {
 	if (Monarch.discardPile) 
 		controls.find(c => c.class === "basic-controls")?.controls?.push(Controls.discard);
 });

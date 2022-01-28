@@ -107,6 +107,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 		return Badges.default;
 	}
 
+	/** @type {Array<CardMarker>} */
+	get markers() {
+		return [];
+	}
+
 	/** @type {Array<AppControl>} */
 	get appControls() {
 		return [];
@@ -189,6 +194,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 		data.controls    = this.controls;
 		data.badges      = this.badges;
+		data.markers	 = this.markers;
 		data.appControls = this.appControls;
 
 		/**
@@ -198,9 +204,10 @@ const MonarchApplicationMixin = Base => class extends Base {
 		 * @param {MonarchApplicationMixin} app          - The application object
 		 * @param {Array<CardBadge>}        badges       - The badges to display for each card
 		 * @param {Array<CardControl>}      controls     - The controls to display for each card
+		 * @param {Array<CardMarker>}       markers      - The markers to display for each card
 		 * @param {Array<AppControl>}       appControls  - The controls to display on the application
 		 */
-		Hooks.callAll(`getMonarch${this.constructor.appName}Controls`, this, data.controls, data.badges, data.appControls);
+		Hooks.callAll(`getMonarch${this.constructor.appName}Components`, this, data.controls, data.badges, data.markers, data.appControls);
 
 		/**
 		 * All the callback functions from the controls mapped to their class names.
@@ -208,10 +215,6 @@ const MonarchApplicationMixin = Base => class extends Base {
 		 * @type {Object<string, Function>}
 		 */
 		this._controlFns = Object.fromEntries(data.controls.reduce(this.controlReducer.bind(this), []));
-
-	//	this._controls    = data.controls;
-	//	this._badges      = data.badges;
-	//	this._appControls = data.appControls;
 
 		return data;
 	}

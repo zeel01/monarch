@@ -62,9 +62,9 @@ This section contains technical details about the Monarch API. The next section 
 
 Monarch adds the following hooks:
 
-##### `getMonarch{Application}Controls`
+##### `getMonarch{Application}Components`
 
-This hook fires just before any Monarch sheet renders, the name will depend on which sheet is rendering: `getMonarchHandControls`, `getMonarchDeckControls`, `getMonarchPileControls`, or `getMonarchCardControls`. This hook is used to gather data for constructing information badges and interactive controls on the application.
+This hook fires just before any Monarch sheet renders, the name will depend on which sheet is rendering: `getMonarchHandComponents`, `getMonarchDeckComponents`, `getMonarchPileComponents`, or `getMonarchCardComponents`. This hook is used to gather data for constructing information badges and interactive controls on the application.
 
 ###### Parameters
 | Parameter | Type | Description |
@@ -72,6 +72,7 @@ This hook fires just before any Monarch sheet renders, the name will depend on w
 | `monarch` | `FormApplication` | The Monarch application object. |
 | `controls` | `Array<CardControl>` | An array of controls to add to the application. These are added to each card individually for piles. |
 | `badges` | `Array<CardBadge>` | An array of information badges to add to the application. These are added to each card individually for piles. |
+| ~~`markers`~~ | ~~`Array<CardMarker>`~~ | *Not yet implemented* ~~An array of markers to add to the application. These are added to each card individually for piles.~~ |
 | ~~`appControls`~~ | ~~`Array<AppControl>`~~ | *Not Yet Implmented* ~~An array of controls to add to the application. These are added to the application for interacting with the pile itself.~~ |
 
 #### Data Objects
