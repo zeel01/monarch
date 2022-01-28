@@ -1,5 +1,12 @@
 import * as utils from "./utils.js";
-import { Controls, Badges } from "./Controls.js";
+import { Controls, Badges } from "./Components.js";
+
+/**
+ * @typedef {import("./Components.js").CardControl} CardControl
+ * @typedef {import("./Components.js").CardBadge} CardBadge
+ * @typedef {import("./Components.js").CardMarker} CardMarker
+ * @typedef {import("./Components.js").AppControl} AppControl
+ */
 
 /** 
  * @param {typeof DocumentSheet} Base
@@ -192,22 +199,35 @@ const MonarchApplicationMixin = Base => class extends Base {
 	async getData(...args) {
 		const data = await super.getData(...args);
 
-		data.controls    = this.controls;
 		data.badges      = this.badges;
+		data.controls    = this.controls;
 		data.markers	 = this.markers;
 		data.appControls = this.appControls;
 
 		/**
+		 * @typedef  {Object} Components              An object containing the component arrays
+		 * @property {Array<CardBadge>}   badges      - The badges to display for each card
+		 * @property {Array<CardControl>} controls    - The controls to display for each card
+		 * @property {Array<CardMarker>}  markers     - The markers to display for each card
+		 * @property {Array<AppControl>}  appControls - The controls to display on the application
+		 * 
+		 *//** @type {Components} */
+		const components = {
+			badges: data.badges,
+			controls: data.controls,
+			markers: data.markers,
+			appControls: data.appControls
+		}
+
+		/**
+		 *
 		 * A hook that is called before this application is rendered which collects,
 		 * a set of badges and controls to display on the application.
 		 *
-		 * @param {MonarchApplicationMixin} app          - The application object
-		 * @param {Array<CardBadge>}        badges       - The badges to display for each card
-		 * @param {Array<CardControl>}      controls     - The controls to display for each card
-		 * @param {Array<CardMarker>}       markers      - The markers to display for each card
-		 * @param {Array<AppControl>}       appControls  - The controls to display on the application
+		 * @param {FormApplication} app        - The application object
+		 * @param {Components}      components - An object containing the component arrays
 		 */
-		Hooks.callAll(`getMonarch${this.constructor.appName}Components`, this, data.controls, data.badges, data.markers, data.appControls);
+		Hooks.callAll(`getMonarch${this.constructor.appName}Components`, this, components);
 
 		/**
 		 * All the callback functions from the controls mapped to their class names.

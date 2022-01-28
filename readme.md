@@ -70,10 +70,11 @@ This hook fires just before any Monarch sheet renders, the name will depend on w
 | Parameter | Type | Description |
 | --------- | ---- | ----------- |
 | `monarch` | `FormApplication` | The Monarch application object. |
-| `controls` | `Array<CardControl>` | An array of controls to add to the application. These are added to each card individually for piles. |
-| `badges` | `Array<CardBadge>` | An array of information badges to add to the application. These are added to each card individually for piles. |
-| ~~`markers`~~ | ~~`Array<CardMarker>`~~ | *Not yet implemented* ~~An array of markers to add to the application. These are added to each card individually for piles.~~ |
-| ~~`appControls`~~ | ~~`Array<AppControl>`~~ | *Not Yet Implmented* ~~An array of controls to add to the application. These are added to the application for interacting with the pile itself.~~ |
+| `components` | `Components` | An object containing arrays of different kinds of components. |
+| `components.badges` | `Array<CardBadge>` | An array of information badges to add to the application. These are added to each card individually for piles. |
+| `components.controls` | `Array<CardControl>` | An array of controls to add to the application. These are added to each card individually for piles. |
+| ~~`components.markers`~~ | ~~`Array<CardMarker>`~~ | *Not yet implemented* ~~An array of markers to add to the application. These are added to each card individually for piles.~~ |
+| ~~`components.appControls`~~ | ~~`Array<AppControl>`~~ | *Not Yet Implmented* ~~An array of controls to add to the application. These are added to the application for interacting with the pile itself.~~ |
 
 #### Data Objects
 
@@ -120,19 +121,19 @@ This section contains a series of brief examples explaining how to use certain s
 As an example we will create an info badge on the hand sheet indicating the number of the currently displayed face.
 
 ```js
-Hooks.on("getMonarchHandControls", (monarch, controls, badges) => {
-	badges.push({
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+	components.badges.push({
 		tooltip: "Current Face",
 		text: (card) => `Face: ${card.data.face}`,
 		class: "card-face-num"
 	});
 });
 ```
-We use the `getMonarchHandControls` hook to respond when the hand is being displayed. This hook provieds a number of parameters, the first is the application instance itself, the second is data pertaining to controls (more on those later), and third is the data peraining to badges.
+We use the `getMonarchHandComponents` hook to respond when the hand is being displayed. This hook provieds two parameters, the first is the application instance itself, the second is an object containing arrays. Each array contains objects of data pertaining to some kind of component. One of these is `badges`.
 
 This data is an array of objects, each of which describes a badge. Check the technical details above for more information on the badge object.
 
-In this case, we just use `Array.push` to add a new badge to the `badges` array. This will add a new badge after all the existing ones.
+In this case, we just use `Array.push` to add a new badge to the `components.badges` array. This will add a new badge after all the existing ones.
 
 Aside from the `class` property, the other properties of a badge shown above may be either a string or a function. A string is used in this tooltip, because we don't need it to be different for each card in the hand. However, the `text` needs to be different for each card, so we give it a function instead that will return a string later. When this function is called, it will be passed parameters. The first parameter is the `Card` object for the card this text will be displayed on. This function will be called for *each* card in the hand.
 
@@ -145,8 +146,8 @@ Here, we simply have the function return a string created from a template litera
 Custom controls are created very similarly to badges, but they have a bit more data assocaiated with them. In this example, we will re-implement the "discard" button available in Monarch.
 
 ```js
-Hooks.on("getMonarchHandControls", (monarch, controls, badges) => {
-	controls.push({
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+	components.controls.push({
 		tooltip: "monarch.label.discard",
 		icon: "fas fa-trash",
 		class: "discard-card",
@@ -173,8 +174,8 @@ Above, you may notice that the "discard" button is in a seperate box from the pl
 The control group created by Monarch is called `basic-controls`, if we search through the controls array for this item we can add our control to the same group:
 
 ```js
-Hooks.on("getMonarchHandControls", (monarch, controls, badges) => {
-	controls.find(c => c.class === "basic-controls").controls.push({
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+	components.controls.find(c => c.class === "basic-controls").controls.push({
 		tooltip: "monarch.label.discard",
 		icon: "fas fa-trash",
 		class: "discard-card",
@@ -188,8 +189,8 @@ Here we used `Array.find` to locate a control that has the class `basic-controls
 
 If we wanted to create our own control group, we could do so like this:
 ```js
-Hooks.on("getMonarchHandControls", (monarch, controls, badges) => {
-	controls.push({
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+	components.controls.push({
 		class: "my-controls",
 		controls: [
 			{
@@ -208,6 +209,6 @@ Hooks.on("getMonarchHandControls", (monarch, controls, badges) => {
 	});
 });
 ```
-Here we push a new object into `controls`, and that object contains a `class` and its own `controls` array. That array contains two new controls we want to make.
+Here we push a new object into `components.controls`, and that object contains a `class` and its own `controls` array. That array contains two new controls we want to make.
 
 ![A hand sheet with a custom control group.](examples/guide-custom-control-group.png)
