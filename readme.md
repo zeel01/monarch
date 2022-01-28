@@ -84,13 +84,26 @@ These objects are used to define certain kinds of dynamic components.
 
 Data to define an information badge that will display on a card.
 
+###### Properties
 | Property | Type | Description |
 | -------- | ---- | ----------- |
 | `tooltip` | `string` or `Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this badge. May be a function that returns a string. |
 | `text` | `string` or `Function<string>` | The text to display on the badge, may contain HTML. May be a function that returns a string. |
-| `class` | `string` or `Function<string>` | The CSS class to apply to the badge. May be a function that returns a string. |
-| `hide` | `boolean` of `Function<boolean>` | *Optional*. Whether or not to hide the badge, not including it in the HTML. May be a function that returns a boolean, useful for badges that only display under certain conditions. `false` be default. |
+| `class` | `string` | *Optional* A CSS class to apply to the badge. |
+| `hide` | `boolean` of `Function<boolean>` | *Optional*. Whether or not to hide the badge, not including it in the HTML. May be a function that returns a boolean, useful for badges that only display under certain conditions. `false` by default. |
 
+##### `CardMarker`
+
+Data to define an icon marker that will display on a card.
+
+###### Properties
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| `tooltip` | `string` or `Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this marker. May be a function that returns a string. |
+| `class` | string` | *Optional* A CSS class to apply to the marker. |
+| `icon` | `string` or `Function<string>` | The font awesome icon class to display on the marker, defailt is `"fa fas-circle"` (a dot). May be a function that returns a string. |
+| `color` | `string` or `Function<string>` | The color of the marker, default is `"#FFFFFF"` (white). May be a function that returns a string. |
+| `show` | `boolean` of `Function<boolean>` | Whether or not to show the marker. May be a function that returns a boolean, useful for markers that only display under certain conditions. `false` by default. |
 ##### `CardControl`
 
 Data to define an interactive contrl that will display on a card.
@@ -111,6 +124,16 @@ Data to define an interactive contrl that will display on a card.
 | --------- | ---- | ----------- |
 | `event` | `MouseEvent` | The mouse event that triggered the click. |
 | `card` | `Card` | The card that the control is on. |
+| `container` | `Cards` | The Cards object that the card is a member of. |
+
+#### Value or Function Callbacks
+
+Many of the values specified for Components can be either a string or boolean *or* a function that returns a value. This allows for per-card values by calling the given function for each card in a pile, or for values that apply to all cards by passing a static value. These functions will be passed the following parameters:
+
+##### Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `card` | `Card` | The card that the component is for. |
 | `container` | `Cards` | The Cards object that the card is a member of. |
 
 ### API Guide
@@ -212,3 +235,25 @@ Hooks.on("getMonarchHandComponents", (monarch, components) => {
 Here we push a new object into `components.controls`, and that object contains a `class` and its own `controls` array. That array contains two new controls we want to make.
 
 ![A hand sheet with a custom control group.](examples/guide-custom-control-group.png)
+
+#### Creating a Custom Marker
+
+Markers are similar to badges, but they don't contain text. They are also always visible on the hand, rather than just when the card is hovered. Markers are colored icons that can be used to indicate any number of things.
+
+In this example, we will create a custom "radioactive" marker that can be shown on cards.
+```js
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+	components.markers.push({
+		tooltip: `Radioactive`,
+		class: `marker-radioactive`,
+		icon: "fas fa-radiation",
+		color: "#EEEEEE",
+		show: (card) => card.data.flags.monarch.markers.radioactive
+	})
+});
+```
+By default a marker will show a white dot, using the `fa fas-circle` icon. By specifying icon and color we can choose any font awesome icon and any color. The color should be a valid CSS color value.
+
+The last property of `CardMarker` is `show`. Here, we define `show` as a function that takes a card as a parameter and checks for a flag within it. If that flag is true, the icon will be shown as a marker on the card. This function is called for each card in the hand, so each card can have this marker configured individually.
+
+![A hand sheet with a custom radioactive marker.](examples/guide-custom-marker.png)

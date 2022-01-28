@@ -1,5 +1,5 @@
 import * as utils from "./utils.js";
-import { Controls, Badges } from "./Components.js";
+import { Controls, Badges, Markers } from "./Components.js";
 
 /**
  * @typedef {import("./Components.js").CardControl} CardControl
@@ -116,7 +116,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 	/** @type {Array<CardMarker>} */
 	get markers() {
-		return [];
+		return Markers.default;
 	}
 
 	/** @type {Array<AppControl>} */
@@ -146,29 +146,47 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 */
 	applyCardControl(card, control, container) {
 		return {
-			tooltip:  utils.functionOrString(control.tooltip, "")(card, container),
-			aria:     utils.functionOrString(control.aria, "")(card, container),
-			icon:     utils.functionOrString(control.icon, "")(card, container),
+			tooltip:  utils.functionOrValue(control.tooltip, "")(card, container),
+			aria:     utils.functionOrValue(control.aria, "")(card, container),
+			icon:     utils.functionOrValue(control.icon, "")(card, container),
 			class:    control.class ?? "",
-			disabled: utils.functionOrString(control.disabled, false)(card, container),
+			disabled: utils.functionOrValue(control.disabled, false)(card, container),
 			controls: control.controls ? this.applyCardControls(card, control.controls) : []
 		}
 	}
 
 	/**
-	 * Generate the data for controls on the provided card.
+	 * Generate the data for badges on the provided card.
 	 *
-	 * @param {Card}             card      - The card to place the control on
-	 * @param {Array<CardBadge>} badges    - The controls to generate
+	 * @param {Card}             card      - The card to place the badge on
+	 * @param {Array<CardBadge>} badges    - The badge to generate
 	 * @param {Cards}            container - The cards container
 	 * @return {Array<CardBadge>} 
 	 */
 	applyCardBadges(card, badges, container) {
 		return badges.map(badge => ({
-			tooltip: utils.functionOrString(badge.tooltip, "")(card, container),
-			text:    utils.functionOrString(badge.text, "")(card, container),
-			hide:	 utils.functionOrString(badge.hide, false)(card, container),
+			tooltip: utils.functionOrValue(badge.tooltip, "")(card, container),
+			text:    utils.functionOrValue(badge.text, "")(card, container),
+			hide:	 utils.functionOrValue(badge.hide, false)(card, container),
 			class:   badge.class ?? "",
+		}));
+	}
+
+	/**
+	 * Generate the data for markers on the provided card.
+	 *
+	 * @param {Card}              card      - The card to place the marker on
+	 * @param {Array<CardMarker>} markers   - The markers to generate
+	 * @param {Cards}             container - The cards container
+	 * @return {Array<CardMarker>} 
+	 */
+	applyCardMarkers(card, markers, container) {
+		return markers.map(marker => ({
+			tooltip: utils.functionOrValue(marker.tooltip, "")(card, container),
+			icon:    utils.functionOrValue(marker.icon, "fa fas-circle")(card, container),
+			color:   utils.functionOrValue(marker.color, "#FFFFFF")(card, container),
+			show:    utils.functionOrValue(marker.show, false)(card, container),
+			class:   marker.class ?? "",
 		}));
 	}
 

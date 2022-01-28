@@ -108,11 +108,12 @@ export async function preLoadTemplates() {
 		// Shared Partials
 		"modules/monarch/templates/parts/card-badge.hbs",
 		"modules/monarch/templates/parts/card-control.hbs",
+		"modules/monarch/templates/parts/card-marker.hbs",
 		"modules/monarch/templates/parts/control-block.hbs",
 		"modules/monarch/templates/parts/card-hud.hbs"
 	]);
 }
 
-export function functionOrString(value, defaultValue = null) {
+export function functionOrValue(value, defaultValue = null) {
 	return typeof value === "function" ? value : () => (value ?? defaultValue);
 }

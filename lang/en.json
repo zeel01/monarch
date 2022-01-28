@@ -36,6 +36,15 @@
 		},
 		"aria": {
 			"playCard": "{name}, Play"
+		},
+		"markers": {
+			"red": "Red Marker",
+			"green": "Green Marker",
+			"blue": "Blue Marker",
+			"yellow": "Yellow Marker",
+			"purple": "Purple Marker",
+			"black": "Black Marker",
+			"white": "White Marker"
 		}
 	}
 }

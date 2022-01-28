@@ -24,15 +24,16 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 
 		data.cardData.forEach(this._getCssImageUrl);
 
-		this.applyControls(data);
+		this.applyComponents(data);
 
 		return data;
 	}
 
-	applyControls(data) {
+	applyComponents(data) {
 		data.cards.forEach((card, i) => {
 			data.cardData[i].controls = this.applyCardControls(card, data.controls, this.object);
 			data.cardData[i].badges = this.applyCardBadges(card, data.badges, this.object);
+			data.cardData[i].markers = this.applyCardMarkers(card, data.markers, this.object);
 		});
 	}
 

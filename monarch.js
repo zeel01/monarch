@@ -64,4 +64,12 @@ Hooks.on("ready", async () => {
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
 	if (Monarch.discardPile) 
 		components.controls.find(c => c.class === "basic-controls")?.controls?.push(Controls.discard);
+
+	components.markers.push({
+		tooltip: `Radioactive`,
+		class: `marker-radioactive`,
+		icon: "fas fa-radiation",
+		color: "#EEEEEE",
+		show: (card) => card.data?.flags?.monarch?.markers?.radioactive
+	})
 });

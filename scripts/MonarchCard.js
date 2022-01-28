@@ -110,14 +110,15 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	async getData() {
 		const data = await super.getData();
 
-		this.applyControls(data);
+		this.applyComponents(data);
 
 		return data;
 	}
 
-	applyControls(data) {
+	applyComponents(data) {
 		data.data.controls = this.applyCardControls(this.object, data.controls, this.object.parent);
 		data.data.badges = this.applyCardBadges(this.object, data.badges, this.object.parent);
+		data.data.markers = this.applyCardMarkers(this.object, data.markers, this.object.parent);
 	}
 }
 

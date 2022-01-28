@@ -4,8 +4,15 @@ import Monarch from "./Monarch.js";
  * @typedef  {Object} CardBadge                     An object defining a badge to display information on a card.
  * @property {string|Function<string>}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
  * @property {string|Function<string>}   text       - The label of the badge, or a function that returns the label. May contain HTML.
- * @property {string}                    class      - The css class to apply to the badge
+ * @property {string}                    [class]    - The css class to apply to the badge
  * @property {boolean|Function<boolean>} [hide]     - Whether or not to hide (not display) the badge at all.
+
+ * @typedef  {Object} CardMarker                    An object defining a marker to display on a card.
+ * @property {string|Function<string>}   tooltip    - The tooltip of the marker, or a function that returns the tooltip
+ * @property {string}                    [class]    - The css class to apply to the marker
+ * @property {string|Function<string>}   [icon]     - The icon to display for the marker, or a function that returns the icon. Default is a dot.
+ * @property {String|Function<string>}   [color]    - The color of the marker, or a function that returns the color. Default is white.
+ * @property {boolean|Function<boolean>} [show]     - Whether or not to show the marker. Default is false.
  *
  * @typedef  {Object} CardControl                   An object defining a control to display on a card.
  * @property {string|Function<string>}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
@@ -161,6 +168,61 @@ export class Badges {
 			text: game.i18n.localize("CARD.Drawn"),
 			hide: (card) => !card.data.drawn,
 			class: "card-drawn"
+		}
+	}
+}
+
+export class Markers {
+	/** @type {Array<CardMarker>} */
+	static get default() {
+		return [
+			this.color.red,
+			this.color.green,
+			this.color.blue,
+			this.color.yellow,
+			this.color.purple,
+			this.color.black,
+			this.color.white
+		];
+	}
+
+	/**
+	 * Returns a marker definition for a colored dot.
+	 *
+	 * @param {string} color - The color of the dot
+	 * @returns {CardMarker}
+	 */
+	static _getColorMarker(color) {
+		return {
+			tooltip: `monarch.markers.${color}`,
+			class: `marker-${color}`,
+			icon: "fas fa-circle",
+			color: this._colors[color],
+			show: (card) => card.data?.flags?.monarch?.markers[color],
+		}
+	}
+
+	/** @type {Object<string, string>} */
+	static _colors = {
+		red: "#ff0000",
+		green: "#00ff00",
+		blue: "#0000ff",
+		yellow: "#ffff00",
+		purple: "#800080",
+		black: "#000000",
+		white: "#ffffff"
+	}
+
+	/** @type {Object<string, CardMarker>} */
+	static get color() {
+		return {
+			get red()    { return Markers._getColorMarker("red"); },
+			get green()  { return Markers._getColorMarker("green"); },
+			get blue()   { return Markers._getColorMarker("blue"); },
+			get yellow() { return Markers._getColorMarker("yellow"); },
+			get purple() { return Markers._getColorMarker("purple"); },
+			get black()  { return Markers._getColorMarker("black"); },
+			get white()  { return Markers._getColorMarker("white"); },
 		}
 	}
 }

@@ -1,4 +1,9 @@
 <section class="card-hud">
+	<section class="markers">
+		{{#each card.markers as |marker|}}
+			{{> "modules/monarch/templates/parts/card-marker.hbs" marker=marker card=card}}
+		{{/each}}
+	</section>
 	<section class="badges">
 		{{#each card.badges as |badge|}}
 			{{> "modules/monarch/templates/parts/card-badge.hbs" badge=badge card=card}}

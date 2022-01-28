@@ -54,10 +54,11 @@
 
 	.card-hud {
 		display: grid;
-		grid-template-rows: auto auto;
+		grid-template-rows: 0px auto auto;
 		grid-template-columns: 1fr;
 
 		grid-template-areas:
+			"markers"
 			"badges"
 			"controls";
 
@@ -69,6 +70,13 @@
 
 		pointer-events: none;
 
+		.markers {
+			font-size: .8em;
+			margin: -.25em;
+			display: flex;
+			gap: .75ch;
+			justify-content: start;
+		}
 		.badges, .controls {
 			display: flex;
 			gap: .5em;
@@ -87,7 +95,15 @@
 			flex-wrap: wrap-reverse;
 		}
 
-		.badges > *, .controls > * {
+		--marker-color: #FFFFFF;
+
+		.marker {
+			display: flex;
+			color: var(--marker-color);
+			text-shadow: 0 1px 2px black, 0 0 4px black;
+		}
+
+		.badge, .card-controls {
 			height: 1.5em;
 			pointer-events: all;
 			background: url(/ui/denim075.png) repeat;
