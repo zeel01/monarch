@@ -126,7 +126,7 @@ Data to define an interactive contrl that will display on a card.
 | `card` | `Card` | The card that the control is on. |
 | `container` | `Cards` | The Cards object that the card is a member of. |
 
-#### Value or Function Callbacks
+### Value or Function Callbacks
 
 Many of the values specified for Components can be either a string or boolean *or* a function that returns a value. This allows for per-card values by calling the given function for each card in a pile, or for values that apply to all cards by passing a static value. These functions will be passed the following parameters:
 

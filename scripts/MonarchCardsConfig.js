@@ -44,6 +44,8 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 		html.querySelectorAll(".card").forEach(card => {
 			const cardDocument = this.object.cards.get(card.dataset.cardId);
 
+			card.addEventListener("contextmenu", event => this.createContextMenu(event, cardDocument));
+
 			card.querySelectorAll(".card-control").forEach(button => {
 				button.addEventListener("click", (event) => {
 					event.stopPropagation();

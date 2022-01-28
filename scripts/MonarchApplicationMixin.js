@@ -256,6 +256,26 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 		return data;
 	}
+
+	async createContextMenu(event, card) {
+		const menu = document.createElement("div");
+		menu.classList.add("monarch", "context-menu");
+
+		menu.style.left = event.clientX + "px";
+		menu.style.top = event.clientY + "px";
+
+		const controls = [{
+			tooltip: "CARD.Play",
+			aria: "monarch.aria.playCard",
+			icon: "fas fa-chevron-circle-right",
+			class: "play-card",
+			onclick: (event) => card.parent.playDialog(card)
+		}]
+
+		menu.innerHTML = await renderTemplate("modules/monarch/templates/parts/context-menu.hbs", { controls, card });
+
+		event.target.appendChild(menu);
+	}
 }
 
 export default MonarchApplicationMixin;

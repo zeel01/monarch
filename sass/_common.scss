@@ -123,4 +123,22 @@
 			gap: .5ch;
 		}
 	}
+
+	&.context-menu {
+		position: fixed;
+		z-index: 10;
+
+		border-radius: .3em;
+		background-color: gray;
+		padding: .3em;
+		margin: -.3em 0 0 -.3em; 
+
+		ul {
+			display: flex;
+			flex-direction: column;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+	}
 }
