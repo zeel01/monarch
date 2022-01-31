@@ -44,6 +44,6 @@ jobs:
         name: ${{ github.event.release.name }}
         draft: true
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json, ./monarch.zip'
+        artifacts: './module.json, ./monarch.zip, ./monarch.d.ts'
         tag: ${{ github.event.release.tag_name }}
         body: ${{ github.event.release.body }}
