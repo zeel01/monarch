@@ -20,7 +20,7 @@ function css() {
 function typescript() {
 	const project = ts.createProject("tsconfig.json");
 	return project.src()
-		.pipe(project())
+		.pipe(project(ts.reporter.defaultReporter()))
 		.pipe(dest("."));
 }
 
