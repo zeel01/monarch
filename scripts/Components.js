@@ -11,43 +11,56 @@ import Monarch from "./Monarch.js";
  * @param {Cards} container - The cards container
  * @returns {boolean}
  *
- * @callback clickCallback
+ * @callback cardClickCallback
  * @param {Event} event     - The click event
  * @param {Card}  card      - The card to act upon
  * @param {Cards} container - The cards container
  * @returns {void}
  */
 /**
- * @typedef  {Object} CardBadge                     An object defining a badge to display information on a card.
+ * @typedef  {Object} CardBadge                   An object defining a badge to display information on a card.
  * @property {string|stringCallback}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
  * @property {string|stringCallback}   text       - The label of the badge, or a function that returns the label. May contain HTML.
  * @property {string}                  [class]    - The css class to apply to the badge
  * @property {boolean|booleanCallback} [hide]     - Whether or not to hide (not display) the badge at all.
 
- * @typedef  {Object} CardMarker                    An object defining a marker to display on a card.
+ * @typedef  {Object} CardMarker                  An object defining a marker to display on a card.
  * @property {string|stringCallback}   tooltip    - The tooltip of the marker, or a function that returns the tooltip
  * @property {string}                  [class]    - The css class to apply to the marker
  * @property {string|stringCallback}   [icon]     - The icon to display for the marker, or a function that returns the icon. Default is a dot.
- * @property {String|stringCallback}   [color]    - The color of the marker, or a function that returns the color. Default is white.
+ * @property {string|stringCallback}   [color]    - The color of the marker, or a function that returns the color. Default is white.
  * @property {boolean|booleanCallback} [show]     - Whether or not to show the marker. Default is false.
  *
- * @typedef  {Object} CardControl                   An object defining a control to display on a card.
+ * @typedef  {Object} CardControl                 An object defining a control to display on a card.
+ * @property {string|stringCallback}   [label]    - The label of the control
  * @property {string|stringCallback}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
  * @property {string|stringCallback}   [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
  * @property {string|stringCallback}   [icon]     - The icon to display for the control, or a function that returns the icon
+ * @property {string|stringCallback}   [color]    - The color of the icon, or a function that returns the color. Default is white.
  * @property {string}                  [class]    - The css class to apply to the control
  * @property {boolean|booleanCallback} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
- * @property {clickCallback}           [onclick]  - The function to call when the control is clicked
+ * @property {cardClickCallback}       [onclick]  - The function to call when the control is clicked
  * @property {Array<CardControl>}      [controls] - An array of controls to display as a group
  *
- * @typedef  {Object} AppControl                    An object defining a control to display on the application.
+ * @typedef  {Object} AppControl                  An object defining a control to display on the application.
  * @property {string}                  label      - The label of the control
  * @property {string|stringCallback}   tooltip    - The tooltip of the control, or a function that returns the tooltip
  * @property {string|stringCallback}   aria       - The aria label (for screen readers) of the control, or a function that returns the aria label
  * @property {string}                  class      - The css class to apply to the control
  * @property {string|stringCallback}   icon       - The icon to display for the control, or a function that returns the icon
- * @property {clickCallback}           onclick    - The function to call when the control is clicked
+ * @property {Function}                onclick    - The function to call when the control is clicked
  */
+
+/** @type {Object<string, string>} */
+export const colors = {
+	red: "#ff0000",
+	green: "#00ff00",
+	blue: "#0000ff",
+	yellow: "#ffff00",
+	purple: "#800080",
+	black: "#000000",
+	white: "#ffffff"
+}
 
 export class Controls {
 	/** @type {Array<CardControl>} */
@@ -129,6 +142,51 @@ export class Controls {
 			class: "discard-card",
 			onclick: (event, card) => card.pass(Monarch.discardPile)
 		}
+	}
+
+	/** 
+	 * Returns a control definition to toggle a given color marker.
+	 * 
+	 * @param {string} color - The color of the marker
+	 * @return {CardControl} 
+	 */
+	static _getColorToggle(color) {
+		return {
+			tooltip: `monarch.markerToggles.${color}`,
+			icon: "fas fa-circle",
+			color: colors[color],
+			class: `toggle-marker-${color}`,
+			onclick: (event, card) => card.setFlag(Monarch.name, `markers.${color}`, !card.getFlag(Monarch.name, `markers.${color}`)),
+		}
+	}
+
+	/** @type {Object<string, CardControl>} */
+	static get markerToggle() {
+		return {
+			get red()    { return Controls._getColorToggle("red"); },
+			get green()  { return Controls._getColorToggle("green"); },
+			get blue()   { return Controls._getColorToggle("blue"); },
+			get yellow() { return Controls._getColorToggle("yellow"); },
+			get purple() { return Controls._getColorToggle("purple"); },
+			get black()  { return Controls._getColorToggle("black"); },
+			get white()  { return Controls._getColorToggle("white"); },
+		}
+	}
+
+	/** @type {CardControl} */
+	static get colorToggles() {
+		return {
+			class: "color-toggles",
+			controls: [
+				this.markerToggle.red,
+				this.markerToggle.green,
+				this.markerToggle.blue,
+				this.markerToggle.yellow,
+				this.markerToggle.purple,
+				this.markerToggle.black,
+				this.markerToggle.white
+			]
+		};
 	}
 }
 
@@ -214,20 +272,9 @@ export class Markers {
 			tooltip: `monarch.markers.${color}`,
 			class: `marker-${color}`,
 			icon: "fas fa-circle",
-			color: this._colors[color],
-			show: (card) => card.data?.flags?.monarch?.markers[color],
+			color: colors[color],
+			show: (card) => card.getFlag(Monarch.name, `markers.${color}`),
 		}
-	}
-
-	/** @type {Object<string, string>} */
-	static _colors = {
-		red: "#ff0000",
-		green: "#00ff00",
-		blue: "#0000ff",
-		yellow: "#ffff00",
-		purple: "#800080",
-		black: "#000000",
-		white: "#ffffff"
 	}
 
 	/** @type {Object<string, CardMarker>} */

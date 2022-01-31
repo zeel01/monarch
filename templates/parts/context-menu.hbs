@@ -1,5 +1,13 @@
-<ul>
-	{{#each controls as |control|}}
-		<li>{{> "modules/monarch/templates/parts/card-control.hbs" control=control card=card}}</li>
+<ul class="context-menu">
+	{{#each card.contextMenu as |control|}}
+		{{#if control.controls.length}}
+			<ul class="menu-group">
+				{{#each control.controls as |control|}}
+					{{> "modules/monarch/templates/parts/card-control.hbs" control=control card=card}}
+				{{/each}}
+			</ul>
+		{{else}}
+			<li>{{> "modules/monarch/templates/parts/card-control.hbs" control=control card=card showLabel=true}}</li>
+		{{/if}}
 	{{/each}}
 </ul>

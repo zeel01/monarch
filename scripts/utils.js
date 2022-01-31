@@ -110,6 +110,7 @@ export async function preLoadTemplates() {
 		"modules/monarch/templates/parts/card-control.hbs",
 		"modules/monarch/templates/parts/card-marker.hbs",
 		"modules/monarch/templates/parts/control-block.hbs",
+		"modules/monarch/templates/parts/context-menu.hbs",
 		"modules/monarch/templates/parts/card-hud.hbs"
 	]);
 }

@@ -73,7 +73,8 @@ This hook fires just before any Monarch sheet renders, the name will depend on w
 | `components` | `Components` | An object containing arrays of different kinds of components. |
 | `components.badges` | `Array<CardBadge>` | An array of information badges to add to the application. These are added to each card individually for piles. |
 | `components.controls` | `Array<CardControl>` | An array of controls to add to the application. These are added to each card individually for piles. |
-| ~~`components.markers`~~ | ~~`Array<CardMarker>`~~ | *Not yet implemented*<br>~~An array of markers to add to the application. These are added to each card individually for piles.~~ |
+| `components.markers` | `Array<CardMarker>` | An array of markers to add to the application. These are added to each card individually for piles. |
+| `components.contextMenu` | `Array<CardControl>` | An array of controls to add to context menus. These are added to each card individually for piles. |
 | ~~`components.appControls`~~ | ~~`Array<AppControl>`~~ | *Not Yet Implmented*<br>~~An array of controls to add to the application. These are added to the application for interacting with the pile itself.~~ |
 
 #### Data Objects
@@ -111,9 +112,11 @@ Data to define an interactive contrl that will display on a card.
 ###### Properties
 | Property | Type | Description |
 | -------- | ---- | ----------- |
+| `label` | `string`<br>`Function<string>` | A text label for the control, only displayed for context menu controls. May be a function that returns a string. |
 | `tooltip` | `string`<br>`Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this control. May be a function that returns a string. |
 | `aria` | `string`<br>`Function<string>` | The ARIA label for the control, used by screen readers to identify it. When omitted, the `tooltip` will be used instead. May be a function that returns a string. |
 | `icon` | `string`<br>`Function<string>` | The classes used to display a font awesome icon (ex: `"fas fa-caret-up"`). May be a function that returns a string. |
+| `color` | `string`<br>`Function<string>` | The color of the icon, default is `"#FFFFFF"` (white). May be a function that returns a string. |
 | `class` | `string` | A unique CSS class to apply to the control. **IMPORTANT**: This property is required. Monarch used this clas to identify the control in order to attach event listeners. |
 | `disabled` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to disable the control. The control will appear grayed out. May be a function that returns a boolean. `false` by default. |
 | `onclick` | `Function<void>` | A function that will run when the control is clicked. See blow for parameter information. |
@@ -257,3 +260,9 @@ By default a marker will show a white dot, using the `fa fas-circle` icon. By sp
 The last property of `CardMarker` is `show`. Here, we define `show` as a function that takes a card as a parameter and checks for a flag within it. If that flag is true, the icon will be shown as a marker on the card. This function is called for each card in the hand, so each card can have this marker configured individually.
 
 ![A hand sheet with a custom radioactive marker.](examples/guide-custom-marker.png)
+
+#### Creating Custom Context Menus
+
+Very similar to creating controls, context menus are created by adding control objects to the `controls.contextMenu` array. These controls won't show on the card when hovered, but will appear when right-clicked. These controls also support a `label` property that can be used to display a label for the menu item. If a `control` has an array of `controls`, a no-label row of icon buttons will be created instead.
+
+![A hand sheet with a custom context menu.](examples/guide-context-menu.png)

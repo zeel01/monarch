@@ -58,6 +58,11 @@ Hooks.on("init", () => {
 Hooks.on("ready", async () => {
 	await utils.preLoadTemplates();
 	utils.restoreWindows();
+
+	document.addEventListener("click", (event) => {
+		document.querySelectorAll(".monarch .card").forEach(card => card.classList.remove("show-ctx"));
+	});
+	
 	console.log(game.i18n.localize("monarch.console.log.ready"));
 });
 

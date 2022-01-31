@@ -2,6 +2,7 @@ import * as utils from "./utils.js";
 import { Controls, Badges, Markers } from "./Components.js";
 
 /**
+ * @typedef {import("./Components.js").cardClickCallback} cardClickCallback
  * @typedef {import("./Components.js").CardControl} CardControl
  * @typedef {import("./Components.js").CardBadge} CardBadge
  * @typedef {import("./Components.js").CardMarker} CardMarker
@@ -13,6 +14,7 @@ import { Controls, Badges, Markers } from "./Components.js";
  * @property {Array<CardBadge>}   badges      - The badges to display for each card
  * @property {Array<CardControl>} controls    - The controls to display for each card
  * @property {Array<CardMarker>}  markers     - The markers to display for each card
+ * @property {Array<CardControl>} contextMenu - The controls to display for a card's context menu
  * @property {Array<AppControl>}  appControls - The controls to display on the application
  */
 
@@ -23,6 +25,20 @@ import { Controls, Badges, Markers } from "./Components.js";
  * @augments DocumentSheet
  */
 const MonarchApplicationMixin = Base => class extends Base {
+	/**
+	 * All the callback functions from the controls mapped to their class names.
+	 *
+	 * @type {Object<string, cardClickCallback>}
+	 */
+	_controlFns = [];
+
+	/**
+	 * All the callback functions from the controls mapped to their class names.
+	 *
+	 * @type {Object<string, cardClickCallback>}
+	 */
+	_ctxMenuFns = [];
+
 	/** @override */
 	setPosition(...args) {
 		const position = super.setPosition(...args);
@@ -127,6 +143,13 @@ const MonarchApplicationMixin = Base => class extends Base {
 		return Markers.default;
 	}
 
+	/** @type {Array<CardControl>} */
+	get contextMenu() {
+		return [
+			Controls.colorToggles
+		];
+	}
+
 	/** @type {Array<AppControl>} */
 	get appControls() {
 		return [];
@@ -153,14 +176,22 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * @return {Array<CardControl>}
 	 */
 	applyCardControl(card, control, container) {
+		let tooltip = utils.functionOrValue(control.tooltip, "")(card, container);
+		let label   = utils.functionOrValue(control.label, "")(card, container);
+		let aria    = utils.functionOrValue(control.aria, "")(card, container);
+
+		if (!tooltip) tooltip = label;
+		if (!label)   label   = tooltip;
+		if (!aria)    aria    = tooltip || label;
+
 		return {
-			tooltip:  utils.functionOrValue(control.tooltip, "")(card, container),
-			aria:     utils.functionOrValue(control.aria, "")(card, container),
+			tooltip, label, aria,
 			icon:     utils.functionOrValue(control.icon, "")(card, container),
+			color:    utils.functionOrValue(control.color, "#FFFFFF")(card, container),
 			class:    control.class ?? "",
 			disabled: utils.functionOrValue(control.disabled, false)(card, container),
 			controls: control.controls ? this.applyCardControls(card, control.controls) : []
-		}
+		};
 	}
 
 	/**
@@ -228,6 +259,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 		data.badges      = this.badges;
 		data.controls    = this.controls;
 		data.markers	 = this.markers;
+		data.contextMenu = this.contextMenu;
 		data.appControls = this.appControls;
 
 		/** @type {Components} */
@@ -235,6 +267,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 			badges: data.badges,
 			controls: data.controls,
 			markers: data.markers,
+			contextMenu: data.contextMenu,
 			appControls: data.appControls
 		}
 
@@ -247,35 +280,13 @@ const MonarchApplicationMixin = Base => class extends Base {
 		 * @param {Components}      components - An object containing the component arrays
 		 */
 		Hooks.callAll(`getMonarch${this.constructor.appName}Components`, this, components);
-
-		/**
-		 * All the callback functions from the controls mapped to their class names.
-		 *
-		 * @type {Object<string, Function>}
-		 */
-		this._controlFns = Object.fromEntries(data.controls.reduce(this.controlReducer.bind(this), []));
+		
+		this._controlFns = {
+			...Object.fromEntries(data.controls.reduce(this.controlReducer.bind(this), [])),
+			...Object.fromEntries(data.contextMenu.reduce(this.controlReducer.bind(this), []))
+		}
 
 		return data;
-	}
-
-	async createContextMenu(event, card) {
-		const menu = document.createElement("div");
-		menu.classList.add("monarch", "context-menu");
-
-		menu.style.left = event.clientX + "px";
-		menu.style.top = event.clientY + "px";
-
-		const controls = [{
-			tooltip: "CARD.Play",
-			aria: "monarch.aria.playCard",
-			icon: "fas fa-chevron-circle-right",
-			class: "play-card",
-			onclick: (event) => card.parent.playDialog(card)
-		}]
-
-		menu.innerHTML = await renderTemplate("modules/monarch/templates/parts/context-menu.hbs", { controls, card });
-
-		event.target.appendChild(menu);
 	}
 }
 

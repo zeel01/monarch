@@ -45,6 +45,15 @@
 			"purple": "Purple Marker",
 			"black": "Black Marker",
 			"white": "White Marker"
+		},
+		"markerToggles": {
+			"red": "Toggle red marker",
+			"green": "Toggle green marker",
+			"blue": "Toggle blue marker",
+			"yellow": "Toggle yellow marker",
+			"purple": "Toggle purple marker",
+			"black": "Toggle black marker",
+			"white": "Toggle white marker"
 		}
 	}
 }

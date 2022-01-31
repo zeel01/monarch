@@ -27,6 +27,9 @@ declare module "scripts/Monarch" {
     }
 }
 declare module "scripts/Components" {
+    export const colors: {
+        [x: string]: string;
+    };
     export class Controls {
         static get default(): CardControl[];
         static get faces(): CardControl;
@@ -36,6 +39,11 @@ declare module "scripts/Components" {
         static get edit(): CardControl;
         static get delete(): CardControl;
         static get discard(): CardControl;
+        static _getColorToggle(color: string): CardControl;
+        static get markerToggle(): {
+            [x: string]: CardControl;
+        };
+        static get colorToggles(): CardControl;
     }
     export class Badges {
         static get default(): CardBadge[];
@@ -48,16 +56,13 @@ declare module "scripts/Components" {
     export class Markers {
         static get default(): CardMarker[];
         static _getColorMarker(color: string): CardMarker;
-        static _colors: {
-            [x: string]: string;
-        };
         static get color(): {
             [x: string]: CardMarker;
         };
     }
     export type stringCallback = (card: Card, container: Cards) => string;
     export type booleanCallback = (card: Card, container: Cards) => boolean;
-    export type clickCallback = (event: Event, card: Card, container: Cards) => void;
+    export type cardClickCallback = (event: Event, card: Card, container: Cards) => void;
     export type CardBadge = {
         tooltip: string | stringCallback;
         text: string | stringCallback;
@@ -72,12 +77,14 @@ declare module "scripts/Components" {
         show?: boolean | booleanCallback;
     };
     export type CardControl = {
+        label?: string | stringCallback;
         tooltip?: string | stringCallback;
         aria?: string | stringCallback;
         icon?: string | stringCallback;
+        color?: string | stringCallback;
         class?: string;
         disabled?: boolean | booleanCallback;
-        onclick?: clickCallback;
+        onclick?: cardClickCallback;
         controls?: Array<CardControl>;
     };
     export type AppControl = {
@@ -86,11 +93,12 @@ declare module "scripts/Components" {
         aria: string | stringCallback;
         class: string;
         icon: string | stringCallback;
-        onclick: clickCallback;
+        onclick: Function;
     };
 }
 declare module "scripts/MonarchApplicationMixin" {
     export default MonarchApplicationMixin;
+    export type cardClickCallback = import("scripts/Components").cardClickCallback;
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
     export type CardMarker = import("scripts/Components").CardMarker;
@@ -99,6 +107,7 @@ declare module "scripts/MonarchApplicationMixin" {
         badges: Array<CardBadge>;
         controls: Array<CardControl>;
         markers: Array<CardMarker>;
+        contextMenu: Array<CardControl>;
         appControls: Array<AppControl>;
     };
     function MonarchApplicationMixin(Base: any): any;

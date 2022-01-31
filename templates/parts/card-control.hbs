@@ -1,7 +1,8 @@
 <a class="card-control {{control.class}}"
 	tabindex="0" 
-	title="{{localize control.tooltip}}" 
+	title="{{localize control.tooltip}}"
+	style="--icon-color: {{control.color}};"
 	aria-label="{{#if control.aria}}{{localize control.aria}}{{else}}{{localize control.tooltip}}{{/if}}"
 	{{#if control.disabled}}disabled{{/if}}>
-	<i class="{{control.icon}}"></i>
+	<i class="{{control.icon}}"></i>{{#if showLabel}} {{localize control.label}}{{/if}}
 </a>

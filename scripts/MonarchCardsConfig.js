@@ -31,9 +31,10 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 
 	applyComponents(data) {
 		data.cards.forEach((card, i) => {
-			data.cardData[i].controls = this.applyCardControls(card, data.controls, this.object);
-			data.cardData[i].badges = this.applyCardBadges(card, data.badges, this.object);
-			data.cardData[i].markers = this.applyCardMarkers(card, data.markers, this.object);
+			data.cardData[i].controls    = this.applyCardControls(card, data.controls, this.object);
+			data.cardData[i].contextMenu = this.applyCardControls(card, data.contextMenu, this.object);
+			data.cardData[i].badges      = this.applyCardBadges(card, data.badges, this.object);
+			data.cardData[i].markers     = this.applyCardMarkers(card, data.markers, this.object);
 		});
 	}
 
@@ -44,7 +45,15 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 		html.querySelectorAll(".card").forEach(card => {
 			const cardDocument = this.object.cards.get(card.dataset.cardId);
 
-			card.addEventListener("contextmenu", event => this.createContextMenu(event, cardDocument));
+			card.addEventListener("contextmenu", event => {
+				html.querySelectorAll(".card").forEach(card => card.classList.remove("show-ctx"));
+				event.stopPropagation();
+				event.preventDefault();
+				card.classList.add("show-ctx");
+				const menu = card.querySelector(".context-menu");
+				menu.style.left = `${event.clientX}px`;
+				menu.style.top = `${event.clientY}px`;
+			});
 
 			card.querySelectorAll(".card-control").forEach(button => {
 				button.addEventListener("click", (event) => {
