@@ -1,35 +1,52 @@
 import Monarch from "./Monarch.js";
 
 /**
+ * @callback stringCallback
+ * @param {Card}  card      - The card to construct the string for
+ * @param {Cards} container - The cards container
+ * @returns {string}
+ *
+ * @callback booleanCallback
+ * @param {Card}  card      - The card to determine the boolean for
+ * @param {Cards} container - The cards container
+ * @returns {boolean}
+ *
+ * @callback clickCallback
+ * @param {Event} event     - The click event
+ * @param {Card}  card      - The card to act upon
+ * @param {Cards} container - The cards container
+ * @returns {void}
+ */
+/**
  * @typedef  {Object} CardBadge                     An object defining a badge to display information on a card.
- * @property {string|Function<string>}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
- * @property {string|Function<string>}   text       - The label of the badge, or a function that returns the label. May contain HTML.
- * @property {string}                    [class]    - The css class to apply to the badge
- * @property {boolean|Function<boolean>} [hide]     - Whether or not to hide (not display) the badge at all.
+ * @property {string|stringCallback}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
+ * @property {string|stringCallback}   text       - The label of the badge, or a function that returns the label. May contain HTML.
+ * @property {string}                  [class]    - The css class to apply to the badge
+ * @property {boolean|booleanCallback} [hide]     - Whether or not to hide (not display) the badge at all.
 
  * @typedef  {Object} CardMarker                    An object defining a marker to display on a card.
- * @property {string|Function<string>}   tooltip    - The tooltip of the marker, or a function that returns the tooltip
- * @property {string}                    [class]    - The css class to apply to the marker
- * @property {string|Function<string>}   [icon]     - The icon to display for the marker, or a function that returns the icon. Default is a dot.
- * @property {String|Function<string>}   [color]    - The color of the marker, or a function that returns the color. Default is white.
- * @property {boolean|Function<boolean>} [show]     - Whether or not to show the marker. Default is false.
+ * @property {string|stringCallback}   tooltip    - The tooltip of the marker, or a function that returns the tooltip
+ * @property {string}                  [class]    - The css class to apply to the marker
+ * @property {string|stringCallback}   [icon]     - The icon to display for the marker, or a function that returns the icon. Default is a dot.
+ * @property {String|stringCallback}   [color]    - The color of the marker, or a function that returns the color. Default is white.
+ * @property {boolean|booleanCallback} [show]     - Whether or not to show the marker. Default is false.
  *
  * @typedef  {Object} CardControl                   An object defining a control to display on a card.
- * @property {string|Function<string>}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
- * @property {string|Function<string>}   [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
- * @property {string|Function<string>}   [icon]     - The icon to display for the control, or a function that returns the icon
- * @property {string}                    [class]    - The css class to apply to the control
- * @property {boolean|Function<boolean>} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
- * @property {Function}                  [onclick]  - The function to call when the control is clicked
- * @property {Array<CardControl>}        [controls] - An array of controls to display as a group
+ * @property {string|stringCallback}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
+ * @property {string|stringCallback}   [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
+ * @property {string|stringCallback}   [icon]     - The icon to display for the control, or a function that returns the icon
+ * @property {string}                  [class]    - The css class to apply to the control
+ * @property {boolean|booleanCallback} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
+ * @property {clickCallback}           [onclick]  - The function to call when the control is clicked
+ * @property {Array<CardControl>}      [controls] - An array of controls to display as a group
  *
  * @typedef  {Object} AppControl                    An object defining a control to display on the application.
- * @property {string}                    label      - The label of the control
- * @property {string|Function<string>}   tooltip    - The tooltip of the control, or a function that returns the tooltip
- * @property {string|Function<string>}   aria       - The aria label (for screen readers) of the control, or a function that returns the aria label
- * @property {string}                    class      - The css class to apply to the control
- * @property {string|Function<string>}   icon       - The icon to display for the control, or a function that returns the icon
- * @property {Function}                  onclick    - The function to call when the control is clicked
+ * @property {string}                  label      - The label of the control
+ * @property {string|stringCallback}   tooltip    - The tooltip of the control, or a function that returns the tooltip
+ * @property {string|stringCallback}   aria       - The aria label (for screen readers) of the control, or a function that returns the aria label
+ * @property {string}                  class      - The css class to apply to the control
+ * @property {string|stringCallback}   icon       - The icon to display for the control, or a function that returns the icon
+ * @property {clickCallback}           onclick    - The function to call when the control is clicked
  */
 
 export class Controls {

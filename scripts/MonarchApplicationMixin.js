@@ -8,6 +8,14 @@ import { Controls, Badges, Markers } from "./Components.js";
  * @typedef {import("./Components.js").AppControl} AppControl
  */
 
+/**
+ * @typedef  {Object} Components              An object containing the component arrays
+ * @property {Array<CardBadge>}   badges      - The badges to display for each card
+ * @property {Array<CardControl>} controls    - The controls to display for each card
+ * @property {Array<CardMarker>}  markers     - The markers to display for each card
+ * @property {Array<AppControl>}  appControls - The controls to display on the application
+ */
+
 /** 
  * @param {typeof DocumentSheet} Base
  * @returns {typeof DocumentSheet}
@@ -222,14 +230,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 		data.markers	 = this.markers;
 		data.appControls = this.appControls;
 
-		/**
-		 * @typedef  {Object} Components              An object containing the component arrays
-		 * @property {Array<CardBadge>}   badges      - The badges to display for each card
-		 * @property {Array<CardControl>} controls    - The controls to display for each card
-		 * @property {Array<CardMarker>}  markers     - The markers to display for each card
-		 * @property {Array<AppControl>}  appControls - The controls to display on the application
-		 * 
-		 *//** @type {Components} */
+		/** @type {Components} */
 		const components = {
 			badges: data.badges,
 			controls: data.controls,
