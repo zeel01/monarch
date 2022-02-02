@@ -94,6 +94,18 @@ export async function getImageDimensions(path) {
 	return { width: img.baseTexture.width, height: img.baseTexture.height };
 }
 
+/**
+ * Returns a function that is either stored in a value, or that
+ * will return that value.
+ *
+ * Used to allow for a variable that can either be a constant or
+ * a function.
+ *
+ * @export
+ * @param {*} value - Some value
+ * @param {*} [defaultValue=null] - The default value to return if the value is not a function and isn't defined.
+ * @return {Function<typeof value>} A function that returns a value of the type needed. 
+ */
 export function functionOrValue(value, defaultValue = null) {
 	return typeof value === "function" ? value : () => (value ?? defaultValue);
 }

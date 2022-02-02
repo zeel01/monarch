@@ -13,7 +13,7 @@ declare module "scripts/utils" {
         width: number;
         height: number;
     }>;
-    export function functionOrValue(value: any, defaultValue?: any): any;
+    export function functionOrValue(value: any, defaultValue?: any): Function;
 }
 declare module "scripts/Components" {
     export const colors: {
