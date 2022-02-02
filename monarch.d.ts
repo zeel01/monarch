@@ -114,7 +114,6 @@ declare module "scripts/MonarchApplicationMixin" {
 }
 declare module "scripts/MonarchCard" {
     export default class MonarchCard {
-        static appName: string;
         static get defaultOptions(): any;
         constructor(...args: any[]);
         activateListeners(html: any): void;
@@ -136,7 +135,6 @@ declare module "scripts/MonarchCardsConfig" {
 }
 declare module "scripts/MonarchHand" {
     export default class MonarchHand extends MonarchCardsConfig {
-        static appName: string;
         static get defaultOptions(): any;
         _getHeaderButtons(): any;
         override _onCardControl(event: any): Promise<any>;
@@ -150,7 +148,6 @@ declare module "scripts/MonarchHand" {
 }
 declare module "scripts/MonarchDeck" {
     export default class MonarchDeck extends MonarchCardsConfig {
-        static appName: string;
         static get defaultOptions(): any;
         get controls(): import("scripts/Components").CardControl[];
         get badges(): import("scripts/Components").CardBadge[];
@@ -161,7 +158,6 @@ declare module "scripts/MonarchDeck" {
 }
 declare module "scripts/MonarchPile" {
     export default class MonarchPile extends MonarchCardsConfig {
-        static appName: string;
         static get defaultOptions(): any;
         get controls(): import("scripts/Components").CardControl[];
     }

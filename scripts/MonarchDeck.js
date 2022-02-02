@@ -7,9 +7,7 @@ import { Controls, Badges } from "./Components.js";
  */
 
 export default class MonarchDeck extends MonarchCardsConfig {
-	static appName = "Deck";
-	
-	static get defaultOptions() {
+static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-deck.hbs",
 			classes: ["monarch", "monarch-deck", "sheet"],

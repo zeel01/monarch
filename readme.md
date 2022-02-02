@@ -64,7 +64,7 @@ Monarch adds the following hooks:
 
 ##### `getMonarch{Application}Components`
 
-This hook fires just before any Monarch sheet renders, the name will depend on which sheet is rendering: `getMonarchHandComponents`, `getMonarchDeckComponents`, `getMonarchPileComponents`, or `getMonarchCardComponents`. This hook is used to gather data for constructing information badges and interactive controls on the application.
+This hook fires just before any Monarch sheet renders, the name will depend on which sheet is rendering: `getMonarchHandComponents`, `getMonarchDeckComponents`, `getMonarchPileComponents`, or `getMonarchCardComponents`. This hook is used to gather data for constructing information badges and interactive controls on the application. Hooks for the full inheritance chain of Monarch apllications will fire, including `getMonarchApplicationComponents` as the base and for all `Cards` applications `getMonarchCardsConfigComponents`. This should allow for either per-app control of components, or modification to all apps at once.
 
 ###### Parameters
 | Parameter | Type | Description |

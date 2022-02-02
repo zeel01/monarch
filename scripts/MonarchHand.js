@@ -7,8 +7,6 @@ import { Controls, Badges } from "./Components.js";
  */
 
 export default class MonarchHand extends MonarchCardsConfig {
-	static appName = "Hand";
-
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-hand.hbs",

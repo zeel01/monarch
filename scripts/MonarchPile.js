@@ -7,8 +7,6 @@ import { Controls, Badges } from "./Components.js";
  */
 
 export default class MonarchPile extends MonarchCardsConfig {
-	static appName = "Pile";
-	
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-pile.hbs",

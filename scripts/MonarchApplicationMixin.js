@@ -120,14 +120,6 @@ const MonarchApplicationMixin = Base => class extends Base {
 		card.cssImage = `url('${prefix}${image}')`;
 	}
 
-	/**
-	 * The name of this application for use in named hooks.
-	 * @type {string}
-	 * @static
-	 * @memberof MonarchApplicationMixin
-	 */
-	static appName = "Application";
-
 	/** @type {Array<CardControl>} */
 	get controls() {
 		return Controls.default;
@@ -271,15 +263,19 @@ const MonarchApplicationMixin = Base => class extends Base {
 			appControls: data.appControls
 		}
 
-		/**
-		 *
-		 * A hook that is called before this application is rendered which collects,
-		 * a set of badges and controls to display on the application.
-		 *
-		 * @param {FormApplication} app        - The application object
-		 * @param {Components}      components - An object containing the component arrays
-		 */
-		Hooks.callAll(`getMonarch${this.constructor.appName}Components`, this, components);
+		const chain = this.constructor._getInheritanceChain();
+		chain.push({ name: "MonarchApplication" });
+		for (let cls of chain) {
+			/**
+			 *
+			 * A hook that is called before this application is rendered which collects,
+			 * a set of badges and controls to display on the application.
+			 *
+			 * @param {FormApplication} app        - The application object
+			 * @param {Components}      components - An object containing the component arrays
+			 */
+			Hooks.call(`get${cls.name}Components`, this, components);
+		}
 		
 		this._controlFns = {
 			...Object.fromEntries(data.controls.reduce(this.controlReducer.bind(this), [])),
