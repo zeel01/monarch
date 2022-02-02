@@ -38,9 +38,17 @@ export default class Monarch {
 	 */
 	static get settings() {
 		return {
+			/**
+			 * The configured height of all cards in piles
+			 * @type {number} 
+			 */
 			get cardHeight() {
 				return game.settings.get(Monarch.name, "cardHeight");
 			},
+			/**
+			 * The id of the discard pile
+			 * @type {string}
+			 */
 			get discardPile() {
 				return game.settings.get(Monarch.name, "discardPile");
 			}

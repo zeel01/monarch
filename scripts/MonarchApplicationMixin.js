@@ -1,3 +1,4 @@
+import Monarch from "./Monarch.js";
 import * as utils from "./utils.js";
 import { Controls, Badges, Markers } from "./Components.js";
 
@@ -75,8 +76,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 		return this.object.updateEmbeddedDocuments("Card", updateData);
 	}
 
-	/** @type {number} The height of all cards in the hand */
-	get cardHeight() { return game.settings.get("monarch", "cardHeight"); }
+	/** 
+	 * The height of all cards in the hand 
+	 * @type {number} 
+	 */
+	get cardHeight() { return Monarch.cardHeight; }
 
 
 	/**

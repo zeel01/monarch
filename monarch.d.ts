@@ -194,8 +194,8 @@ declare module "scripts/Monarch" {
         static AppControls: typeof AppControls;
         static utils: typeof utils;
         static readonly get settings(): {
-            readonly cardHeight: any;
-            readonly discardPile: any;
+            readonly cardHeight: number;
+            readonly discardPile: string;
         };
         static readonly get discardPile(): Cards;
         static preLoadTemplates(): Promise<Function[]>;
