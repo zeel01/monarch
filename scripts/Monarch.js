@@ -8,6 +8,10 @@ import { Controls, Markers, Badges, AppControls } from "./Components.js";
 import * as utils from "./utils.js";
 
 export default class Monarch {
+	/** 
+	 * The name of the module, used for flag and settings scopes.
+	 * @type {string} 
+	 */
 	static get name() { return "monarch"; }
 
 	static ApplicationMixin = MonarchApplicationMixin;
@@ -137,17 +141,30 @@ export default class Monarch {
 			})
 	}
 
+	/**
+	 * Handles the init hook.
+	 *
+	 * @static
+	 * @memberof Monarch
+	 */
 	static onInit() {
 		this.registerSettings();
 		this.registerSheets();
 	}
 
+	/**
+	 * Handles the ready hook.
+	 *
+	 * @static
+	 * @memberof Monarch
+	 */
 	static async onReady() {
 		await this.preLoadTemplates();
 
 		utils.restoreWindows();
 
-		document.addEventListener("click", (event) => {
+		// Event listener to close all context menus when the user clicks outside of them.
+		document.addEventListener("click", event => {
 			document.querySelectorAll(".monarch .card").forEach(card => card.classList.remove("show-ctx"));
 		});
 
