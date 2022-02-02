@@ -6,6 +6,8 @@ import MonarchDeck from "./scripts/MonarchDeck.js";
 import MonarchPile from "./scripts/MonarchPile.js";
 import { Controls, Badges, AppControls } from "./scripts/Components.js";
 
+window.Monarch = Monarch;
+
 Hooks.on("init", () => {
 	game.settings.register(Monarch.name, "cardHeight", {
 		name: game.i18n.localize("monarch.settings.cardHeight.name"),

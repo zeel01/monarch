@@ -1,7 +1,29 @@
-import * as utils from './utils.js';
+import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
+import MonarchCardsConfig from "./MonarchCardsConfig.js";
+import MonarchDeck from "./MonarchDeck.js";
+import MonarchPile from "./MonarchPile.js";
+import MonarchHand from "./MonarchHand.js";
+import MonarchCard from "./MonarchCard.js";
+import { Controls, Markers, Badges, AppControls } from "./Components.js";
+import * as utils from "./utils.js";
 
 export default class Monarch {
 	static get name() { return "monarch"; }
+
+	static ApplicationMixin = MonarchApplicationMixin;
+
+	static CardsConfig = MonarchCardsConfig;
+	static Deck        = MonarchDeck;
+	static Pile        = MonarchPile;
+	static Hand        = MonarchHand;
+	static Card        = MonarchCard;
+
+	static Controls    = Controls;
+	static Badges      = Badges;
+	static Markers     = Markers;
+	static AppControls = AppControls;
+
+	static utils = utils;
 
 	static get settings() {
 		return {
