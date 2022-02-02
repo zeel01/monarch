@@ -30,6 +30,8 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	}
 
 	applyComponents(data) {
+		data.appControls = this.applyApplicationControls(data.appControls, this.object);
+
 		data.cards.forEach((card, i) => {
 			data.cardData[i].controls    = this.applyCardControls(card, data.controls, this.object);
 			data.cardData[i].contextMenu = this.applyCardControls(card, data.contextMenu, this.object);
@@ -63,6 +65,17 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 						if (this._controlFns[className]) 
 							this._controlFns[className](event, cardDocument, this.object);
 					});
+				});
+			});
+		});
+
+		html.querySelectorAll(".app-control").forEach(button => {
+			button.addEventListener("click", (event) => {
+				event.stopPropagation();
+				if (button.disabled) return;
+				button.classList.forEach(className => {
+					if (this._controlFns[className])
+						this._controlFns[className](event, this, this.object);
 				});
 			});
 		});

@@ -213,6 +213,23 @@ const MonarchApplicationMixin = Base => class extends Base {
 	}
 
 	/**
+	 * Generate the data for a control on the provided container.
+	 *
+	 * @param {Array<AppControl>} controls  - The controls to generate
+	 * @param {Cards}             container - The cards container
+	 * @return {Array<AppControl>}
+	 */
+	applyApplicationControls(controls, container) {
+		return controls.map(control => ({
+			...this.applyControlLabels(control, this, container),
+			icon:     utils.functionOrValue(control.icon, "")(this, container),
+			class:    control.class ?? "",
+			disabled: utils.functionOrValue(control.disabled, false)(this, container),
+			hide:     utils.functionOrValue(control.hide, false)(this, container)
+		}));
+	}
+
+	/**
 	 * Generate the data for badges on the provided card.
 	 *
 	 * @param {Card}             card      - The card to place the badge on
@@ -251,7 +268,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * Reduce a nested array of controls into a flat object of control functions.
 	 *
 	 * @param {Array<[string, Function]>} controls - Entries for each control function and its class
-	 * @param {CardControl}               control  - The control to extract the function from                    
+	 * @param {CardControl|AppControl}    control  - The control to extract the function from                    
 	 * @return {Array<[string, Function]>} Entries for each control function and its class
 	 */
 	controlReducer(controls, control) {
@@ -305,7 +322,8 @@ const MonarchApplicationMixin = Base => class extends Base {
 		
 		this._controlFns = {
 			...Object.fromEntries(data.controls.reduce(this.controlReducer.bind(this), [])),
-			...Object.fromEntries(data.contextMenu.reduce(this.controlReducer.bind(this), []))
+			...Object.fromEntries(data.contextMenu.reduce(this.controlReducer.bind(this), [])),
+			...Object.fromEntries(data.appControls.reduce(this.controlReducer.bind(this), [])),
 		}
 
 		return data;

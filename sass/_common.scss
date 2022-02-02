@@ -41,6 +41,10 @@
 		border-bottom: 1px dashed white;
 	}
 
+	button {
+		cursor: pointer;
+	}
+
 	.card-control {
 		&[disabled] {
 			color: rgba(255, 255, 255, 0.5);

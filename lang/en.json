@@ -9,7 +9,8 @@
 				"ready": "🦋 Monarch | Ready."
 			},
 			"error": {
-				"noControlClass": "🦋 Monarch | Error: Missing 'class' on control."
+				"noControlClass": "🦋 Monarch | Error: Missing 'class' on control.",
+				"noLabelTooltip": "🦋 Monarch | Error: Please provide a 'tooltip' or 'label' for control '{class}'."
 			}
 		},
 		"sheetTitle": {

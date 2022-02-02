@@ -97,24 +97,6 @@ export async function getImageDimensions(path) {
 	return { width: img.width, height: img.height };
 }
 
-/**
- * Load all the templates for handlebars partials.
- *
- * @export
- * @return {Promise<Function[]>} An array of functions that render the partials.
- */
-export async function preLoadTemplates() {
-	return loadTemplates([
-		// Shared Partials
-		"modules/monarch/templates/parts/card-badge.hbs",
-		"modules/monarch/templates/parts/card-control.hbs",
-		"modules/monarch/templates/parts/card-marker.hbs",
-		"modules/monarch/templates/parts/control-block.hbs",
-		"modules/monarch/templates/parts/context-menu.hbs",
-		"modules/monarch/templates/parts/card-hud.hbs"
-	]);
-}
-
 export function functionOrValue(value, defaultValue = null) {
 	return typeof value === "function" ? value : () => (value ?? defaultValue);
 }

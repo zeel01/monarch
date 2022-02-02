@@ -16,39 +16,57 @@ import Monarch from "./Monarch.js";
  * @param {Card}  card      - The card to act upon
  * @param {Cards} container - The cards container
  * @returns {void}
+ *
+ * @callback appStringCallback
+ * @param {FormApplication} app       - The Monarch application instance
+ * @param {Cards}           container - The cards container
+ * @returns {string}
+ *
+ * @callback appBooleanCallback
+ * @param {FormApplication} app       - The Monarch application instance
+ * @param {Cards}           container - The cards container
+ * @returns {boolean}
+ *
+ * @callback appClickCallback
+ * @param {Event}           event     - The click event
+ * @param {FormApplication} app       - The Monarch application instance
+ * @param {Cards}           container - The cards container
+ * @returns {void}
  */
 /**
  * @typedef  {Object} CardBadge                   An object defining a badge to display information on a card.
- * @property {string|stringCallback}   tooltip    - The tooltip of the badge, or a function that returns the tooltip
- * @property {string|stringCallback}   text       - The label of the badge, or a function that returns the label. May contain HTML.
- * @property {string}                  [class]    - The css class to apply to the badge
- * @property {boolean|booleanCallback} [hide]     - Whether or not to hide (not display) the badge at all.
-
- * @typedef  {Object} CardMarker                  An object defining a marker to display on a card.
- * @property {string|stringCallback}   tooltip    - The tooltip of the marker, or a function that returns the tooltip
- * @property {string}                  [class]    - The css class to apply to the marker
- * @property {string|stringCallback}   [icon]     - The icon to display for the marker, or a function that returns the icon. Default is a dot.
- * @property {string|stringCallback}   [color]    - The color of the marker, or a function that returns the color. Default is white.
- * @property {boolean|booleanCallback} [show]     - Whether or not to show the marker. Default is false.
+ * @property {string|stringCallback}      tooltip    - The tooltip of the badge, or a function that returns the tooltip
+ * @property {string|stringCallback}      text       - The label of the badge, or a function that returns the label. May contain HTML.
+ * @property {string}                     [class]    - The css class to apply to the badge
+ * @property {boolean|booleanCallback}    [hide]     - Whether or not to hide (not display) the badge at all.
  *
- * @typedef  {Object} CardControl                 An object defining a control to display on a card.
- * @property {string|stringCallback}   [label]    - The label of the control
- * @property {string|stringCallback}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
- * @property {string|stringCallback}   [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
- * @property {string|stringCallback}   [icon]     - The icon to display for the control, or a function that returns the icon
- * @property {string|stringCallback}   [color]    - The color of the icon, or a function that returns the color. Default is white.
- * @property {string}                  [class]    - The css class to apply to the control
- * @property {boolean|booleanCallback} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
- * @property {cardClickCallback}       [onclick]  - The function to call when the control is clicked
- * @property {Array<CardControl>}      [controls] - An array of controls to display as a group
+ * @typedef  {Object} CardMarker                     An object defining a marker to display on a card.
+ * @property {string|stringCallback}      tooltip    - The tooltip of the marker, or a function that returns the tooltip
+ * @property {string}                     [class]    - The css class to apply to the marker
+ * @property {string|stringCallback}      [icon]     - The icon to display for the marker, or a function that returns the icon. Default is a dot.
+ * @property {string|stringCallback}      [color]    - The color of the marker, or a function that returns the color. Default is white.
+ * @property {boolean|booleanCallback}    [show]     - Whether or not to show the marker. Default is false.
  *
- * @typedef  {Object} AppControl                  An object defining a control to display on the application.
- * @property {string}                  label      - The label of the control
- * @property {string|stringCallback}   tooltip    - The tooltip of the control, or a function that returns the tooltip
- * @property {string|stringCallback}   aria       - The aria label (for screen readers) of the control, or a function that returns the aria label
- * @property {string}                  class      - The css class to apply to the control
- * @property {string|stringCallback}   icon       - The icon to display for the control, or a function that returns the icon
- * @property {Function}                onclick    - The function to call when the control is clicked
+ * @typedef  {Object} CardControl                    An object defining a control to display on a card.
+ * @property {string|stringCallback}      [label]    - The label of the control
+ * @property {string|stringCallback}      [tooltip]  - The tooltip of the control, or a function that returns the tooltip
+ * @property {string|stringCallback}      [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
+ * @property {string|stringCallback}      [icon]     - The icon to display for the control, or a function that returns the icon
+ * @property {string|stringCallback}      [color]    - The color of the icon, or a function that returns the color. Default is white.
+ * @property {string}                     [class]    - The css class to apply to the control
+ * @property {boolean|booleanCallback}    [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
+ * @property {cardClickCallback}          [onclick]  - The function to call when the control is clicked
+ * @property {Array<CardControl>}         [controls] - An array of controls to display as a group
+ *
+ * @typedef  {Object} AppControl                     An object defining a control to display on the application.
+ * @property {string}                     label      - The label of the control
+ * @property {string|appStringCallback}   [tooltip]  - The tooltip of the control, or a function that returns the tooltip
+ * @property {string|appStringCallback}   [aria]     - The aria label (for screen readers) of the control, or a function that returns the aria label
+ * @property {string}                     class      - The css class to apply to the control
+ * @property {string|appStringCallback}   icon       - The icon to display for the control, or a function that returns the icon
+ * @property {boolean|appBooleanCallback} [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
+ * @property {boolean|appBooleanCallback} [hide]     - Whether or not to hide (not display) the control at all.
+ * @property {Function}                   onclick    - The function to call when the control is clicked
  */
 
 /** @type {Object<string, string>} */
@@ -187,6 +205,61 @@ export class Controls {
 				this.markerToggle.white
 			]
 		};
+	}
+}
+
+export class AppControls {
+	/** @type {AppControl} */
+	static get shuffle() {
+		return {
+			label: "CARDS.Shuffle",
+			icon: "fas fa-random",
+			class: "shuffle-pile",
+			onclick: (event, app, pile) => {
+				app._sortStandard = false;
+				return pile.shuffle();
+			}
+		}
+	}
+
+	/** @type {AppControl} */
+	static get deal() {
+		return {
+			label: "CARDS.Deal",
+			icon: "fas fa-share-square",
+			class: "deal-pile",
+			onclick: (event, app, pile) => pile.dealDialog()
+		}
+	}
+
+	/** @type {AppControl} */
+	static get reset() {
+		return {
+			label: "CARDS.Reset",
+			icon: "fas fa-undo",
+			class: "reset-pile",
+			onclick: (event, app, pile) => pile.resetDialog()
+		}
+	}
+
+	/** @type {AppControl} */
+	static get draw() {
+		return {
+			label: "CARDS.Draw",
+			icon: "fas fa-plus",
+			class: "draw-cards",
+			onclick: (event, app, pile) => pile.drawDialog()
+		}
+	}
+
+	/** @type {AppControl} */
+	static get pass() {
+		return {
+			label: "CARDS.Pass",
+			icon: "fas fa-share-square",
+			class: "pass-cards",
+			onclick: (event, app, pile) => pile.passDialog()
+		}
 	}
 }
 

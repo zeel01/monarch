@@ -4,7 +4,7 @@ import MonarchCard from "./scripts/MonarchCard.js";
 import MonarchHand from "./scripts/MonarchHand.js";
 import MonarchDeck from "./scripts/MonarchDeck.js";
 import MonarchPile from "./scripts/MonarchPile.js";
-import { Controls, Badges } from "./scripts/Components.js";
+import { Controls, Badges, AppControls } from "./scripts/Components.js";
 
 Hooks.on("init", () => {
 	game.settings.register(Monarch.name, "cardHeight", {
@@ -56,7 +56,7 @@ Hooks.on("init", () => {
 });
 
 Hooks.on("ready", async () => {
-	await utils.preLoadTemplates();
+	await Monarch.preLoadTemplates();
 	utils.restoreWindows();
 
 	document.addEventListener("click", (event) => {
@@ -69,4 +69,13 @@ Hooks.on("ready", async () => {
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
 	if (Monarch.discardPile) 
 		components.controls.find(c => c.class === "basic-controls")?.controls?.push(Controls.discard);
+});
+
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+	components.appControls.push({
+		label: "CARDS.Reset",
+		icon: "fas fa-undo",
+		class: "reset-pile",
+		onclick: (event, app, pile) => pile.resetDialog()
+	});
 });

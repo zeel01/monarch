@@ -30,13 +30,6 @@
 
 	<!-- Sheet Footer -->
 	<footer class="sheet-footer flexrow">
-		{{#if owner}}
-			<button class="card-control" type="button" data-action="shuffle">
-				<i class="fas fa-random"></i> {{localize "CARDS.Shuffle"}}
-			</button>
-			<button class="card-control" type="button" data-action="pass">
-				<i class="fas fa-share-square"></i> {{localize "CARDS.Pass"}}
-			</button>
-		{{/if}}
+		{{> "modules/monarch/templates/parts/app-controls.hbs" controls=appControls}}
 	</footer>
 </form>

@@ -19,14 +19,7 @@
 
 	<!-- Sheet Footer -->
 	<footer class="sheet-footer">
-		{{#if owner}}
-			<input type="text" name="name" value="{{data.name}}" placeholder="{{localize 'Name'}}" />
-			<button class="card-control" type="button" data-action="draw">
-				<i class="fas fa-plus"></i> {{localize "CARDS.Draw"}}
-			</button>
-			<button class="card-control" type="button" data-action="pass">
-				<i class="fas fa-share-square"></i> {{localize "CARDS.Pass"}}
-			</button>
-		{{/if}}
+		<input type="text" name="name" value="{{data.name}}" placeholder="{{localize 'Name'}}" {{#unless owner}}disabled{{/unless}} />
+		{{> "modules/monarch/templates/parts/app-controls.hbs" controls=appControls}}
 	</footer>
 </form>

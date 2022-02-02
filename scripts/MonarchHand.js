@@ -1,9 +1,10 @@
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
-import { Controls, Badges } from "./Components.js";
+import { Controls, AppControls } from "./Components.js";
 
 /**
  * @typedef {import("./Components.js").CardControl} CardControl
  * @typedef {import("./Components.js").CardBadge} CardBadge
+ * @typedef {import("./Components.js").AppControl} AppControl
  */
 
 export default class MonarchHand extends MonarchCardsConfig {
@@ -88,5 +89,13 @@ export default class MonarchHand extends MonarchCardsConfig {
 				]
 			}
 		];
+	}
+
+	/** @type {Array<AppControl>} */
+	get appControls() {
+		return [
+			AppControls.draw,
+			AppControls.pass
+		]
 	}
 }

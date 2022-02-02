@@ -1,9 +1,10 @@
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
-import { Controls, Badges } from "./Components.js";
+import { Controls, Badges, AppControls } from "./Components.js";
 
 /**
  * @typedef {import("./Components.js").CardControl} CardControl
  * @typedef {import("./Components.js").CardBadge} CardBadge
+ * @typedef {import("./Components.js").AppControl} AppControl
  */
 
 export default class MonarchDeck extends MonarchCardsConfig {
@@ -39,5 +40,14 @@ static get defaultOptions() {
 			...super.badges,
 			Badges.drawn
 		];
+	}
+
+	/** @type {Array<AppControl>} */
+	get appControls() {
+		return [
+			AppControls.shuffle,
+			AppControls.deal,
+			AppControls.reset
+		]
 	}
 }

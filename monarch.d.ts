@@ -13,7 +13,6 @@ declare module "scripts/utils" {
         width: number;
         height: number;
     }>;
-    export function preLoadTemplates(): Promise<Function[]>;
     export function functionOrValue(value: any, defaultValue?: any): any;
 }
 declare module "scripts/Monarch" {
@@ -24,6 +23,7 @@ declare module "scripts/Monarch" {
             readonly discardPile: any;
         };
         static get discardPile(): any;
+        static preLoadTemplates(): Promise<Function[]>;
     }
 }
 declare module "scripts/Components" {
@@ -45,6 +45,13 @@ declare module "scripts/Components" {
         };
         static get colorToggles(): CardControl;
     }
+    export class AppControls {
+        static get shuffle(): AppControl;
+        static get deal(): AppControl;
+        static get reset(): AppControl;
+        static get draw(): AppControl;
+        static get pass(): AppControl;
+    }
     export class Badges {
         static get default(): CardBadge[];
         static get name(): CardBadge;
@@ -63,6 +70,9 @@ declare module "scripts/Components" {
     export type stringCallback = (card: Card, container: Cards) => string;
     export type booleanCallback = (card: Card, container: Cards) => boolean;
     export type cardClickCallback = (event: Event, card: Card, container: Cards) => void;
+    export type appStringCallback = (app: FormApplication, container: Cards) => string;
+    export type appBooleanCallback = (app: FormApplication, container: Cards) => boolean;
+    export type appClickCallback = (event: Event, app: FormApplication, container: Cards) => void;
     export type CardBadge = {
         tooltip: string | stringCallback;
         text: string | stringCallback;
@@ -89,10 +99,12 @@ declare module "scripts/Components" {
     };
     export type AppControl = {
         label: string;
-        tooltip: string | stringCallback;
-        aria: string | stringCallback;
+        tooltip?: string | appStringCallback;
+        aria?: string | appStringCallback;
         class: string;
-        icon: string | stringCallback;
+        icon: string | appStringCallback;
+        disabled?: boolean | appBooleanCallback;
+        hide?: boolean | appBooleanCallback;
         onclick: Function;
     };
 }
@@ -141,9 +153,11 @@ declare module "scripts/MonarchHand" {
         _onDragEnter(event: Event): void;
         _onDragLeave(event: Event): void;
         get controls(): import("scripts/Components").CardControl[];
+        get appControls(): import("scripts/Components").AppControl[];
     }
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
+    export type AppControl = import("scripts/Components").AppControl;
     import MonarchCardsConfig from "scripts/MonarchCardsConfig";
 }
 declare module "scripts/MonarchDeck" {
@@ -151,18 +165,22 @@ declare module "scripts/MonarchDeck" {
         static get defaultOptions(): any;
         get controls(): import("scripts/Components").CardControl[];
         get badges(): import("scripts/Components").CardBadge[];
+        get appControls(): import("scripts/Components").AppControl[];
     }
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
+    export type AppControl = import("scripts/Components").AppControl;
     import MonarchCardsConfig from "scripts/MonarchCardsConfig";
 }
 declare module "scripts/MonarchPile" {
     export default class MonarchPile extends MonarchCardsConfig {
         static get defaultOptions(): any;
         get controls(): import("scripts/Components").CardControl[];
+        get appControls(): import("scripts/Components").AppControl[];
     }
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
+    export type AppControl = import("scripts/Components").AppControl;
     import MonarchCardsConfig from "scripts/MonarchCardsConfig";
 }
 declare module "monarch" {

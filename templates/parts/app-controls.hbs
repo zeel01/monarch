@@ -1,0 +1,11 @@
+{{#each controls as |control|}}
+	{{#unless control.hide}}
+		<button class="app-control {{control.class}}"
+			title="{{localize control.tooltip}}"
+			aria-label="{{#if control.aria}}{{localize control.aria}}{{else}}{{localize control.tooltip}}{{/if}}"
+			{{#if control.disabled}}disabled{{/if}}
+			type="button">
+			<i class="{{control.icon}}"></i> {{localize control.label}}
+		</button>
+	{{/unless}}
+{{/each}}

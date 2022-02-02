@@ -75,7 +75,7 @@ This hook fires just before any Monarch sheet renders, the name will depend on w
 | `components.controls` | `Array<CardControl>` | An array of controls to add to the application. These are added to each card individually for piles. |
 | `components.markers` | `Array<CardMarker>` | An array of markers to add to the application. These are added to each card individually for piles. |
 | `components.contextMenu` | `Array<CardControl>` | An array of controls to add to context menus. These are added to each card individually for piles. |
-| ~~`components.appControls`~~ | ~~`Array<AppControl>`~~ | *Not Yet Implmented*<br>~~An array of controls to add to the application. These are added to the application for interacting with the pile itself.~~ |
+| `components.appControls`~~ | `Array<AppControl>` | An array of controls to add to the application. These are added to the application for interacting with the pile itself. This property is ignored for the `Card` sheet, use `controls` |
 
 #### Data Objects
 
@@ -117,9 +117,9 @@ Data to define an interactive contrl that will display on a card.
 | `aria` | `string`<br>`Function<string>` | The ARIA label for the control, used by screen readers to identify it. When omitted, the `tooltip` will be used instead. May be a function that returns a string. |
 | `icon` | `string`<br>`Function<string>` | The classes used to display a font awesome icon (ex: `"fas fa-caret-up"`). May be a function that returns a string. |
 | `color` | `string`<br>`Function<string>` | The color of the icon, default is `"#FFFFFF"` (white). May be a function that returns a string. |
-| `class` | `string` | A unique CSS class to apply to the control. **IMPORTANT**: This property is required. Monarch used this clas to identify the control in order to attach event listeners. |
+| `class` | `string` | A unique CSS class to apply to the control. **IMPORTANT**: This property is required. Monarch uses this class to identify the control in order to attach event listeners. |
 | `disabled` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to disable the control. The control will appear grayed out. May be a function that returns a boolean. `false` by default. |
-| `onclick` | `Function<void>` | A function that will run when the control is clicked. See blow for parameter information. |
+| `onclick` | `Function<void>` | A function that will run when the control is clicked. See below for parameter information. |
 | `controls` | `Array<CardControl>` | *Optional*. An array of controls to be added as a control group. When included, you may omit all other properties except `class`. Instead, each item in this `controls` array should be a complete `CardControl` object. Does not support nesting. |
 
 ###### `onclick` Parameters
@@ -129,15 +129,46 @@ Data to define an interactive contrl that will display on a card.
 | `card` | `Card` | The card that the control is on. |
 | `container` | `Cards` | The Cards object that the card is a member of. |
 
+##### `AppControl`
+
+Data to define an interactive contrl that will display on the application. Not used for the `Card` appliction, just use `CardControl` instead.
+
+###### Properties
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| `label` | `string`<br>`Function<string>` | A text label for the control. May be a function that returns a string. |
+| `tooltip` | `string`<br>`Function<string>` | Used as the HTML `title` attribute providing a tooltip describing/labeling this control. May be a function that returns a string. |
+| `aria` | `string`<br>`Function<string>` | The ARIA label for the control, used by screen readers to identify it. When omitted, the `tooltip` will be used instead. May be a function that returns a string. |
+| `icon` | `string`<br>`Function<string>` | The classes used to display a font awesome icon (ex: `"fas fa-caret-up"`). May be a function that returns a string. |
+| `class` | `string` | A unique CSS class to apply to the control. **IMPORTANT**: This property is required. Monarch uses this class to identify the control in order to attach event listeners. |
+| `disabled` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to disable the control. The control will appear grayed out. May be a function that returns a boolean. `false` by default. |
+| `hide` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to hide the control entirely. |
+| `onclick` | `Function<void>` | A function that will run when the control is clicked. See below for parameter information. |
+
+###### `onclick` Parameters
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `event` | `MouseEvent` | The mouse event that triggered the click. |
+| `app` | `FormApplication` | The application that the control is on. |
+| `container` | `Cards` | The Cards object that the application represents. |
+
 ### Value or Function Callbacks
 
 Many of the values specified for Components can be either a string or boolean *or* a function that returns a value. This allows for per-card values by calling the given function for each card in a pile, or for values that apply to all cards by passing a static value. These functions will be passed the following parameters:
 
 ##### Parameters
+
+###### For `CardControl`s
 | Parameter | Type | Description |
 | --------- | ---- | ----------- |
 | `card` | `Card` | The card that the component is for. |
 | `container` | `Cards` | The Cards object that the card is a member of. |
+
+###### For `AppControl`s
+| Parameter | Type | Description |
+| --------- | ---- | ----------- |
+| `app` | `FormApplication` | The application that the component is on. |
+| `container` | `Cards` | The Cards object that the application represents. |
 
 ### API Guide
 
@@ -266,3 +297,24 @@ The last property of `CardMarker` is `show`. Here, we define `show` as a functio
 Very similar to creating controls, context menus are created by adding control objects to the `controls.contextMenu` array. These controls won't show on the card when hovered, but will appear when right-clicked. These controls also support a `label` property that can be used to display a label for the menu item. If a `control` has an array of `controls`, a no-label row of icon buttons will be created instead.
 
 ![A hand sheet with a custom context menu.](examples/guide-context-menu.png)
+
+#### Creating Custom Application Controls
+
+Unlike card controls, markers, and badges these controls apply to the `Cards` object/application rather than to a specific card. These are used for buttons like "draw" in a hand or "shuffle" in a deck. For these, you add `AppControl` objects to the `controls.appControls` array.
+
+As an example, we will add a "reset" button to the hand application.
+
+```js
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+    components.appControls.push({
+        label: "CARDS.Reset",
+        icon: "fas fa-undo",
+        class: "reset-pile",
+        onclick: (event, app, pile) => pile.resetDialog()
+    });
+});
+```
+
+Note that the parameters for the `onclick` callback are different than for a `CardControl`, since there isn't a target `Card` object for this control.
+
+![A hand sheet with a custom application control.](examples/guide-custom-app-control.png)
