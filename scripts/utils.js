@@ -90,11 +90,8 @@ export function removePositon(uuid) {
  * @return {Promise<{width: number, height: number}>} The dimensions of the image.
  */
 export async function getImageDimensions(path) {
-	const img = new Image();
-	img.src = path;
-	await new Promise(resolve => img.onload = resolve);
-
-	return { width: img.width, height: img.height };
+	const img = await loadTexture(path);
+	return { width: img.baseTexture.width, height: img.baseTexture.height };
 }
 
 export function functionOrValue(value, defaultValue = null) {
