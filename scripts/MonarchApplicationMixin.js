@@ -3,7 +3,6 @@ import * as utils from "./utils.js";
 import { Controls, Badges, Markers } from "./Components.js";
 
 /**
- * @typedef {import("./Components.js").cardClickCallback} cardClickCallback
  * @typedef {import("./Components.js").CardControl} CardControl
  * @typedef {import("./Components.js").CardBadge} CardBadge
  * @typedef {import("./Components.js").CardMarker} CardMarker
@@ -29,16 +28,9 @@ const MonarchApplicationMixin = Base => class extends Base {
 	/**
 	 * All the callback functions from the controls mapped to their class names.
 	 *
-	 * @type {Object<string, cardClickCallback>}
+	 * @type {Object<string, Function>}
 	 */
 	_controlFns = [];
-
-	/**
-	 * All the callback functions from the controls mapped to their class names.
-	 *
-	 * @type {Object<string, cardClickCallback>}
-	 */
-	_ctxMenuFns = [];
 
 	/** @override */
 	setPosition(...args) {

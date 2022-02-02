@@ -99,7 +99,6 @@ declare module "scripts/Components" {
 }
 declare module "scripts/MonarchApplicationMixin" {
     export default MonarchApplicationMixin;
-    export type cardClickCallback = import("scripts/Components").cardClickCallback;
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
     export type CardMarker = import("scripts/Components").CardMarker;
