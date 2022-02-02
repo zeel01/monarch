@@ -77,6 +77,16 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 				});
 			});
 		});
+
+		html.addEventListener("contextmenu", event => {
+			this.form.classList.remove("show-ctx");
+			event.stopPropagation();
+			event.preventDefault();
+			this.form.classList.add("show-ctx");
+			const menu = this.form.querySelector(".context-menu");
+			menu.style.left = `${event.clientX}px`;
+			menu.style.top = `${event.clientY}px`;
+		});
 	}
 
 	/** @type {Array<CardControl>} */
@@ -122,6 +132,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 
 	applyComponents(data) {
 		data.data.controls = this.applyCardControls(this.object, data.controls, this.object.parent);
+		data.data.contextMenu = this.applyCardControls(this.object, data.contextMenu, this.object.parent);
 		data.data.badges = this.applyCardBadges(this.object, data.badges, this.object.parent);
 		data.data.markers = this.applyCardMarkers(this.object, data.markers, this.object.parent);
 	}

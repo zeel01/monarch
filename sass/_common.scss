@@ -158,7 +158,9 @@
 			flex-direction: row;
 		}
 	}
-	.card.show-ctx .context-menu {
-		display: flex;
+	.card.show-ctx, form.editable.show-ctx {
+		.context-menu {
+			display: flex;
+		}
 	}
 }
