@@ -15,17 +15,6 @@ declare module "scripts/utils" {
     }>;
     export function functionOrValue(value: any, defaultValue?: any): any;
 }
-declare module "scripts/Monarch" {
-    export default class Monarch {
-        static get name(): string;
-        static get settings(): {
-            readonly cardHeight: any;
-            readonly discardPile: any;
-        };
-        static get discardPile(): any;
-        static preLoadTemplates(): Promise<Function[]>;
-    }
-}
 declare module "scripts/Components" {
     export const colors: {
         [x: string]: string;
@@ -124,41 +113,12 @@ declare module "scripts/MonarchApplicationMixin" {
     };
     function MonarchApplicationMixin(Base: any): any;
 }
-declare module "scripts/MonarchCard" {
-    export default class MonarchCard {
-        static get defaultOptions(): any;
-        constructor(...args: any[]);
-        activateListeners(html: any): void;
-        get controls(): import("scripts/Components").CardControl[];
-        override _getHeaderButtons(): any;
-        _getSubmitData: any;
-        getData(): Promise<any>;
-        applyComponents(data: any): void;
-    }
-    export type CardControl = import("scripts/Components").CardControl;
-    export type CardBadge = import("scripts/Components").CardBadge;
-}
 declare module "scripts/MonarchCardsConfig" {
     export default class MonarchCardsConfig {
         getData(options: any): Promise<any>;
         applyComponents(data: any): void;
         activateListeners(html: any): void;
     }
-}
-declare module "scripts/MonarchHand" {
-    export default class MonarchHand extends MonarchCardsConfig {
-        static get defaultOptions(): any;
-        _getHeaderButtons(): any;
-        override _onCardControl(event: any): Promise<any>;
-        _onDragEnter(event: Event): void;
-        _onDragLeave(event: Event): void;
-        get controls(): import("scripts/Components").CardControl[];
-        get appControls(): import("scripts/Components").AppControl[];
-    }
-    export type CardControl = import("scripts/Components").CardControl;
-    export type CardBadge = import("scripts/Components").CardBadge;
-    export type AppControl = import("scripts/Components").AppControl;
-    import MonarchCardsConfig from "scripts/MonarchCardsConfig";
 }
 declare module "scripts/MonarchDeck" {
     export default class MonarchDeck extends MonarchCardsConfig {
@@ -182,6 +142,71 @@ declare module "scripts/MonarchPile" {
     export type CardBadge = import("scripts/Components").CardBadge;
     export type AppControl = import("scripts/Components").AppControl;
     import MonarchCardsConfig from "scripts/MonarchCardsConfig";
+}
+declare module "scripts/MonarchHand" {
+    export default class MonarchHand extends MonarchCardsConfig {
+        static get defaultOptions(): any;
+        _getHeaderButtons(): any;
+        override _onCardControl(event: any): Promise<any>;
+        _onDragEnter(event: Event): void;
+        _onDragLeave(event: Event): void;
+        get controls(): import("scripts/Components").CardControl[];
+        get appControls(): import("scripts/Components").AppControl[];
+    }
+    export type CardControl = import("scripts/Components").CardControl;
+    export type CardBadge = import("scripts/Components").CardBadge;
+    export type AppControl = import("scripts/Components").AppControl;
+    import MonarchCardsConfig from "scripts/MonarchCardsConfig";
+}
+declare module "scripts/MonarchCard" {
+    export default class MonarchCard {
+        static get defaultOptions(): any;
+        constructor(...args: any[]);
+        activateListeners(html: any): void;
+        get controls(): import("scripts/Components").CardControl[];
+        override _getHeaderButtons(): any;
+        _getSubmitData: any;
+        getData(): Promise<any>;
+        applyComponents(data: any): void;
+    }
+    export type CardControl = import("scripts/Components").CardControl;
+    export type CardBadge = import("scripts/Components").CardBadge;
+}
+declare module "scripts/Monarch" {
+    export default class Monarch {
+        static get name(): string;
+        static ApplicationMixin: (Base: any) => any;
+        static CardsConfig: typeof MonarchCardsConfig;
+        static Deck: typeof MonarchDeck;
+        static Pile: typeof MonarchPile;
+        static Hand: typeof MonarchHand;
+        static Card: typeof MonarchCard;
+        static Controls: typeof Controls;
+        static Badges: typeof Badges;
+        static Markers: typeof Markers;
+        static AppControls: typeof AppControls;
+        static utils: typeof utils;
+        static readonly get settings(): {
+            readonly cardHeight: any;
+            readonly discardPile: any;
+        };
+        static readonly get discardPile(): Cards;
+        static preLoadTemplates(): Promise<Function[]>;
+        static registerSettings(): void;
+        static registerSheets(): void;
+        static onInit(): void;
+        static onReady(): Promise<void>;
+    }
+    import MonarchCardsConfig from "scripts/MonarchCardsConfig";
+    import MonarchDeck from "scripts/MonarchDeck";
+    import MonarchPile from "scripts/MonarchPile";
+    import MonarchHand from "scripts/MonarchHand";
+    import MonarchCard from "scripts/MonarchCard";
+    import { Controls } from "scripts/Components";
+    import { Badges } from "scripts/Components";
+    import { Markers } from "scripts/Components";
+    import { AppControls } from "scripts/Components";
+    import * as utils from "scripts/utils";
 }
 declare module "monarch" {
     export {};

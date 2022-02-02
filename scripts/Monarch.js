@@ -25,6 +25,13 @@ export default class Monarch {
 
 	static utils = utils;
 
+	/**
+	 * Set of convenience getters for Monarch settings.
+	 *
+	 * @readonly
+	 * @static
+	 * @memberof Monarch
+	 */
 	static get settings() {
 		return {
 			get cardHeight() {
@@ -36,6 +43,14 @@ export default class Monarch {
 		};
 	}
 
+	/**
+	 * The Cards pile designated as the discard pile.
+	 *
+	 * @type {Cards}
+	 * @readonly
+	 * @static
+	 * @memberof Monarch
+	 */
 	static get discardPile() {
 		return game.cards.get(this.settings.discardPile);
 	}
@@ -57,5 +72,85 @@ export default class Monarch {
 			"modules/monarch/templates/parts/app-controls.hbs",
 			"modules/monarch/templates/parts/card-hud.hbs"
 		]);
+	}
+
+	/**
+	 * Register all settings for this module.
+	 *
+	 * @static
+	 * @memberof Monarch
+	 */
+	static registerSettings() {
+		game.settings.register(this.name, "cardHeight", {
+			name: game.i18n.localize("monarch.settings.cardHeight.name"),
+			hint: game.i18n.localize("monarch.settings.cardHeight.hint"),
+			scope: "world",
+			config: true,
+			type: Number,
+			default: 200,
+			onChange: () => {
+				Object.values(ui.windows)
+					.filter(w => w.isMonarch)
+					.forEach(w => w.render(true));
+			}
+		});
+
+		game.settings.register(this.name, "discardPile", {
+			name: game.i18n.localize("monarch.settings.discardPile.name"),
+			hint: game.i18n.localize("monarch.settings.discardPile.hint"),
+			scope: "world",
+			config: true,
+			type: String,
+			default: "",
+			onChange: () => { }
+		});
+	}
+
+	/**
+	 * Register all document sheets for this module.
+	 *
+	 * @static
+	 * @memberof Monarch
+	 */
+	static registerSheets() {
+		DocumentSheetConfig
+			.registerSheet(Cards, this.name, MonarchHand, {
+				label: game.i18n.localize("monarch.sheetTitle.myHand"),
+				types: ["hand"]
+			})
+
+		DocumentSheetConfig
+			.registerSheet(Cards, this.name, MonarchDeck, {
+				label: game.i18n.localize("monarch.sheetTitle.deck"),
+				types: ["deck"]
+			})
+
+		DocumentSheetConfig
+			.registerSheet(Cards, this.name, MonarchPile, {
+				label: game.i18n.localize("monarch.sheetTitle.pile"),
+				types: ["pile"]
+			})
+
+		DocumentSheetConfig
+			.registerSheet(Card, this.name, MonarchCard, {
+				label: game.i18n.localize("monarch.sheetTitle.card")
+			})
+	}
+
+	static onInit() {
+		this.registerSettings();
+		this.registerSheets();
+	}
+
+	static async onReady() {
+		await this.preLoadTemplates();
+
+		utils.restoreWindows();
+
+		document.addEventListener("click", (event) => {
+			document.querySelectorAll(".monarch .card").forEach(card => card.classList.remove("show-ctx"));
+		});
+
+		console.log(game.i18n.localize("monarch.console.log.ready"));
 	}
 }
