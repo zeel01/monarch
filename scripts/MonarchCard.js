@@ -50,7 +50,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	/**
 	 * Handles clicking to magnify/display the card image.
 	 *
-	 * @param {MouseEvent} event - The click event.
+	 * @param {PointerEvent} event - The click event.
 	 * @memberof MonarchCard
 	 */
 	_onDisplay(event) {
@@ -70,7 +70,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	/**
 	 * Handles clicking on the button to open one of the config dialogs.
 	 *
-	 * @param {MouseEvent} event - The click event.
+	 * @param {PointerEvent} event - The click event.
 	 * @memberof MonarchCard
 	 */
 	_onConfigButton(event) {
@@ -98,7 +98,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	 * Delegates the click event to the appropriate handler found in the `_controlFns` object,
 	 * and passses the appropirate arguments.
 	 *
-	 * @param {MouseEvent}        event  - The click event
+	 * @param {PointerEvent}      event  - The click event
 	 * @param {HTMLAnchorElement} button - The element that was clicked
 	 * @return {void} 
 	 * @memberof MonarchCardsConfig
@@ -117,7 +117,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	 *
 	 * Displays a context menu for this card.
 	 *
-	 * @param {MouseEvent}  event - The click event
+	 * @param {PointerEvent}  event - The click event
 	 * @memberof MonarchCardsConfig
 	 */
 	_onContextMenu(event) {

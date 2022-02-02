@@ -84,7 +84,7 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	 * Delegates the click event to the appropriate handler found in the `_controlFns` object,
 	 * and passses the appropirate arguments.
 	 *
-	 * @param {MouseEvent}        event  - The click event
+	 * @param {PointerEvent}      event  - The click event
 	 * @param {HTMLAnchorElement} button - The element that was clicked
 	 * @param {HTMLElement}       card   - The element representing the card
 	 * @return {void} 
@@ -106,7 +106,7 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	 * Delegates the click event to the appropriate handler found in the `_controlFns` object,
 	 * and passses the appropirate arguments.
 	 *
-	 * @param {MouseEvent}        event  - The click event
+	 * @param {PointerEvent}      event  - The click event
 	 * @param {HTMLButtonElement} button - The element that was clicked
 	 * @return {void} 
 	 * @memberof MonarchCardsConfig
@@ -125,9 +125,9 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	 *
 	 * Displays a context menu for the targetted card.
 	 *
-	 * @param {MouseEvent}  event - The click event
-	 * @param {HTMLElement} html  - The element representing the application window
-	 * @param {HTMLElement} card  - The element representing the card
+	 * @param {PointerEvent} event - The click event
+	 * @param {HTMLElement}  html  - The element representing the application window
+	 * @param {HTMLElement}  card  - The element representing the card
 	 * @memberof MonarchCardsConfig
 	 */
 	_onContextMenu(event, html, card) {
