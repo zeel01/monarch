@@ -58,6 +58,10 @@ Monarch is designed to be flexible for the various needs of systems and games. I
 
 This section contains technical details about the Monarch API. The next section will give examples and instructions on how to use it.
 
+#### The `Monarch` Class
+
+For convenience, the `Monarch` class has been attached to `window` for global access. This class contains all the base functionality of the module, and references to the various other classes it contains.
+
 #### Hooks
 
 Monarch adds the following hooks:
