@@ -148,6 +148,7 @@ declare module "scripts/MonarchPile" {
 declare module "scripts/MonarchHand" {
     export default class MonarchHand extends MonarchCardsConfig {
         static get defaultOptions(): any;
+        _onClickCard(event: MouseEvent, card: HTMLElement): void;
         _getHeaderButtons(): any;
         override _onCardControl(event: any): Promise<any>;
         _onDragEnter(event: Event): void;

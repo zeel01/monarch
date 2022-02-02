@@ -70,6 +70,12 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 		html.querySelectorAll(".app-control").forEach(button => {
 			button.addEventListener("click", event => this._onAppControl(event, button));
 		});
+
+		// Handle drag and drop events
+		html.querySelectorAll(".card-wrapper").forEach(wrap => {
+			wrap.addEventListener("dragenter", this._onDragEnter.bind(this));
+			wrap.addEventListener("dragleave", this._onDragLeave.bind(this));
+		});
 	}
 
 	/**

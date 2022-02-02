@@ -72,7 +72,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * The height of all cards in the hand 
 	 * @type {number} 
 	 */
-	get cardHeight() { return Monarch.cardHeight; }
+	get cardHeight() { return Monarch.settings.cardHeight; }
 
 
 	/**
