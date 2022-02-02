@@ -76,6 +76,12 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 			wrap.addEventListener("dragenter", this._onDragEnter.bind(this));
 			wrap.addEventListener("dragleave", this._onDragLeave.bind(this));
 		});
+
+		// Clicking the card will open its sheet
+		html.querySelectorAll(".card").forEach(card => {
+			card.addEventListener("mouseenter", event => this._onHoverCard(event, card));
+			card.addEventListener("click", event => this._onClickCard(event, card));
+		});
 	}
 
 	/**
@@ -138,5 +144,63 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 		const menu = card.querySelector(".context-menu");
 		menu.style.left = `${event.clientX}px`;
 		menu.style.top = `${event.clientY}px`;
+	}
+
+	/**
+	 * Handles click events on the card.
+	 *
+	 * @param {PointerEvent} event - The click event
+	 * @param {HTMLElement}  card  - The element representing the card
+	 * @memberof MonarchHand
+	 */
+	_onClickCard(event, card) {
+		event.stopPropagation();
+		const cardDocument = this.object.cards.get(card.dataset.cardId);
+		
+		const doDefault = Hooks.call("clickMonarchCard", event, this, cardDocument);
+
+		if (doDefault) this._cardClickAction(event, this, cardDocument);
+	}
+
+	/**
+	 * Action to perform when a card is clicked.
+	 *
+	 * @param {PointerEvent}    event - The click event
+	 * @param {FormApplication} app   - The application object
+	 * @param {Card}            card  - The card object
+	 * @override
+	 * @memberof MonarchHand
+	 */
+	_cardClickAction(event, app, card) {
+		return;
+	}
+
+	/**
+	 * Handles click events on the card.
+	 *
+	 * @param {PointerEvent} event - The click event
+	 * @param {HTMLElement}  card  - The element representing the card
+	 * @memberof MonarchHand
+	 */
+	_onHoverCard(event, card) {
+		event.stopPropagation();
+		const cardDocument = this.object.cards.get(card.dataset.cardId);
+		
+		const doDefault = Hooks.call("hoverMonarchCard", event, this, cardDocument);
+
+		if (doDefault) this._cardHoverAction(event, this, cardDocument);
+	}
+
+	/**
+	 * Action to perform when a card is hovered over.
+	 *
+	 * @param {PointerEvent}    event - The click event
+	 * @param {FormApplication} app   - The application object
+	 * @param {Card}            card  - The card object
+	 * @override
+	 * @memberof MonarchHand
+	 */
+	_cardHoverAction(event, app, card) {
+		return;
 	}
 }

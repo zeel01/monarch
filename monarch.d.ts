@@ -117,9 +117,13 @@ declare module "scripts/MonarchCardsConfig" {
         getData(options: any): Promise<any>;
         applyComponents(data: any): void;
         activateListeners(html: HTMLElement): void;
-        _onControl(event: MouseEvent, button: HTMLAnchorElement, card: HTMLElement): void;
-        _onAppControl(event: MouseEvent, button: HTMLButtonElement): void;
-        _onContextMenu(event: MouseEvent, html: HTMLElement, card: HTMLElement): void;
+        _onControl(event: PointerEvent, button: HTMLAnchorElement, card: HTMLElement): void;
+        _onAppControl(event: PointerEvent, button: HTMLButtonElement): void;
+        _onContextMenu(event: PointerEvent, html: HTMLElement, card: HTMLElement): void;
+        _onClickCard(event: PointerEvent, card: HTMLElement): void;
+        override _cardClickAction(event: PointerEvent, app: FormApplication, card: Card): void;
+        _onHoverCard(event: PointerEvent, card: HTMLElement): void;
+        override _cardHoverAction(event: PointerEvent, app: FormApplication, card: Card): void;
     }
 }
 declare module "scripts/MonarchDeck" {
@@ -148,7 +152,6 @@ declare module "scripts/MonarchPile" {
 declare module "scripts/MonarchHand" {
     export default class MonarchHand extends MonarchCardsConfig {
         static get defaultOptions(): any;
-        _onClickCard(event: MouseEvent, card: HTMLElement): void;
         _getHeaderButtons(): any;
         override _onCardControl(event: any): Promise<any>;
         _onDragEnter(event: Event): void;
@@ -166,10 +169,10 @@ declare module "scripts/MonarchCard" {
         static get defaultOptions(): any;
         constructor(...args: any[]);
         activateListeners(html: HTMLElement): void;
-        _onDisplay(event: MouseEvent): void;
-        _onConfigButton(event: MouseEvent): void;
-        _onControl(event: MouseEvent, button: HTMLAnchorElement): void;
-        _onContextMenu(event: MouseEvent): void;
+        _onDisplay(event: PointerEvent): void;
+        _onConfigButton(event: PointerEvent): void;
+        _onControl(event: PointerEvent, button: HTMLAnchorElement): void;
+        _onContextMenu(event: PointerEvent): void;
         get controls(): import("scripts/Components").CardControl[];
         override _getHeaderButtons(): any;
         _getSubmitData: any;

@@ -19,32 +19,15 @@ export default class MonarchHand extends MonarchCardsConfig {
 	}
 
 	/**
-	 * Attach event handlers to the application.
+	 * Action to perform when a card is clicked.
 	 *
-	 * @param {HTMLElement} html - The element representing the application window
-	 * @memberof MonarchCardsConfig
-	 */
-	activateListeners(html) {
-		super.activateListeners(html);
-		html = html[0];
-
-		// Clicking the card will open its sheet
-		html.querySelectorAll(".card").forEach(card => {
-			card.addEventListener("click", event => this._onClickCard(event, card));
-		});
-	}
-
-	/**
-	 * Handles click events on the card.
-	 *
-	 * @param {MouseEvent}  event - The click event
-	 * @param {HTMLElement} card  - The element representing the card
+	 * @param {PointerEvent}    event - The click event
+	 * @param {FormApplication} app   - The application object
+	 * @param {Card}            card  - The card object
 	 * @memberof MonarchHand
 	 */
-	_onClickCard(event, card) {
-		event.stopPropagation();
-		const cardDocument = this.object.cards.get(card.dataset.cardId);
-		cardDocument.sheet.render(true);
+	_cardClickAction(event, app, card) {
+		card.sheet.render(true);
 	}
 
 	_getHeaderButtons() {
