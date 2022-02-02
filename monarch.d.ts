@@ -117,7 +117,10 @@ declare module "scripts/MonarchCardsConfig" {
     export default class MonarchCardsConfig {
         getData(options: any): Promise<any>;
         applyComponents(data: any): void;
-        activateListeners(html: any): void;
+        activateListeners(html: HTMLElement): void;
+        _onControl(event: MouseEvent, button: HTMLAnchorElement, card: HTMLElement): void;
+        _onAppControl(event: MouseEvent, button: HTMLButtonElement): void;
+        _onContextMenu(event: MouseEvent, html: HTMLElement, card: HTMLElement): void;
     }
 }
 declare module "scripts/MonarchDeck" {
@@ -162,7 +165,11 @@ declare module "scripts/MonarchCard" {
     export default class MonarchCard {
         static get defaultOptions(): any;
         constructor(...args: any[]);
-        activateListeners(html: any): void;
+        activateListeners(html: HTMLElement): void;
+        _onDisplay(event: MouseEvent): void;
+        _onConfigButton(event: MouseEvent): void;
+        _onControl(event: MouseEvent, button: HTMLAnchorElement): void;
+        _onContextMenu(event: MouseEvent): void;
         get controls(): import("scripts/Components").CardControl[];
         override _getHeaderButtons(): any;
         _getSubmitData: any;
