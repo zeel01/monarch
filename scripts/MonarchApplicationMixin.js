@@ -160,6 +160,40 @@ const MonarchApplicationMixin = Base => class extends Base {
 	}
 
 	/**
+	 * Obtain the strings for control labels, ensure that all three of
+	 * label, tooltip, and aria have values. If no valid values is given,
+	 * display an error message.
+	 *
+	 * @param {CardControl|AppControl} control - The control with labels to check
+	 * @param {Array<any>}             args    - The arguments to pass to the string callbacks         
+	 * @return {{ label: string, tooltip: string, aria: string }} }} 
+	 */
+	applyControlLabels(control, ...args) {
+		// Generate labels
+		let label   = utils.functionOrValue(control.label,   "")(...args);
+		let tooltip = utils.functionOrValue(control.tooltip, "")(...args);
+		let aria    = utils.functionOrValue(control.aria,    "")(...args);
+
+		// If tooltip or label is empty, copy the other to it so they match
+		if (!tooltip) tooltip = label;
+		if (!label)   label   = tooltip;
+
+		// If there aren't sub controls, and neither tooltip nor label have any text, show an error message
+		if (!control.controls?.length && !tooltip && !label) {
+			const error = game.i18n
+				.format("monarch.console.error.noLabelTooltip", { class: control.class });
+			console.error(error);
+			ui.notifications.error(error);
+		}
+
+		// If the aria label isn't set, use the tooltip value for it.
+		if (!aria) aria = tooltip;
+
+		// Return the set of labels
+		return { label, tooltip, aria };
+	}
+
+	/**
 	 * Generate the data for a control on the provided card.
 	 *
 	 * @param {Card}               card      - The card to place the control on
@@ -168,16 +202,8 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * @return {Array<CardControl>}
 	 */
 	applyCardControl(card, control, container) {
-		let tooltip = utils.functionOrValue(control.tooltip, "")(card, container);
-		let label   = utils.functionOrValue(control.label, "")(card, container);
-		let aria    = utils.functionOrValue(control.aria, "")(card, container);
-
-		if (!tooltip) tooltip = label;
-		if (!label)   label   = tooltip;
-		if (!aria)    aria    = tooltip || label;
-
 		return {
-			tooltip, label, aria,
+			...this.applyControlLabels(control, card, container),
 			icon:     utils.functionOrValue(control.icon, "")(card, container),
 			color:    utils.functionOrValue(control.color, "#FFFFFF")(card, container),
 			class:    control.class ?? "",
