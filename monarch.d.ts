@@ -34,6 +34,7 @@ declare module "scripts/Components" {
             [x: string]: CardControl;
         };
         static get colorToggles(): CardControl;
+        static get clearColorMarkers(): CardControl;
         static get consoleLog(): CardControl;
     }
     export class AppControls {

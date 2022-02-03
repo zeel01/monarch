@@ -199,15 +199,9 @@ export class Controls {
 
 	/** @type {Object<string, CardControl>} */
 	static get markerToggle() {
-		return {
-			get red()    { return Controls._getColorToggle("red"); },
-			get green()  { return Controls._getColorToggle("green"); },
-			get blue()   { return Controls._getColorToggle("blue"); },
-			get yellow() { return Controls._getColorToggle("yellow"); },
-			get purple() { return Controls._getColorToggle("purple"); },
-			get black()  { return Controls._getColorToggle("black"); },
-			get white()  { return Controls._getColorToggle("white"); },
-		}
+		return new Proxy(colors, {
+			get: (target, color) => Controls._getColorToggle(color)
+		});
 	}
 
 	/** @type {CardControl} */
@@ -215,15 +209,21 @@ export class Controls {
 		return {
 			class: "color-toggles",
 			controls: [
-				this.markerToggle.red,
-				this.markerToggle.green,
-				this.markerToggle.blue,
-				this.markerToggle.yellow,
-				this.markerToggle.purple,
-				this.markerToggle.black,
-				this.markerToggle.white
+				...Object.keys(colors).map(color => Controls.markerToggle[color]),
+				Controls.clearColorMarkers
 			]
 		};
+	}
+
+	/** @type {CardControl} */
+	static get clearColorMarkers() {
+		return {
+			tooltip: "monarch.label.clearColorMarkers",
+			icon: "fas fa-times-circle",
+			class: "clear-color-markers",
+			color: "#BBBBBB",
+			onclick: (event, card) => card.setFlag(Monarch.name, "markers", null)
+		}
 	}
 
 	/** @type {CardControl} */
@@ -352,15 +352,7 @@ export class Badges {
 export class Markers {
 	/** @type {Array<CardMarker>} */
 	static get default() {
-		return [
-			this.color.red,
-			this.color.green,
-			this.color.blue,
-			this.color.yellow,
-			this.color.purple,
-			this.color.black,
-			this.color.white
-		];
+		return Object.keys(colors).map(color => Markers.color[color]);
 	}
 
 	/**
@@ -381,14 +373,8 @@ export class Markers {
 
 	/** @type {Object<string, CardMarker>} */
 	static get color() {
-		return {
-			get red()    { return Markers._getColorMarker("red"); },
-			get green()  { return Markers._getColorMarker("green"); },
-			get blue()   { return Markers._getColorMarker("blue"); },
-			get yellow() { return Markers._getColorMarker("yellow"); },
-			get purple() { return Markers._getColorMarker("purple"); },
-			get black()  { return Markers._getColorMarker("black"); },
-			get white()  { return Markers._getColorMarker("white"); },
-		}
+		return new Proxy(colors, {
+			get: (target, color) => Markers._getColorMarker(color)
+		});
 	}
 }

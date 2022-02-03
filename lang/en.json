@@ -25,7 +25,8 @@
 			"magnify": "Show card image. Hold shift to show players.",
 			"discard": "Discard",
 			"showCard": "Show card to players",
-			"consoleLog": "Log 'Card' to console"
+			"consoleLog": "Log 'Card' to console",
+			"clearColorMarkers": "Clear color markers"
 		},
 		"settings": {
 			"label": "Configure Monarch",
