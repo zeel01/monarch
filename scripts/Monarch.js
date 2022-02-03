@@ -31,34 +31,15 @@ export default class Monarch {
 	static utils = utils;
 
 	/**
-	 * Set of convenience getters for Monarch settings.
+	 * Convenience proxy getter for Monarch settings.
 	 *
 	 * @readonly
 	 * @static
 	 * @memberof Monarch
 	 */
-	static get settings() {
-		return {
-			/**
-			 * The configured height of all cards in piles
-			 * @type {number} 
-			 */
-			get cardHeight() {
-				return game.settings.get(Monarch.name, "cardHeight");
-			},
-			/**
-			 * The id of the discard pile
-			 * @type {string}
-			 */
-			get discardPile() {
-				return game.settings.get(Monarch.name, "discardPile");
-			}
-		};
-	}
-
-	static newsettings = new Proxy({}, {
+	static settings = new Proxy({}, {
 		get: function (target, key) {
-			try { return game.settings.get(this.name, key); }
+			try { return game.settings.get(Monarch.name, key); }
 			catch (err) { 
 				console.warn(err);	
 				return undefined; 
@@ -68,6 +49,10 @@ export default class Monarch {
 
 	static get settingDefinitions() {
 		return {
+			showSuit:  { type: Boolean, default: true },
+			showValue: { type: Boolean, default: true },
+			showType:  { type: Boolean, default: false },
+			handReset: { type: Boolean, default: false },
 			cardHeight: {
 				type: Number,
 				default: 200

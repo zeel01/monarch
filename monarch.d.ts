@@ -187,6 +187,7 @@ declare module "scripts/MonarchSettings" {
         static readonly get defaultOptions(): any;
         getData(): object;
         _updateObject(event: Event, data: object): Promise<void>;
+        override _onSubmit(...args: any): any;
     }
 }
 declare module "scripts/Monarch" {
@@ -203,26 +204,35 @@ declare module "scripts/Monarch" {
         static Markers: typeof Markers;
         static AppControls: typeof AppControls;
         static utils: typeof utils;
-        static readonly get settings(): {
-            readonly cardHeight: number;
-            readonly discardPile: string;
-        };
-        static newsettings: any;
+        static readonly settings: any;
         static get settingDefinitions(): {
+            showSuit: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            showValue: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            showType: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
+            handReset: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
             cardHeight: {
                 type: NumberConstructor;
                 default: number;
-                onChange: any;
             };
             discardPile: {
                 type: StringConstructor;
                 default: string;
-                onChange: any;
                 getChoices: () => any;
             };
         };
         static readonly get discardPile(): Cards;
-        static _pendingRefresh: boolean;
         static refreshSheets(): void;
         static refreshSheetsAll(): Promise<void>;
         static preLoadTemplates(): Promise<Function[]>;

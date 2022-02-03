@@ -89,7 +89,8 @@ export default class MonarchHand extends MonarchCardsConfig {
 	get appControls() {
 		return [
 			AppControls.draw,
-			AppControls.pass
+			AppControls.pass,
+			...(Monarch.settings.handReset ? [AppControls.reset] : [])
 		]
 	}
 }

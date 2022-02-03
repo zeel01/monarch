@@ -267,9 +267,9 @@ export class Badges {
 	/** @type {Array<CardBadge>} */
 	static get default() {
 		return [
-			this.suit,
-			this.value,
-			this.type,
+			...(Monarch.settings.showSuit  ? [this.suit]  : []),
+			...(Monarch.settings.showValue ? [this.value] : []),
+			...(Monarch.settings.showType  ? [this.type]  : [])
 		];
 	}
 

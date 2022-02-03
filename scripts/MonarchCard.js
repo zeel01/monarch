@@ -1,3 +1,4 @@
+import Monarch from "./Monarch.js";
 import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
 import { Controls, Badges } from "./Components.js";
 
@@ -137,7 +138,8 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 			{
 				class: "basic-controls",
 				controls: [
-					Controls.play
+					Controls.play,
+					...(Monarch.settings.discardPile ? [Controls.discard] : [])
 				]
 			}
 		];

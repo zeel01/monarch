@@ -28,6 +28,22 @@
 		"settings": {
 			"label": "Configure Monarch",
 			"title": "🦋 Monarch Settings",
+			"showSuit": {
+				"name": "Show Suit Badge",
+				"hint": "Whether or not to show the suit badge on cards."
+			},
+			"showValue": {
+				"name": "Show Value Badge",
+				"hint": "Whether or not to show the value badge on cards."
+			},
+			"showType": {
+				"name": "Show Type Badge",
+				"hint": "Whether or not to show the type badge on cards."
+			},
+			"handReset": {
+				"name": "Reset On Hand",
+				"hint": "Whether or not to show a reset button on the hand to send all cards back to their deck."
+			},
 			"cardHeight": {
 				"name": "Card height",
 				"hint": "How tall in pixels cards in the hand/deck/pile should be displayed."
