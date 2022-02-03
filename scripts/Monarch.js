@@ -70,13 +70,11 @@ export default class Monarch {
 		return {
 			cardHeight: {
 				type: Number,
-				default: 200,
-				onChange: Monarch.refreshSheetsAll.bind(Monarch)
+				default: 200
 			},
 			discardPile: {
 				type: String,
 				default: "",
-				onChange: Monarch.refreshSheetsAll.bind(Monarch),
 				getChoices: () => ({
 					"": "",
 					...Object.fromEntries(
@@ -102,16 +100,6 @@ export default class Monarch {
 	}
 
 	/**
-	 * Indicates whether or not a sheet refresh has been
-	 * triggered recently.
-	 *
-	 * @type {boolean}
-	 * @static
-	 * @memberof Monarch
-	 */
-	static _pendingRefresh = false;
-
-	/**
 	 * Re-renders all Monarch sheets to allow settings to take effect.
 	 *
 	 * @static
@@ -126,24 +114,15 @@ export default class Monarch {
 	/**
 	 * Refreshes Monarch sheets for all players.
 	 *
-	 * Prevents multiple refreshes from happening at once.
-	 * There is a 500ms delay between refreshes.
-	 *
 	 * @static
 	 * @memberof Monarch
 	 */
 	static async refreshSheetsAll() {
-		if (this._pendingRefresh) return;
-
-		this._pendingRefresh = true;
-
 		await game.socket.emit(this.socketName, {
 			command: "refreshSheets"
 		});
 
 		this.refreshSheets();
-
-		setTimeout(() => this._pendingRefresh = false, 500);
 	}
 
 	/**

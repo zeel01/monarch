@@ -62,4 +62,19 @@ export default class MonarchSettings extends FormApplication {
 			await game.settings.set(Monarch.name, key, value);
 		}
 	}
+
+	/**
+	 * Handles form submission.
+	 *
+	 * @override Added sheet refresh
+	 *
+	 * @param {*} args
+	 * @return {*} 
+	 * @memberof MonarchSettings
+	 */
+	async _onSubmit(...args) {
+		const ret = await super._onSubmit(...args);
+		await Monarch.refreshSheetsAll();
+		return ret;
+	}
 }
