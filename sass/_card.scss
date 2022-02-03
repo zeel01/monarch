@@ -163,6 +163,7 @@
 			place-self: center;
 			font-size: 64px;
 			opacity: 0;
+			transition: color .5s;
 
 			&:hover {
 				opacity: .75;
