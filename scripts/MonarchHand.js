@@ -1,3 +1,4 @@
+import Monarch from "./Monarch.js";
 import MonarchCardsConfig from "./MonarchCardsConfig.js";
 import { Controls, AppControls } from "./Components.js";
 
@@ -77,7 +78,8 @@ export default class MonarchHand extends MonarchCardsConfig {
 			{
 				class: "basic-controls",
 				controls: [
-					Controls.play
+					Controls.play,
+					...(Monarch.settings.discardPile ? [Controls.discard] : [])
 				]
 			}
 		];

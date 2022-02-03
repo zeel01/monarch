@@ -4,6 +4,7 @@ import MonarchDeck from "./MonarchDeck.js";
 import MonarchPile from "./MonarchPile.js";
 import MonarchHand from "./MonarchHand.js";
 import MonarchCard from "./MonarchCard.js";
+import MonarchSettings from "./MonarchSettings.js";
 import { Controls, Markers, Badges, AppControls } from "./Components.js";
 import * as utils from "./utils.js";
 
@@ -51,6 +52,39 @@ export default class Monarch {
 			 */
 			get discardPile() {
 				return game.settings.get(Monarch.name, "discardPile");
+			}
+		};
+	}
+
+	static newsettings = new Proxy({}, {
+		get: function (target, key) {
+			try { return game.settings.get(this.name, key); }
+			catch (err) { 
+				console.warn(err);	
+				return undefined; 
+			};
+		}
+	});
+
+	static get settingDefinitions() {
+		return {
+			cardHeight: {
+				type: Number,
+				default: 200,
+				onChange: Monarch.refreshSheetsAll.bind(Monarch)
+			},
+			discardPile: {
+				type: String,
+				default: "",
+				onChange: Monarch.refreshSheetsAll.bind(Monarch),
+				getChoices: () => ({
+					"": "",
+					...Object.fromEntries(
+						game.cards
+							.filter(pile => pile.type === "pile")
+							.map(pile => [pile.id, pile.name])
+					)
+				})
 			}
 		};
 	}
@@ -138,28 +172,20 @@ export default class Monarch {
 	 * @memberof Monarch
 	 */
 	static registerSettings() {
-		game.settings.register(this.name, "cardHeight", {
-			name: game.i18n.localize("monarch.settings.cardHeight.name"),
-			hint: game.i18n.localize("monarch.settings.cardHeight.hint"),
-			scope: "world",
-			config: true,
-			type: Number,
-			default: 200,
-			onChange: () => {
-				Object.values(ui.windows)
-					.filter(w => w.isMonarch)
-					.forEach(w => w.render(true));
-			}
-		});
+		Object.entries(this.settingDefinitions).forEach(([key, def]) => {
+			game.settings.register(Monarch.name, key, {
+				...def,
+				scope: "world",
+				config: false,
+				name: `monarch.settings.${key}.name`,
+				hint: `monarch.settings.${key}.hint`
+			});
+		})
 
-		game.settings.register(this.name, "discardPile", {
-			name: game.i18n.localize("monarch.settings.discardPile.name"),
-			hint: game.i18n.localize("monarch.settings.discardPile.hint"),
-			scope: "world",
-			config: true,
-			type: String,
-			default: "",
-			onChange: () => { }
+		game.settings.registerMenu(this.name, 'settingsMenu', {
+			name: game.i18n.localize("monarch.settings.label"),
+			label: game.i18n.localize("monarch.settings.title"),
+			type: MonarchSettings,
 		});
 	}
 

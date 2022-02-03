@@ -1,0 +1,48 @@
+{{#*inline "group"}}
+	<div class="form-group">
+		<label>{{setting.name}}</label>
+		<div class="form-fields">
+			{{> @partial-block }}
+		</div>
+		<p class="notes">{{setting.hint}}</p>
+	</div>
+{{/inline}}
+{{#*inline "check"}}
+	<input type="checkbox" name="{{setting.id}}" data-dtype="Boolean" {{checked setting.value}}/>
+{{/inline}}
+{{#*inline "text"}}
+	<input type="text" name="{{setting.id}}" value="{{setting.value}}" data-dtype="{{setting.type}}"/>
+{{/inline}}
+{{#*inline "select"}}
+	<select name="{{setting.id}}" data-dtype="{{setting.type}}">
+		{{#select setting.value}}
+		{{#each setting.choices as |name id|}}
+		<option value="{{id}}">{{localize name}}</option>
+		{{/each}}
+		{{/select}}
+	</select>
+{{/inline}}
+
+<form class="flexcol" autocomplete="off">
+	<section class="content">
+		<h2>{{localize "monarch.settings.title"}}</h2>
+		<div class="settings-list">
+		{{#each settings as |setting|}}
+			{{#> group setting=setting}}
+				{{#if (eq setting.type "Boolean")}}
+					{{> check setting=setting}}
+				{{else if setting.choices}}
+					{{> select setting=setting}}
+				{{else}}
+					{{> text setting=setting}}
+				{{/if}}
+			{{/group}}
+		{{/each}}
+		</div>
+	</section>
+	<footer class="sheet-footer flexrow">
+		<button type="submit" name="submit">
+			<i class="far fa-save"></i> {{localize 'SETTINGS.Save'}}
+		</button>
+	</footer>
+</form>

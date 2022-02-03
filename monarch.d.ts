@@ -182,6 +182,13 @@ declare module "scripts/MonarchCard" {
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
 }
+declare module "scripts/MonarchSettings" {
+    export default class MonarchSettings {
+        static readonly get defaultOptions(): any;
+        getData(): object;
+        _updateObject(event: Event, data: object): Promise<void>;
+    }
+}
 declare module "scripts/Monarch" {
     export default class Monarch {
         static get name(): string;
@@ -200,12 +207,34 @@ declare module "scripts/Monarch" {
             readonly cardHeight: number;
             readonly discardPile: string;
         };
+        static newsettings: any;
+        static get settingDefinitions(): {
+            cardHeight: {
+                type: NumberConstructor;
+                default: number;
+                onChange: any;
+            };
+            discardPile: {
+                type: StringConstructor;
+                default: string;
+                onChange: any;
+                getChoices: () => any;
+            };
+        };
         static readonly get discardPile(): Cards;
+        static _pendingRefresh: boolean;
+        static refreshSheets(): void;
+        static refreshSheetsAll(): Promise<void>;
         static preLoadTemplates(): Promise<Function[]>;
         static registerSettings(): void;
         static registerSheets(): void;
         static onInit(): void;
         static onReady(): Promise<void>;
+        static readonly get socketName(): string;
+        static _onSocketMessage({ command, data }: {
+            command: string;
+            data: any;
+        }): Promise<void>;
     }
     import MonarchCardsConfig from "scripts/MonarchCardsConfig";
     import MonarchDeck from "scripts/MonarchDeck";

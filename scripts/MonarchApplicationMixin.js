@@ -45,7 +45,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 		return await super.close(args);
 	}
 
-	/** @type {boolean} */
+	/**
+	 * Used to check if an application is a Monarch application.
+	 *
+	 * @readonly
+	 */
 	get isMonarch() { return true; }
 
 
