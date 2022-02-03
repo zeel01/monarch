@@ -24,7 +24,8 @@
 			"back": "Back",
 			"magnify": "Show card image. Hold shift to show players.",
 			"discard": "Discard",
-			"showCard": "Show card to players"
+			"showCard": "Show card to players",
+			"consoleLog": "Log 'Card' to console"
 		},
 		"settings": {
 			"label": "Configure Monarch",

@@ -237,10 +237,6 @@ declare module "scripts/Monarch" {
                 default: string;
                 getChoices: () => any;
             };
-            logCardButton: {
-                type: BooleanConstructor;
-                default: boolean;
-            };
         };
         static readonly get discardPile(): Cards;
         static refreshSheets(): void;
@@ -259,6 +255,7 @@ declare module "scripts/Monarch" {
             command: string;
             data: any;
         }): Promise<void>;
+        static readonly get debugLevel(): number;
     }
     import MonarchCardsConfig from "scripts/MonarchCardsConfig";
     import MonarchDeck from "scripts/MonarchDeck";

@@ -254,4 +254,18 @@ export default class Monarch {
 		if (!this[command]) return;
 		await this[command](data);
 	}
+
+	/**
+	 * Get the _dev-mode debug level.
+	 *
+	 * @type {Number}
+	 * @readonly
+	 * @static
+	 * @memberof Monarch
+	 */
+	static get debugLevel() {
+		const api = game.modules.get("_dev-mode")?.api;
+		if (!api) return 0;
+		return api.getPackageDebugValue(this.name, "level");
+	}
 }

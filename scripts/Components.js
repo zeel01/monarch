@@ -225,6 +225,16 @@ export class Controls {
 			]
 		};
 	}
+
+	/** @type {CardControl} */
+	static get consoleLog() {
+		return {
+			tooltip: "monarch.label.consoleLog",
+			icon: "fas fa-terminal",
+			class: "console-log",
+			onclick: (event, card) => console.log(card, card.id)
+		}
+	}
 }
 
 export class AppControls {
