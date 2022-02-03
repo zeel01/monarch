@@ -60,7 +60,6 @@
 		grid-template-areas:
 			"name"
 			"hud"
-			"display"
 			"data";
 
 		row-gap: .5em;
@@ -123,7 +122,7 @@
 	.card-hud {
 		opacity: .5;
 		grid-area: hud;
-		z-index: 2;
+		z-index: 4;
 
 		padding: 0 1.2em 0 .2em;
 
@@ -187,6 +186,14 @@
 			"suit description"
 			"value description"
 			"dimensions dimensions";
+
+		margin-top: -1.5em;
+
+		&.read-only {
+			grid-template-rows: 10em;
+			grid-template-columns: 1fr;
+			grid-template-areas: "description";
+		}
 
 		column-gap: 1em;
 		row-gap: .3em;

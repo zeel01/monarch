@@ -3,6 +3,6 @@
 	title="{{localize control.tooltip}}"
 	style="--icon-color: {{control.color}};"
 	aria-label="{{#if control.aria}}{{localize control.aria}}{{else}}{{localize control.tooltip}}{{/if}}"
-	{{#if control.disabled}}disabled{{/if}}>
+	{{#if control.disabled}}data-disabled="true"{{/if}}>
 	<i class="{{control.icon}}"></i>{{#if showLabel}} {{localize control.label}}{{/if}}
 </a>

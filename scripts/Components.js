@@ -105,7 +105,7 @@ export class Controls {
 			tooltip: "CARD.FaceNext",
 			icon: "fas fa-caret-up",
 			class: "next-face",
-			disabled: (card) => !card.hasNextFace,
+			disabled: (card) => !card.hasNextFace || !card.isOwner,
 			onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : card.data.face + 1 })
 		}
 	}
@@ -116,7 +116,7 @@ export class Controls {
 			tooltip: "CARD.FacePrevious",
 			icon: "fas fa-caret-down",
 			class: "prev-face",
-			disabled: (card) => !card.hasPreviousFace,
+			disabled: (card) => !card.hasPreviousFace || !card.isOwner,
 			onclick: (event, card) => card.update({ face: card.data.face === 0 ? null : card.data.face - 1 })
 		}
 	}
@@ -128,6 +128,7 @@ export class Controls {
 			aria: (card) => game.i18n.format("monarch.aria.playCard", { name: card.name }),
 			icon: "fas fa-chevron-circle-right",
 			class: "play-card",
+			disabled: (card) => !card.isOwner,
 			onclick: (event, card, pile) => pile.playDialog(card)
 		}
 	}
@@ -158,7 +159,25 @@ export class Controls {
 			tooltip: "monarch.label.discard",
 			icon: "fas fa-caret-square-down",
 			class: "discard-card",
+			disabled: (card) => !card.isOwner,
 			onclick: (event, card) => card.pass(Monarch.discardPile)
+		}
+	}
+
+	/** @type {CardControl} */
+	static get showCard() {
+		return {
+			tooltip: "monarch.label.showCard",
+			icon: "fas fa-eye",
+			class: "show-card",
+			disabled: (card) => !game.user.isGM,
+			onclick: async (event, card) => await game.socket.emit("module.monarch", {
+				command: "showCard",
+				data: {
+					card: card.id,
+					pile: card.source.id
+				}
+			})
 		}
 	}
 

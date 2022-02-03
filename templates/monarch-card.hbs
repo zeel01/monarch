@@ -7,55 +7,57 @@
 	</section>
 	
 	<h1 class="name">
-		<input type="text" name="name" value="{{data.name}}" placeholder="{{localize 'Name'}}" />
+		<input type="text" name="name" value="{{data.name}}" placeholder="{{localize 'Name'}}" {{#unless editable}}disabled{{/unless}} />
 	</h1>
 
 	{{> "modules/monarch/templates/parts/card-hud.hbs" card=data}}
 	{{> "modules/monarch/templates/parts/context-menu.hbs" card=data}}
 
-	<section class="card-data">
-		<nav class="configs">
-			<a class="config-button" data-config="faces"><i class="fas fa-id-badge"></i> {{localize "monarch.label.faces"}}</a>
-			<a class="config-button" data-config="back"><i class="fas fa-id-badge"></i> {{localize "monarch.label.back"}}</a>
-		</nav>
+	
+	<section class="card-data {{#unless editable}}read-only{{/unless}}">
+		{{#if editable}}
+			<nav class="configs">
+				<a class="config-button" data-config="faces"><i class="fas fa-id-badge"></i> {{localize "monarch.label.faces"}}</a>
+				<a class="config-button" data-config="back"><i class="fas fa-id-badge"></i> {{localize "monarch.label.back"}}</a>
+			</nav>
 
-		<div class="form-group type">
-			<label>{{ localize "CARD.Type" }}</label>
-			<div class="form-fields">
-				<select name="type">
-					{{selectOptions types selected=data.type localize=true}}
-				</select>
+			<div class="form-group type">
+				<label>{{ localize "CARD.Type" }}</label>
+				<div class="form-fields">
+					<select name="type">
+						{{selectOptions types selected=data.type localize=true}}
+					</select>
+				</div>
 			</div>
-		</div>
-		
-		<div class="form-group suit">
-			<label>{{ localize "CARD.Suit" }}</label>
-			<div class="form-fields">
-				<input type="text" name="suit" value="{{data.suit}}">
+			
+			<div class="form-group suit">
+				<label>{{ localize "CARD.Suit" }}</label>
+				<div class="form-fields">
+					<input type="text" name="suit" value="{{data.suit}}">
+				</div>
 			</div>
-		</div>
-		
-		<div class="form-group value">
-			<label>{{ localize "CARD.Value" }}</label>
-			<div class="form-fields">
-				{{numberInput data.value name="value" step=1}}
+			
+			<div class="form-group value">
+				<label>{{ localize "CARD.Value" }}</label>
+				<div class="form-fields">
+					{{numberInput data.value name="value" step=1}}
+				</div>
 			</div>
-		</div>
 
-		<div class="form-group dimensions">
-			<div class="form-fields">
-				<label>{{localize "Width"}}</label>
-				{{numberInput data.width name="width" step=1}}
-				<label>{{localize "Height"}}</label>
-				{{numberInput data.height name="height" step=1}}
-				<label>{{localize "Rotation"}}</label>
-				{{numberInput data.rotation name="rotation" step=1 min=0 max=360}}
+			<div class="form-group dimensions">
+				<div class="form-fields">
+					<label>{{localize "Width"}}</label>
+					{{numberInput data.width name="width" step=1}}
+					<label>{{localize "Height"}}</label>
+					{{numberInput data.height name="height" step=1}}
+					<label>{{localize "Rotation"}}</label>
+					{{numberInput data.rotation name="rotation" step=1 min=0 max=360}}
+				</div>
 			</div>
-		</div>
-
+		{{/if}}
 		<div class="form-group stacked description">
 			<label>{{ localize "CARD.Description" }}</label>
-			<textarea name="description">{{ data.description }}</textarea>
+			<textarea name="description" {{#unless editable}}disabled{{/unless}}>{{ data.description }}</textarea>
 		</div>
 	</section>
 </form>

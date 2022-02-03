@@ -53,6 +53,7 @@ export default class Monarch {
 			showValue: { type: Boolean, default: true },
 			showType:  { type: Boolean, default: false },
 			handReset: { type: Boolean, default: false },
+			showCard:  { type: Boolean, default: true },
 			cardHeight: {
 				type: Number,
 				default: 200
@@ -108,6 +109,17 @@ export default class Monarch {
 		});
 
 		this.refreshSheets();
+	}
+
+	/**
+	 * Display the sheet for the card specified in the data
+	 *
+	 * @static
+	 * @param {{ pile: string, card: string }} data - Ids of the card and its container
+	 * @memberof Monarch
+	 */
+	static async showCard(data) {
+		game.cards.get(data.pile)?.cards?.get(data.card)?.sheet?.render(true)
 	}
 
 	/**

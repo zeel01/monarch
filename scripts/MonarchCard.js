@@ -106,7 +106,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	 */
 	_onControl(event, button) {
 		event.stopPropagation();
-		if (button.disabled) return;
+		if (button.dataset.disabled) return;
 		button.classList.forEach(className => {
 			if (this._controlFns[className])
 				this._controlFns[className](event, this.object, this.object.parent);
@@ -139,7 +139,8 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 				class: "basic-controls",
 				controls: [
 					Controls.play,
-					...(Monarch.settings.discardPile ? [Controls.discard] : [])
+					...(Monarch.settings.discardPile ? [Controls.discard] : []),
+					...(Monarch.settings.showCard ? [Controls.showCard] : [])
 				]
 			}
 		];
@@ -149,12 +150,13 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	_getHeaderButtons() {
 		const buttons = super._getHeaderButtons();
 
-		// TODO: Needs an ownership check
-		buttons.unshift({
-			class: "save",
-			icon: "fas fa-save",
-			onclick: this._onSubmit.bind(this)
-		});
+		if (this.object.source.isOwner) {
+			buttons.unshift({
+				class: "save",
+				icon: "fas fa-save",
+				onclick: this._onSubmit.bind(this)
+			});
+		}
 
 		return buttons;
 	}
@@ -167,6 +169,8 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 
 	async getData() {
 		const data = await super.getData();
+
+		data.editable = this.object.source.isOwner;
 
 		this.applyComponents(data);
 

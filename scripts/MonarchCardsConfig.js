@@ -99,7 +99,7 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	_onControl(event, button, card) {
 		const cardDocument = this.object.cards.get(card.dataset.cardId);
 		event.stopPropagation();
-		if (button.disabled) return;
+		if (button.dataset.disabled) return;
 		button.classList.forEach(className => {
 			if (this._controlFns[className])
 				this._controlFns[className](event, cardDocument, this.object);

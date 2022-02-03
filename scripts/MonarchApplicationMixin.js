@@ -155,8 +155,8 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * @param {Array<CardControl>} controls - The controls to generate
 	 * @return {Array<CardControl>}
 	 */
-	applyCardControls(card, controls) {
-		return controls.map(control => this.applyCardControl(card, control));
+	applyCardControls(card, controls, container) {
+		return controls.map(control => this.applyCardControl(card, control, container));
 	}
 
 	/**

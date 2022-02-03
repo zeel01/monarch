@@ -23,7 +23,8 @@
 			"faces": "Faces",
 			"back": "Back",
 			"magnify": "Show card image. Hold shift to show players.",
-			"discard": "Discard"
+			"discard": "Discard",
+			"showCard": "Show card to players"
 		},
 		"settings": {
 			"label": "Configure Monarch",
@@ -43,6 +44,10 @@
 			"handReset": {
 				"name": "Reset On Hand",
 				"hint": "Whether or not to show a reset button on the hand to send all cards back to their deck."
+			},
+			"showCard": {
+				"name": "Show Card To Players",
+				"hint": "Whether or not to include a 'Show card to players' button on cards."
 			},
 			"cardHeight": {
 				"name": "Card height",

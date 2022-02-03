@@ -28,11 +28,13 @@ declare module "scripts/Components" {
         static get edit(): CardControl;
         static get delete(): CardControl;
         static get discard(): CardControl;
+        static get showCard(): CardControl;
         static _getColorToggle(color: string): CardControl;
         static get markerToggle(): {
             [x: string]: CardControl;
         };
         static get colorToggles(): CardControl;
+        static get consoleLog(): CardControl;
     }
     export class AppControls {
         static get shuffle(): AppControl;
@@ -222,6 +224,10 @@ declare module "scripts/Monarch" {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            showCard: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
             cardHeight: {
                 type: NumberConstructor;
                 default: number;
@@ -231,10 +237,18 @@ declare module "scripts/Monarch" {
                 default: string;
                 getChoices: () => any;
             };
+            logCardButton: {
+                type: BooleanConstructor;
+                default: boolean;
+            };
         };
         static readonly get discardPile(): Cards;
         static refreshSheets(): void;
         static refreshSheetsAll(): Promise<void>;
+        static showCard(data: {
+            pile: string;
+            card: string;
+        }): Promise<void>;
         static preLoadTemplates(): Promise<Function[]>;
         static registerSettings(): void;
         static registerSheets(): void;

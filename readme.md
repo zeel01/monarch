@@ -131,6 +131,7 @@ Data to define an icon marker that will display on a card.
 | `icon` | `string`<br>`Function<string>` | The font awesome icon class to display on the marker, defailt is `"fa fas-circle"` (a dot). May be a function that returns a string. |
 | `color` | `string`<br>`Function<string>` | The color of the marker, default is `"#FFFFFF"` (white). May be a function that returns a string. |
 | `show` | `boolean`<br>`Function<boolean>` | Whether or not to show the marker. May be a function that returns a boolean, useful for markers that only display under certain conditions. `false` by default. |
+
 ##### `CardControl`
 
 Data to define an interactive contrl that will display on a card.
