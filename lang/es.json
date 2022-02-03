@@ -13,7 +13,7 @@
 				"ready": "🦋 Monarch | Listo"
 			},
 			"error": {
-				"noControlClass": "🦋 Monarch | Error: Falta 'class' en el control",
+				"noControlClass": "🦋 Monarch | Error: Falta 'clase' del control",
 				"noLabelTooltip": "🦋 Monarch | Error: Por favor, especifique un 'mensaje emergente' o una 'etiqueta' para el control '{class}'."
 			}
 		},
