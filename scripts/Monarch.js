@@ -68,6 +68,51 @@ export default class Monarch {
 	}
 
 	/**
+	 * Indicates whether or not a sheet refresh has been
+	 * triggered recently.
+	 *
+	 * @type {boolean}
+	 * @static
+	 * @memberof Monarch
+	 */
+	static _pendingRefresh = false;
+
+	/**
+	 * Re-renders all Monarch sheets to allow settings to take effect.
+	 *
+	 * @static
+	 * @memberof Monarch
+	 */
+	static refreshSheets() {
+		Object.values(ui.windows)
+			.filter(window => window.isMonarch)
+			.forEach(window => window.render())
+	}
+
+	/**
+	 * Refreshes Monarch sheets for all players.
+	 *
+	 * Prevents multiple refreshes from happening at once.
+	 * There is a 500ms delay between refreshes.
+	 *
+	 * @static
+	 * @memberof Monarch
+	 */
+	static async refreshSheetsAll() {
+		if (this._pendingRefresh) return;
+
+		this._pendingRefresh = true;
+
+		await game.socket.emit(this.socketName, {
+			command: "refreshSheets"
+		});
+
+		this.refreshSheets();
+
+		setTimeout(() => this._pendingRefresh = false, 500);
+	}
+
+	/**
 	 * Load all the templates for handlebars partials.
 	 *
 	 * @return {Promise<Function[]>} An array of functions that render the partials.
@@ -176,6 +221,35 @@ export default class Monarch {
 			document.querySelectorAll(".monarch .card").forEach(card => card.classList.remove("show-ctx"));
 		});
 
+		game.socket.on(this.socketName, this._onSocketMessage.bind(this));
+
 		console.log(game.i18n.localize("monarch.console.log.ready"));
+	}
+
+	/**
+	 * The name of the web socket for this module
+	 *
+	 * @readonly
+	 * @static
+	 * @memberof Monarch
+	 */
+	static get socketName() {
+		return `module.${this.name}`;
+	}
+
+	/**
+	 * Handles socket messages.
+	 *
+	 * Delegates the message to the appropriate handler.
+	 *
+	 * @static
+	 * @param {Object} message
+	 * @param {String} message.command - The command to handle.
+	 * @param {Object} message.data    - The data for the command.
+	 * @memberof Monarch
+	 */
+	static async _onSocketMessage({ command, data }) {
+		if (!this[command]) return;
+		await this[command](data);
 	}
 }

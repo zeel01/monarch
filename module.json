@@ -14,6 +14,7 @@
 	"version": "0.3.5",
 	"minimumCoreVersion": "9.236",
 	"compatibleCoreVersion": "9",
+	"socket": true,
 	"esmodules": [
 		"monarch.js"
 	],
