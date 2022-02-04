@@ -1,4 +1,4 @@
-﻿{
+{
 	"I18N": {
 		"LANGUAGE": "Espanol",
 		"MAINTAINERS": "@Viriato139ac#0342"
@@ -78,7 +78,7 @@
 		},
 		"markerToggles": {
 			"red": "Conmutar marcador rojo",
-			"green": "Conmutar marcadorverde",
+			"green": "Conmutar marcador verde",
 			"blue": "Conmutar marcador azul",
 			"yellow": "Conmutar marcador amarillo",
 			"purple": "Conmutar marcador morado",
