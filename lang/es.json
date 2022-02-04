@@ -1,4 +1,4 @@
-﻿{
+{
 	"I18N": {
 		"LANGUAGE": "Espanol",
 		"MAINTAINERS": "@Viriato139ac#0342"
@@ -11,6 +11,10 @@
 		"console": {
 			"log": {
 				"ready": "🦋 Monarch | Listo"
+			},
+			"error": {
+				"noControlClass": "🦋 Monarch | Error: Falta 'clase' del control",
+				"noLabelTooltip": "🦋 Monarch | Error: Por favor, especifique un 'mensaje emergente' o una 'etiqueta' para el control '{class}'."
 			}
 		},
 		"sheetTitle": {
@@ -22,16 +26,64 @@
 		"label": {
 			"faces": "Anversos",
 			"back": "Reverso",
-			"magnify": "Mostrar imagen de la carta. Presione Mayús para mostrar a los jugadores"
+			"magnify": "Mostrar imagen de la carta. Presione Mayús para mostrar a los jugadores",
+			"discard": "Descartar",
+			"showCard": "Mostrar a los jugadores",
+			"consoleLog": "Enviar 'Carta' a la consola",
+			"clearColorMarkers": "Quitar marcadores de color"
 		},
 		"settings": {
+			"label": "Configuración de Monarch",
+			"title": "🦋 Ajustes de Monarch",
+			"showSuit": {
+				"name": "Mostrar identificador del palo",
+				"hint": "Si se debe mostrar el identificador del palo de las cartas"
+			},
+			"showValue": {
+				"name": "Mostrar identificador de valor",
+				"hint": "Si se debe mostrar el identificador del valor de las cartas"
+			},
+			"showType": {
+				"name": "Mostrar identificador de tipo",
+				"hint": "Si se debe mostrar el identificador de tipo de las cartas"
+			},
+			"handReset": {
+				"name": "Botón de reinicio",
+				"hint": "Si se debe mostrar un botón de reiniciar en la mano para enviar todas las cartas de vuelta al mazo"
+			},
+			"showCard": {
+				"name": "Mostrar carta a los jugadores",
+				"hint": "Si se debe mostrar el botón de 'Mostrar carta a los jugadores' de las cartas"
+			},
 			"cardHeight": {
 				"name": "Altura de la carta",
 				"hint": "Altura en pixeles que desea que tengan las cartas al mostrarlas en la mano/mazo/pila"
+			},
+			"discardPile": {
+				"name": "Pila de descartes",
+				"hint": "La pila que se usa para descartes. Deje en blanco para deshabilitar esta opción"
 			}
 		},
 		"aria": {
 			"playCard": "{name}, jugar"
+		},
+		"markers": {
+			"red": "Marcador rojo",
+			"green": "Marcador verde",
+			"blue": "Marcador azul",
+			"yellow": "Marcador amarillo",
+			"purple": "Marcador morado",
+			"black": "Marcador negro",
+			"white": "Marcador blanco"
+		},
+		"markerToggles": {
+			"red": "Conmutar marcador rojo",
+			"green": "Conmutar marcador verde",
+			"blue": "Conmutar marcador azul",
+			"yellow": "Conmutar marcador amarillo",
+			"purple": "Conmutar marcador morado",
+			"black": "Conmutar marcador negro",
+			"white": "Conmutar marcador blanco"
 		}
 	}
 }
