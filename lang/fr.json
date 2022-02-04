@@ -7,6 +7,10 @@
 		"console": {
 			"log": {
 				"ready": "🦋 Monarch | Prêt."
+			},
+			"error": {
+				"noControlClass": "🦋 Monarch | Erreur: Missing 'class' on control.",
+				"noLabelTooltip": "🦋 Monarch | Erreur: Please provide a 'tooltip' or 'label' for control '{class}'."
 			}
 		},
 		"sheetTitle": {
@@ -18,16 +22,64 @@
 		"label": {
 			"faces": "Faces",
 			"back": "Dos",
-			"magnify": "Afficher la carte en image. Appuyez sur Shift pour la montrer aux joueurs."
+			"magnify": "Afficher la carte en image. Appuyez sur MAJ pour la montrer aux joueurs.",
+			"discard": "Défausser",
+			"showCard": "Montrer la carte aux joueurs",
+			"consoleLog": "Afficher la carte dans la console",
+			"clearColorMarkers": "Supprimer les marqueurs colorés"
 		},
 		"settings": {
+			"label": "Configurer Monarch",
+			"title": "Paramètres de 🦋 Monarch",
+			"showSuit": {
+				"name": "Afficher le badge Couleur",
+				"hint": "Détermine si le badge Couleur est affiché ou non sur les cartes."
+			},
+			"showValue": {
+				"name": "Afficher le badge Valeur",
+				"hint": "Détermine si le badge Valeur est affiché ou non sur les cartes."
+			},
+			"showType": {
+				"name": "Afficher le badge Type",
+				"hint": "Détermine si le badge Type est affiché ou non sur les cartes."
+			},
+			"handReset": {
+				"name": "Réinit. depuis une main",
+				"hint": "Détermine si les mains ont un bouton pour renvoyer tous les cartes dans leur deck d'origine."
+			},
+			"showCard": {
+				"name": "Montrer la carte aux joueurs",
+				"hint": "Détermine si les cartes ont un bouton 'Montrer la carte aux joueurs'."
+			},
 			"cardHeight": {
 				"name": "Hauteur de carte",
 				"hint": "Quelle hauteur en pixels pour les cartes dans un(e) main/deck/pile."
+			},
+			"discardPile": {
+				"name": "Défausse",
+				"hint": "La pile contenant les cartes défaussées. Laisser vide pour désactiver l'option de défausser une carte."
 			}
 		},
 		"aria": {
 			"playCard": "{name}, Jouer"
+		},
+		"markers": {
+			"red": "Marqueur rouge",
+			"green": "Marqueur vert",
+			"blue": "Marqueur bleu",
+			"yellow": "Marqueur jaune",
+			"purple": "Marqueur violet",
+			"black": "Marqueur noir",
+			"white": "Marqueur blanc"
+		},
+		"markerToggles": {
+			"red": "Activer/désactiver le marqueur rouge",
+			"green": "Activer/désactiver le marqueur vert",
+			"blue": "Activer/désactiver le marqueur bleu",
+			"yellow": "Activer/désactiver le marqueur jaune",
+			"purple": "Activer/désactiver le marqueur violet",
+			"black": "Activer/désactiver le marqueur noir",
+			"white": "Activer/désactiver le marqueur blanc"
 		}
 	}
 }
