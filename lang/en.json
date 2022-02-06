@@ -35,14 +35,17 @@
 				"name": "Show Suit Badge",
 				"hint": "Whether or not to show the suit badge on cards."
 			},
-			"showValue": {
-				"name": "Show Value Badge",
-				"hint": "Whether or not to show the value badge on cards."
+			"world": {
+				"name": "World Settings",
+				"hint": "Theses settings apply to all players."
 			},
-			"showType": {
-				"name": "Show Type Badge",
-				"hint": "Whether or not to show the type badge on cards."
+			"client": {
+				"name": "Client Settings",
+				"hint": "Theses settings apply only to you. Each player may configure these on thier own."
 			},
+			"showSuit": { "name": "Suit" },
+			"showValue": { "name": "Value" },
+			"showType": { "name": "Type" },
 			"handReset": {
 				"name": "Reset On Hand",
 				"hint": "Whether or not to show a reset button on the hand to send all cards back to their deck."
@@ -58,6 +61,12 @@
 			"discardPile": {
 				"name": "Discard pile",
 				"hint": "The Cards pile used for discarding cards. Leave blank to disable."
+			},
+			"groups": {
+				"badges": {
+					"name": "Show Core Badges",
+					"hint": "Whether or not to display badges for the core card properties."
+				},
 			}
 		},
 		"aria": {

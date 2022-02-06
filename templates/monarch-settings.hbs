@@ -1,10 +1,23 @@
-{{#*inline "group"}}
+{{#*inline "formGroup"}}
 	<div class="form-group">
 		<label>{{setting.name}}</label>
 		<div class="form-fields">
 			{{> @partial-block }}
 		</div>
 		<p class="notes">{{setting.hint}}</p>
+	</div>
+{{/inline}}
+{{#*inline "label"}}
+	<label>
+		<span>{{setting.name}}</span>
+		{{> @partial-block }}
+	</label>
+{{/inline}}
+{{#*inline "labeled"}}
+	<div class="labeled">
+		{{#> label setting=setting}}
+			{{> @partial-block }}
+		{{/label}}
 	</div>
 {{/inline}}
 {{#*inline "check"}}
@@ -22,22 +35,49 @@
 		{{/select}}
 	</select>
 {{/inline}}
+{{#*inline "setting"}}
+	{{#> formGroup setting=setting}}
+		{{#if (eq setting.type "Boolean")}}
+			{{> check setting=setting}}
+		{{else if setting.choices}}
+			{{> select setting=setting}}
+		{{else}}
+			{{> text setting=setting}}
+		{{/if}}
+	{{/formGroup}}
+{{/inline}}
+{{#*inline "settingGroup"}}
+	{{#> formGroup setting=group}}
+		{{#each group.settings as |setting|}}
+			{{#> labeled setting=setting}}
+				{{> check setting=setting}}
+			{{/labeled}}
+		{{/each}}
+	{{/formGroup}}
+{{/inline}}
 
 <form class="flexcol" autocomplete="off">
+	<h1>{{localize "monarch.settings.title"}}</h1>
 	<section class="content">
-		<h2>{{localize "monarch.settings.title"}}</h2>
 		<div class="settings-list">
-		{{#each settings as |setting|}}
-			{{#> group setting=setting}}
-				{{#if (eq setting.type "Boolean")}}
-					{{> check setting=setting}}
-				{{else if setting.choices}}
-					{{> select setting=setting}}
-				{{else}}
-					{{> text setting=setting}}
-				{{/if}}
-			{{/group}}
-		{{/each}}
+			{{#if isGM}}
+			<h2>{{localize "monarch.settings.world.name"}}</h2>
+			<p class="notes">{{localize "monarch.settings.world.hint"}}</p>
+			{{#each worldSettings as |setting|}}
+				{{> setting setting=setting}}
+			{{/each}}
+			{{#each worldGroups as |group|}}
+				{{> settingGroup group=group}}
+			{{/each}}
+			<h2>{{localize "monarch.settings.client.name"}}</h2>
+			<p class="notes">{{localize "monarch.settings.client.hint"}}</p>
+			{{/if}}
+			{{#each clientSettings as |setting|}}
+				{{> setting setting=setting}}
+			{{/each}}
+			{{#each clientGroups as |group|}}
+				{{> settingGroup group=group}}
+			{{/each}}
 		</div>
 	</section>
 	<footer class="sheet-footer flexrow">

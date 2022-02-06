@@ -49,9 +49,9 @@ export default class Monarch {
 
 	static get settingDefinitions() {
 		return {
-			showSuit:  { type: Boolean, default: true },
-			showValue: { type: Boolean, default: true },
-			showType:  { type: Boolean, default: false },
+			showSuit:  { type: Boolean, default: true, group: "badges" },
+			showValue: { type: Boolean, default: true, group: "badges" },
+			showType:  { type: Boolean, default: false, group: "badges" },
 			handReset: { type: Boolean, default: false },
 			showCard:  { type: Boolean, default: true },
 			cardHeight: {
@@ -59,8 +59,7 @@ export default class Monarch {
 				default: 200
 			},
 			discardPile: {
-				type: String,
-				default: "",
+				type: String, default: "",
 				getChoices: () => ({
 					"": "",
 					...Object.fromEntries(
@@ -77,7 +76,6 @@ export default class Monarch {
 	 * The Cards pile designated as the discard pile.
 	 *
 	 * @type {Cards}
-	 * @readonly
 	 * @static
 	 * @memberof Monarch
 	 */
@@ -151,7 +149,7 @@ export default class Monarch {
 		Object.entries(this.settingDefinitions).forEach(([key, def]) => {
 			game.settings.register(Monarch.name, key, {
 				...def,
-				scope: "world",
+				scope: def.scope ?? "world",
 				config: false,
 				name: `monarch.settings.${key}.name`,
 				hint: `monarch.settings.${key}.hint`
@@ -231,7 +229,6 @@ export default class Monarch {
 	/**
 	 * The name of the web socket for this module
 	 *
-	 * @readonly
 	 * @static
 	 * @memberof Monarch
 	 */
@@ -259,7 +256,6 @@ export default class Monarch {
 	 * Get the _dev-mode debug level.
 	 *
 	 * @type {Number}
-	 * @readonly
 	 * @static
 	 * @memberof Monarch
 	 */

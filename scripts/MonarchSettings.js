@@ -22,8 +22,8 @@ export default class MonarchSettings extends FormApplication {
 			template: "./modules/monarch/templates/monarch-settings.hbs",
 			classes: ["monarch-settings", "sheet"],
 			width: 500,
-			height: 500,
-			closeOnSubmit: true,
+			height: "auto",
+			closeOnSubmit: Monarch.debugLevel < 1,
 			submitOnClose: false,
 			resizable: true
 		});
@@ -36,17 +36,56 @@ export default class MonarchSettings extends FormApplication {
 	 * @memberof SettingsForm
 	 */
 	getData() {
+		// All settings
+		const all = Object.entries(Monarch.settingDefinitions);
+
+		// Settings expanded with all the relevant data
+		const expanded = all.map(([key, def]) => ({
+			...def,
+			id: key,
+			type: def.type.name,
+			scope: def.scope ?? "world",
+			name: game.i18n.localize(`monarch.settings.${key}.name`),
+			hint: game.i18n.localize(`monarch.settings.${key}.hint`),
+			value: Monarch.settings[key],
+			choices: def.getChoices ? def.getChoices() : undefined
+		}));
+
+		// Settings that are grouped
+		const grouped = expanded.filter(setting => setting.group);
+		
+		// Settings that aren't grouped
+		const settings = expanded.filter(setting => !setting.group);
+
+		// Setting groups
+		const groups = {};
+		grouped.forEach(setting => {
+			const group = setting.group;
+			if (!groups[group]) {
+				groups[group] = {
+					scope: setting.scope,
+					type: setting.type,
+					name: game.i18n.localize(`monarch.settings.groups.${group}.name`),
+					hint: game.i18n.localize(`monarch.settings.groups.${group}.hint`),
+					settings: []
+				}
+			}
+
+			groups[group].settings.push(setting);
+		});
+
+		const worldSettings = settings.filter(setting => setting.scope == "world");	
+		const clientSettings = settings.filter(setting => setting.scope == "client");
+
+		const worldGroups = Object.values(groups).filter(group => group.scope == "world");
+		const clientGroups = Object.values(groups).filter(group => group.scope == "client");
+
 		return {
-			settings: Object.entries(Monarch.settingDefinitions)
-				.map(([key, def]) => ({
-					...def,
-					id: key,
-					type: def.type.name,
-					name: game.i18n.localize(`monarch.settings.${key}.name`),
-					hint: game.i18n.localize(`monarch.settings.${key}.hint`),
-					value: Monarch.settings[key],
-					choices: def.getChoices ? def.getChoices() : undefined
-				}))
+			isGM: game.user.isGM,
+			worldSettings,
+			clientSettings,
+			worldGroups,
+			clientGroups 
 		};
 	}
 
