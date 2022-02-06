@@ -135,6 +135,9 @@ declare module "scripts/MonarchDeck" {
         get controls(): import("scripts/Components").CardControl[];
         get badges(): import("scripts/Components").CardBadge[];
         get appControls(): import("scripts/Components").AppControl[];
+        get classOptions(): {
+            [x: string]: boolean;
+        };
     }
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
@@ -146,6 +149,9 @@ declare module "scripts/MonarchPile" {
         static get defaultOptions(): any;
         get controls(): import("scripts/Components").CardControl[];
         get appControls(): import("scripts/Components").AppControl[];
+        get classOptions(): {
+            [x: string]: boolean;
+        };
     }
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
@@ -157,6 +163,9 @@ declare module "scripts/MonarchHand" {
         static get defaultOptions(): any;
         _getHeaderButtons(): any;
         override _onCardControl(event: any): Promise<any>;
+        get classOptions(): {
+            [x: string]: boolean;
+        };
         _onDragEnter(event: Event): void;
         _onDragLeave(event: Event): void;
         get controls(): import("scripts/Components").CardControl[];
@@ -187,10 +196,16 @@ declare module "scripts/MonarchCard" {
 }
 declare module "scripts/MonarchSettings" {
     export default class MonarchSettings {
-        static readonly get defaultOptions(): any;
+        static get defaultOptions(): any;
         getData(): object;
         _updateObject(event: Event, data: object): Promise<void>;
         override _onSubmit(...args: any): any;
+        _onButtonClick(event: PointerEvent): void;
+        enableSheets(event: PointerEvent): Promise<void>;
+        _setSheets(newSettings: {
+            [x: string]: string;
+        }): Promise<void>;
+        activateListeners(html: HTMLElement): void;
     }
 }
 declare module "scripts/Monarch" {
@@ -207,19 +222,22 @@ declare module "scripts/Monarch" {
         static Markers: typeof Markers;
         static AppControls: typeof AppControls;
         static utils: typeof utils;
-        static readonly settings: any;
+        static settings: any;
         static get settingDefinitions(): {
             showSuit: {
                 type: BooleanConstructor;
                 default: boolean;
+                group: string;
             };
             showValue: {
                 type: BooleanConstructor;
                 default: boolean;
+                group: string;
             };
             showType: {
                 type: BooleanConstructor;
                 default: boolean;
+                group: string;
             };
             handReset: {
                 type: BooleanConstructor;
@@ -232,14 +250,51 @@ declare module "scripts/Monarch" {
             cardHeight: {
                 type: NumberConstructor;
                 default: number;
+                scope: string;
             };
             discardPile: {
                 type: StringConstructor;
                 default: string;
                 getChoices: () => any;
             };
+            transparentHand: {
+                type: BooleanConstructor;
+                default: boolean;
+                scope: string;
+                group: string;
+            };
+            transparentPile: {
+                type: BooleanConstructor;
+                default: boolean;
+                scope: string;
+                group: string;
+            };
+            transparentDeck: {
+                type: BooleanConstructor;
+                default: boolean;
+                scope: string;
+                group: string;
+            };
+            fadeHand: {
+                type: BooleanConstructor;
+                default: boolean;
+                scope: string;
+                group: string;
+            };
+            fadePile: {
+                type: BooleanConstructor;
+                default: boolean;
+                scope: string;
+                group: string;
+            };
+            fadeDeck: {
+                type: BooleanConstructor;
+                default: boolean;
+                scope: string;
+                group: string;
+            };
         };
-        static readonly get discardPile(): Cards;
+        static get discardPile(): Cards;
         static refreshSheets(): void;
         static refreshSheetsAll(): Promise<void>;
         static showCard(data: {
@@ -251,12 +306,12 @@ declare module "scripts/Monarch" {
         static registerSheets(): void;
         static onInit(): void;
         static onReady(): Promise<void>;
-        static readonly get socketName(): string;
+        static get socketName(): string;
         static _onSocketMessage({ command, data }: {
             command: string;
             data: any;
         }): Promise<void>;
-        static readonly get debugLevel(): number;
+        static get debugLevel(): number;
     }
     import MonarchCardsConfig from "scripts/MonarchCardsConfig";
     import MonarchDeck from "scripts/MonarchDeck";
