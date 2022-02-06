@@ -4,11 +4,15 @@
 	transition: background-color .5s, box-shadow .5s;
 	border-radius: 6px;
 
-	background-color: rgba(0, 0, 0, 0.1);
+	&.trans {
+		background-color: rgba(0, 0, 0, 0.1);
+	}
 	box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.8);
+	&.no-fade, &:hover {
+		&.trans {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
 		box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
 	}
 }

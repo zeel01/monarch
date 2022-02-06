@@ -50,4 +50,15 @@ static get defaultOptions() {
 			AppControls.reset
 		]
 	}
+
+	/**
+	 * Optional CSS classes based on settings.
+	 * @type {Object<string, boolean>}
+	 */
+	get classOptions() {
+		return {
+			"trans": Monarch.settings.transparentDeck,
+			"no-fade": !Monarch.settings.fadeDeck
+		};
+	}
 }

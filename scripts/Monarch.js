@@ -32,8 +32,7 @@ export default class Monarch {
 
 	/**
 	 * Convenience proxy getter for Monarch settings.
-	 *
-	 * @readonly
+	 * 
 	 * @static
 	 * @memberof Monarch
 	 */
@@ -54,10 +53,7 @@ export default class Monarch {
 			showType:  { type: Boolean, default: false, group: "badges" },
 			handReset: { type: Boolean, default: false },
 			showCard:  { type: Boolean, default: true },
-			cardHeight: {
-				type: Number,
-				default: 200
-			},
+			cardHeight: { type: Number, default: 200, scope: "client" },
 			discardPile: {
 				type: String, default: "",
 				getChoices: () => ({
@@ -68,7 +64,13 @@ export default class Monarch {
 							.map(pile => [pile.id, pile.name])
 					)
 				})
-			}
+			},
+			transparentHand: { type: Boolean, default: true, scope: "client", group: "transparent" },
+			transparentPile: { type: Boolean, default: true, scope: "client", group: "transparent" },
+			transparentDeck: { type: Boolean, default: true, scope: "client", group: "transparent" },
+			fadeHand: { type: Boolean, default: true, scope: "client", group: "fade" },
+			fadePile: { type: Boolean, default: true, scope: "client", group: "fade" },
+			fadeDeck: { type: Boolean, default: true, scope: "client", group: "fade" }
 		};
 	}
 
@@ -92,7 +94,7 @@ export default class Monarch {
 	static refreshSheets() {
 		Object.values(ui.windows)
 			.filter(window => window.isMonarch)
-			.forEach(window => window.render())
+			.forEach(window => window.render(false, { updateClasses: true }));
 	}
 
 	/**

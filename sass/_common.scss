@@ -1,8 +1,12 @@
 .window-app.monarch {
-	background-image: none;
 	box-shadow: none;
 	margin: 0;
-	background-color: transparent;
+	background: black;
+	
+	&.trans {
+		background-color: transparent;
+		background-image: none;
+	}
 
 	.window-content {
 		background: none;

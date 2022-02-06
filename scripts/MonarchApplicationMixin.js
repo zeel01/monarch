@@ -47,11 +47,49 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 	/**
 	 * Used to check if an application is a Monarch application.
-	 *
-	 * @readonly
 	 */
 	get isMonarch() { return true; }
 
+	constructor(...args) {
+		super(...args);
+
+		this._optClasses = this.options.classes;
+		delete this.options.classes;
+
+		Object.defineProperty(this.options, "classes", {
+			get: () => this.classes
+		});
+	}
+
+	/**
+	 * List of CSS classes to apply to the application.
+	 * @type {Array<string>}
+	 */
+	get classes() {
+		return [
+			...this._optClasses,
+			...Object.entries(this.classOptions)
+				.filter(([key, value]) => value)
+				.map(([key, value]) => key)
+		]
+	}
+
+	/**
+	 * Optional CSS classes based on settings.
+	 * @type {Object<string, boolean>}
+	 */
+	get classOptions() {
+		return {};
+	}
+
+	async _render(force, options) {
+		await super._render(force, options);
+		if (options.updateClasses) {
+			const el = this._element[0];
+			el.classList.remove(...Object.keys(this.classOptions));
+			el.classList.add(...this.classes);
+		}
+	}
 
 	/**
 	 * Handle sorting a Card relative to other siblings within this document
@@ -290,6 +328,8 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 	async getData(...args) {
 		const data = await super.getData(...args);
+
+		data.monarch = Monarch;
 
 		data.badges      = this.badges;
 		data.controls    = this.controls;

@@ -48,6 +48,16 @@ export default class MonarchHand extends MonarchCardsConfig {
 		return await super._onCardControl(event);
 	}
 
+	/** 
+	 * Optional CSS classes based on settings.
+	 * @type {Object<string, boolean>}
+	 */
+	get classOptions() {
+		return {
+			"trans": Monarch.settings.transparentHand,
+			"no-fade": !Monarch.settings.fadeHand
+		};
+	}
 	
 	/**
 	 * Add a class to the target element when a drag event enters it.

@@ -1,5 +1,5 @@
 .window-app.monarch-hand {
-	.window-resizable-handle {
+	&.trans .window-resizable-handle {
 		opacity: 0;
 		transition: opacity .5s;
 	}
@@ -18,14 +18,20 @@
 	transition: background-color .5s, box-shadow .5s;
 	border-radius: 6px;
 	
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.2);
+	&.trans .window-header {
+		opacity: 0;
+	}
+	
+	&.no-fade, &:hover {
+		&.trans {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
 		box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 
 		.window-header { opacity: 1; }
 		.window-resizable-handle { opacity: 1; }
 	}
-
+	
 	.window-header {
 		order: 2;
 		margin-top: 10px;
@@ -34,7 +40,7 @@
 		padding-left: 1.4ch;
 		flex-direction: column;
 		padding-top: .75em;
-		opacity: 0;
+		
 		transition: opacity .5s;
 
 		.window-title {

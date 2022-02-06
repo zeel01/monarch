@@ -31,9 +31,16 @@
 		"settings": {
 			"label": "Configure Monarch",
 			"title": "🦋 Monarch Settings",
-			"showSuit": {
-				"name": "Show Suit Badge",
-				"hint": "Whether or not to show the suit badge on cards."
+			"enableSheets": {
+				"name": "Enable 🦋 Monarch Sheets",
+				"hint": "Enable Monarch as the default card sheet.",
+				"enableAll": "Enable All",
+				"all": "all card",
+				"hand": "Hand",
+				"deck": "Deck",
+				"pile": "Pile",
+				"card": "Card",
+				"notification": "Set 🦋 Monarch as the default for {sheet} sheets."
 			},
 			"world": {
 				"name": "World Settings",
@@ -62,11 +69,25 @@
 				"name": "Discard pile",
 				"hint": "The Cards pile used for discarding cards. Leave blank to disable."
 			},
+			"transparentHand": { "name": "Hand" },
+			"transparentDeck": { "name": "Deck" },
+			"transparentPile": { "name": "Pile" },
+			"fadeHand": { "name": "Hand" },
+			"fadeDeck": { "name": "Deck" },
+			"fadePile": { "name": "Pile" },
 			"groups": {
 				"badges": {
 					"name": "Show Core Badges",
 					"hint": "Whether or not to display badges for the core card properties."
 				},
+				"transparent": {
+					"name": "Transparent Applications",
+					"hint": "Enable or disable transparency for each application type."
+				},
+				"fade": {
+					"name": "Fade Applications",
+					"hint": "Enable or disable fading for each application type."
+				}
 			}
 		},
 		"aria": {

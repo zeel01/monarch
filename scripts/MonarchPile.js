@@ -40,4 +40,15 @@ export default class MonarchPile extends MonarchCardsConfig {
 			AppControls.reset
 		]
 	}
+
+	/**
+	 * Optional CSS classes based on settings.
+	 * @type {Object<string, boolean>}
+	 */
+	get classOptions() {
+		return {
+			"trans": Monarch.settings.transparentPile,
+			"no-fade": !Monarch.settings.fadePile
+		};
+	}
 }
