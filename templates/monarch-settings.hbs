@@ -69,6 +69,17 @@
 			{{#each worldGroups as |group|}}
 				{{> settingGroup group=group}}
 			{{/each}}
+			<div class="form-group">
+				<label>{{localize "monarch.settings.enableSheets.name"}}</label>
+				<p class="notes">{{localize "monarch.settings.enableSheets.hint"}}</p>
+				<div class="form-fields enables">
+					<button data-action="enableSheets" data-sheet="all">{{localize "monarch.settings.enableSheets.enableAll"}}</button>
+					<button data-action="enableSheets" data-sheet="hand">{{localize "monarch.settings.enableSheets.hand"}}</button>
+					<button data-action="enableSheets" data-sheet="deck">{{localize "monarch.settings.enableSheets.deck"}}</button>
+					<button data-action="enableSheets" data-sheet="pile">{{localize "monarch.settings.enableSheets.pile"}}</button>
+					<button data-action="enableSheets" data-sheet="card">{{localize "monarch.settings.enableSheets.card"}}</button>
+				</div>
+			</div>
 			<h2>{{localize "monarch.settings.client.name"}}</h2>
 			<p class="notes">{{localize "monarch.settings.client.hint"}}</p>
 			{{/if}}

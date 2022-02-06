@@ -11,7 +11,6 @@ export default class MonarchSettings extends FormApplication {
 	/**
 	 * Default Options for this FormApplication
 	 *
-	 * @readonly
 	 * @static
 	 * @memberof MonarchSettings
 	 */
@@ -115,5 +114,75 @@ export default class MonarchSettings extends FormApplication {
 		const ret = await super._onSubmit(...args);
 		await Monarch.refreshSheetsAll();
 		return ret;
+	}
+
+	/**
+	 * Handles click events on buttons.
+	 *
+	 * Delegates handling to the appripiate method.
+	 *
+	 * @param {PointerEvent} event
+	 * @memberof MonarchSettings
+	 */
+	_onButtonClick(event) {
+		event.preventDefault();
+		const action = event.currentTarget.dataset.action;
+		if (this[action]) this[action](event);
+	}
+
+	/**
+	 * Handles the enable sheet button.
+	 *
+	 * Set one or all of the Monarch sheets as default.
+	 *
+	 * @param {PointerEvent} event
+	 * @memberof MonarchSettings
+	 */
+	async enableSheets(event) {
+		const sheet = event.currentTarget.dataset.sheet;
+		const settings = {
+			card: { "Card.base": "monarch.MonarchCard" },
+			hand: { "Cards.hand": "monarch.MonarchHand" },
+			deck: { "Cards.deck": "monarch.MonarchDeck" },
+			pile: { "Cards.pile": "monarch.MonarchPile" },
+		}
+		if (sheet == "all") await this._setSheets({
+			...settings.card, ...settings.hand,
+			...settings.deck, ...settings.pile
+		});
+		else await this._setSheets(settings[sheet]);
+
+		ui.notifications.info(game.i18n.format(
+			"monarch.settings.enableSheets.notification", {
+				sheet: game.i18n.localize(`monarch.settings.enableSheets.${sheet}`)
+			}
+		));
+	}
+
+	/**
+	 * Update the default sheet settings.
+	 *
+	 * @param {Object<string, string>} newSettings - The new settings
+	 * @memberof MonarchSettings
+	 */
+	async _setSheets(newSettings) {
+		const settings = game.settings.get("core", "sheetClasses") || {};
+		foundry.utils.mergeObject(settings, newSettings);
+		await game.settings.set("core", "sheetClasses", settings);
+	} 
+
+	/**
+	 * Attach event handlers to the application.
+	 *
+	 * @param {HTMLElement} html - The element representing the application window
+	 * @memberof MonarchCardsConfig
+	 */
+	activateListeners(html) {
+		super.activateListeners(html);
+		html = html[0];
+		
+		html.querySelectorAll("[data-action]").forEach(button => {
+			button.addEventListener("click", this._onButtonClick.bind(this));
+		});
 	}
 }

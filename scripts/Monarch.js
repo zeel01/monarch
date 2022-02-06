@@ -102,7 +102,7 @@ export default class Monarch {
 	 * @memberof Monarch
 	 */
 	static async refreshSheetsAll() {
-		await game.socket.emit(this.socketName, {
+		if (game.user.isGM) await game.socket.emit(this.socketName, {
 			command: "refreshSheets"
 		});
 
