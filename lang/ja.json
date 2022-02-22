@@ -1,0 +1,115 @@
+{
+	"monarch": {
+		"title": "🦋 Monarch",
+		"ui": {
+
+		},
+		"console": {
+			"log": {
+				"ready": "🦋 Monarch | 準備完了"
+			},
+			"error": {
+				"noControlClass": "🦋 Monarch | Error: Missing 'class' on control.",
+				"noLabelTooltip": "🦋 Monarch | Error: Please provide a 'tooltip' or 'label' for control '{class}'."
+			}
+		},
+		"sheetTitle": {
+			"myHand": "🦋 Monarch - 手札",
+			"deck": "🦋 Monarch - デッキ",
+			"pile": "🦋 Monarch - 山札・捨て札",
+			"card": "🦋 Monarch - カード"
+		},
+		"label": {
+			"faces": "面",
+			"back": "裏",
+			"magnify": "カード画像を表示します。Shiftで他PLに表示します。",
+			"discard": "捨てる",
+			"showCard": "PLにカードを表示",
+			"consoleLog": "カードをコンソールにログする",
+			"clearColorMarkers": "カラーマーカをクリアする"
+		},
+		"settings": {
+			"label": "Monarch 設定",
+			"title": "🦋 Monarch 設定",
+			"enableSheets": {
+				"name": "🦋 Monarchを常に使用",
+				"hint": "カードUIのシートデフォルトをMonarchにします。",
+				"enableAll": "すべてを使用",
+				"all": "すべてのカード",
+				"hand": "手札",
+				"deck": "デッキ",
+				"pile": "山札・捨て札",
+				"card": "カード",
+				"notification": "🦋 Monarch{sheet}シートのデフォルトとして設定します"
+			},
+			"world": {
+				"name": "ワールド設定",
+				"hint": "この設定はすべてのプレイヤーに反映されます。"
+			},
+			"client": {
+				"name": "個別設定",
+				"hint": "この設定は自分にしか反映されません。各PLは好みの設定を適用することができます。"
+			},
+			"showSuit": { "name": "スート" },
+			"showValue": { "name": "値" },
+			"showType": { "name": "種別" },
+			"handReset": {
+				"name": "手札リセット",
+				"hint": "手札にあるカードをすべてそれぞれのデッキに戻すボタンを配置します。"
+			},
+			"showCard": {
+				"name": "プレイヤーにカードを表示する",
+				"hint": "各カードに「PLに表示する」ボタンを配置します。"
+			},
+			"cardHeight": {
+				"name": "カードの高さ",
+				"hint": "手札、デッキ、山札等に置かれるカードの高さをピクセル単位で設定します。"
+			},
+			"discardPile": {
+				"name": "捨て札",
+				"hint": "捨て札専用となる山札を設定します。空で無効化されます。"
+			},
+			"transparentHand": { "name": "手札" },
+			"transparentDeck": { "name": "デッキ" },
+			"transparentPile": { "name": "山札" },
+			"fadeHand": { "name": "手札" },
+			"fadeDeck": { "name": "デッキ" },
+			"fadePile": { "name": "山札" },
+			"groups": {
+				"badges": {
+					"name": "コアバッジを表示",
+					"hint": "既存のカード機能で使用されるバッジを表示するかどうかを設定します。"
+				},
+				"transparent": {
+					"name": "透明度有効化",
+					"hint": "それぞれのアプリ種別の透明度の有効化を切り替えます。"
+				},
+				"fade": {
+					"name": "フェード有効化",
+					"hint": "それぞれのアプリ種別のフェードの有効化を切り替えます。"
+				}
+			}
+		},
+		"aria": {
+			"playCard": "{name}を切る"
+		},
+		"markers": {
+			"red": "赤マーカ",
+			"green": "緑マーカ",
+			"blue": "青マーカ",
+			"yellow": "黄色マーカ",
+			"purple": "紫マーカ",
+			"black": "黒マーカ",
+			"white": "白マーカ"
+		},
+		"markerToggles": {
+			"red": "赤マーカ切替",
+			"green": "緑マーカ切替",
+			"blue": "青マーカ切替",
+			"yellow": "黄色マーカ切替",
+			"purple": "紫マーカ切替",
+			"black": "黒マーカ切替",
+			"white": "白マーカ切替"
+		}
+	}
+}
