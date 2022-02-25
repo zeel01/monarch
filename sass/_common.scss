@@ -50,6 +50,15 @@
 	}
 
 	.card-control {
+		padding: .3em .25em .2em .25em;
+
+		&:first-child {
+			padding-left: .5em;
+		}
+		&:last-child {
+			padding-right: .5em;
+		}
+
 		&[data-disabled] {
 			opacity: .5;
 			cursor: default;
@@ -118,19 +127,27 @@
 			height: 1.5em;
 			pointer-events: all;
 			background: url(/ui/denim075.png) repeat;
-			padding: .5em;
 			border-radius: 4px;
 			box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			text-align: center;
-			gap: 1ch;
 			pointer-events: auto;
+		}
+		.badge {
+			padding: .5em;
 		}
 		
 		.card-faces {
-			gap: .5ch;
+			$pad: .1em;
+
+			.next-face {
+				padding-right: $pad;
+			}
+			.prev-face {
+				padding-left: $pad;
+			}
 		}
 	}
 
