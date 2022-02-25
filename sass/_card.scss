@@ -223,6 +223,9 @@
 				padding: 0;
 				margin: 0;
 			}
+			label {
+				white-space: nowrap;
+			}
 
 			&:not(.stacked) { flex-wrap: nowrap; }
 
