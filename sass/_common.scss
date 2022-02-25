@@ -143,10 +143,10 @@
 			$pad: .1em;
 
 			.next-face {
-				padding-right: $pad;
+				padding-left: $pad;
 			}
 			.prev-face {
-				padding-left: $pad;
+				padding-right: $pad;
 			}
 		}
 	}

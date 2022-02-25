@@ -24,6 +24,7 @@ declare module "scripts/Components" {
         static get faces(): CardControl;
         static get faceNext(): CardControl;
         static get facePrevious(): CardControl;
+        static get flipFace(): CardControl;
         static get play(): CardControl;
         static get edit(): CardControl;
         static get delete(): CardControl;

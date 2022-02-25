@@ -94,8 +94,9 @@ export class Controls {
 		return {
 			class: "card-faces",
 				controls: [
+					this.facePrevious,
 					this.faceNext,
-					this.facePrevious
+					this.flipFace
 				]
 		}
 	}
@@ -107,6 +108,7 @@ export class Controls {
 			icon: "fas fa-caret-up",
 			class: "next-face",
 			disabled: (card) => !card.hasNextFace || !card.isOwner,
+			hide: (card) => card.data.faces?.length < 2,
 			onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : card.data.face + 1 })
 		}
 	}
@@ -118,7 +120,20 @@ export class Controls {
 			icon: "fas fa-caret-down",
 			class: "prev-face",
 			disabled: (card) => !card.hasPreviousFace || !card.isOwner,
+			hide: (card) => card.data.faces?.length < 2,
 			onclick: (event, card) => card.update({ face: card.data.face === 0 ? null : card.data.face - 1 })
+		}
+	}
+
+	/** @type {CardControl} */
+	static get flipFace() {
+		return {
+			tooltip: "monarch.label.flipCard",
+			icon: "fas fa-sync-alt fa-rotate-270",
+			class: "flip-face",
+			disabled: (card) => !card.isOwner && card.data.faces.length,
+			hide: (card) => card.data.faces?.length > 1,
+			onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : null })
 		}
 	}
 

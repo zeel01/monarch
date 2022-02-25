@@ -24,6 +24,7 @@
 			"back": "Back",
 			"magnify": "Show card image. Hold shift to show players.",
 			"discard": "Discard",
+			"flipCard": "Flip card",
 			"showCard": "Show card to players",
 			"consoleLog": "Log 'Card' to console",
 			"clearColorMarkers": "Clear color markers"
