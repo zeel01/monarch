@@ -246,6 +246,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 			color:    utils.functionOrValue(control.color, "#FFFFFF")(card, container),
 			class:    control.class ?? "",
 			disabled: utils.functionOrValue(control.disabled, false)(card, container),
+			hide:     utils.functionOrValue(control.hide, false)(card, container),
 			controls: control.controls ? this.applyCardControls(card, control.controls) : []
 		};
 	}

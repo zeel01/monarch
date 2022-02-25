@@ -11,7 +11,9 @@
 	</section>
 	<section class="controls">
 		{{#each card.controls as |control|}}
-			{{> "modules/monarch/templates/parts/control-block.hbs" control=control card=card}}
+			{{#unless control.hide}}
+				{{> "modules/monarch/templates/parts/control-block.hbs" control=control card=card}}
+			{{/unless}}
 		{{/each}}
 	</section>
 </section>

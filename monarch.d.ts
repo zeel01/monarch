@@ -86,6 +86,7 @@ declare module "scripts/Components" {
         color?: string | stringCallback;
         class?: string;
         disabled?: boolean | booleanCallback;
+        hide?: boolean | appBooleanCallback;
         onclick?: cardClickCallback;
         controls?: Array<CardControl>;
     };

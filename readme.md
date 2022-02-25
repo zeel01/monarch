@@ -146,6 +146,7 @@ Data to define an interactive contrl that will display on a card.
 | `color` | `string`<br>`Function<string>` | The color of the icon, default is `"#FFFFFF"` (white). May be a function that returns a string. |
 | `class` | `string` | A unique CSS class to apply to the control. **IMPORTANT**: This property is required. Monarch uses this class to identify the control in order to attach event listeners. |
 | `disabled` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to disable the control. The control will appear grayed out. May be a function that returns a boolean. `false` by default. |
+| `hide` | `boolean`<br>`Function<boolean>` | *Optional*. Whether or not to hide the control entirely. |
 | `onclick` | `Function<void>` | A function that will run when the control is clicked. See below for parameter information. |
 | `controls` | `Array<CardControl>` | *Optional*. An array of controls to be added as a control group. When included, you may omit all other properties except `class`. Instead, each item in this `controls` array should be a complete `CardControl` object. Does not support nesting. |
 

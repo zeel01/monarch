@@ -55,6 +55,7 @@ import Monarch from "./Monarch.js";
  * @property {string|stringCallback}      [color]    - The color of the icon, or a function that returns the color. Default is white.
  * @property {string}                     [class]    - The css class to apply to the control
  * @property {boolean|booleanCallback}    [disabled] - Whether the control is disabled, or a function that returns whether the control is disabled
+ * @property {boolean|appBooleanCallback} [hide]     - Whether or not to hide (not display) the control at all.
  * @property {cardClickCallback}          [onclick]  - The function to call when the control is clicked
  * @property {Array<CardControl>}         [controls] - An array of controls to display as a group
  *
