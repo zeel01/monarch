@@ -11,8 +11,15 @@ let windowPositions = {};
  * @export
  */
 export function loadWindowPositions() {
-	const data = window.localStorage.getItem("monarch-windows") || "";
-	windowPositions = JSON.parse(data) || {};
+	const data = window.localStorage.getItem("monarch-windows") || "{}";
+	try { windowPositions = JSON.parse(data) || {}; }
+	catch (e) {
+		// If there was an error parsing the data, reset it.
+		window.localStorage.setItem(
+			"monarch-windows",
+			JSON.stringify(windowPositions)
+		);
+	}
 }
 
 
@@ -47,7 +54,7 @@ async function restoreWindow([uuid, position]) {
 
 
 /**
- * Stores the positions of all monarch windows in local storage
+ * Stores the position of a monarch window in local storage
  *
  * @export
  * @param {string} uuid
