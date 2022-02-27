@@ -24,7 +24,7 @@
 			"back": "Dos",
 			"magnify": "Afficher la carte en image. MAJ+clic pour la montrer aux joueurs.",
 			"discard": "Défausser",
-      "flipCard": "Retourner la carte",
+			"flipCard": "Retourner la carte",
 			"showCard": "Montrer la carte aux joueurs",
 			"consoleLog": "Logger la carte sur la console",
 			"clearColorMarkers": "Supprimer les marqueurs colorés"
