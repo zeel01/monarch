@@ -79,7 +79,7 @@
 			"groups": {
 				"badges": {
 					"name": "Montrer les badges de base",
-					"hint": "Détermine si des badges sont affichées pour les propriétés de base des cartes."
+					"hint": "Détermine si des badges sont affichés pour les propriétés de base des cartes."
 				},
 				"transparent": {
 					"name": "Transparence",
