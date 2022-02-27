@@ -34,7 +34,7 @@ import Monarch from "./Monarch.js";
  * @returns {void}
  */
 /**
- * @typedef  {Object} CardBadge                   An object defining a badge to display information on a card.
+ * @typedef  {Object} CardBadge                      An object defining a badge to display information on a card.
  * @property {string|stringCallback}      tooltip    - The tooltip of the badge, or a function that returns the tooltip
  * @property {string|stringCallback}      text       - The label of the badge, or a function that returns the label. May contain HTML.
  * @property {string}                     [class]    - The css class to apply to the badge
