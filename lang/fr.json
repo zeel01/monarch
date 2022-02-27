@@ -14,8 +14,8 @@
 			}
 		},
 		"sheetTitle": {
-			"myHand": "🦋 Monarch - Ma main",
-			"deck": "🦋 Monarch - Deck",
+			"myHand": "🦋 Monarch - Main",
+			"deck": "🦋 Monarch - Paquet",
 			"pile": "🦋 Monarch - Pile",
 			"card": "🦋 Monarch - Carte"
 		},
@@ -35,12 +35,12 @@
 			"enableSheets": {
 				"name": "Activer les feuilles 🦋 Monarch",
 				"hint": "Activer Monarch par défaut pour les feuilles.",
-				"enableAll": "Activer tous",
-				"all": "mains, paquets, piles et cartes",
-				"hand": "mains",
-				"deck": "paquets",
-				"pile": "piles",
-				"card": "cartes",
+				"enableAll": "Activer pour tout",
+				"all": "Mains, Paquets, Piles et Cartes",
+				"hand": "Mains",
+				"deck": "Paquets",
+				"pile": "Piles",
+				"card": "Cartes",
 				"notification": "Activé 🦋 Monarch comme feuille par défaut pour les {sheet}."
 			},
 			"world": {
@@ -55,8 +55,8 @@
 			"showValue": { "name": "Valeur" },
 			"showType": {	"name": "Type" },
 			"handReset": {
-				"name": "Réinit. depuis une main",
-				"hint": "Détermine si les mains ont un bouton pour renvoyer tous les cartes dans leur deck d'origine."
+				"name": "Réinit. depuis une Main",
+				"hint": "Détermine si les mains ont un bouton pour renvoyer tous les cartes dans leur paquet d'origine."
 			},
 			"showCard": {
 				"name": "Montrer la carte aux joueurs",
@@ -64,18 +64,18 @@
 			},
 			"cardHeight": {
 				"name": "Hauteur de carte",
-				"hint": "Quelle hauteur en pixels pour les cartes dans un(e) main/deck/pile."
+				"hint": "Quelle hauteur en pixels pour les cartes dans un(e) main/paquet/pile."
 			},
 			"discardPile": {
 				"name": "Défausse",
 				"hint": "La pile contenant les cartes défaussées. Laisser vide pour désactiver l'option de défausser une carte."
 			},
-			"transparentHand": { "name": "Main" },
-			"transparentDeck": { "name": "Paquet" },
-			"transparentPile": { "name": "Pile" },
-			"fadeHand": { "name": "Main" },
-			"fadeDeck": { "name": "Paquet" },
-			"fadePile": { "name": "Pile" },
+			"transparentHand": { "name": "Mains" },
+			"transparentDeck": { "name": "Paquets" },
+			"transparentPile": { "name": "Piles" },
+			"fadeHand": { "name": "Mains" },
+			"fadeDeck": { "name": "Paquets" },
+			"fadePile": { "name": "Piles" },
 			"groups": {
 				"badges": {
 					"name": "Montrer les badges de base",
