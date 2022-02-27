@@ -36,7 +36,7 @@
 				"name": "Activer les feuilles 🦋 Monarch",
 				"hint": "Activer Monarch par défaut pour les feuilles.",
 				"enableAll": "Activer pour tout",
-				"all": "Mains, Paquets, Piles et Cartes",
+				"all": "mains, paquets, piles et cartes",
 				"hand": "Mains",
 				"deck": "Paquets",
 				"pile": "Piles",
@@ -55,7 +55,7 @@
 			"showValue": { "name": "Valeur" },
 			"showType": {	"name": "Type" },
 			"handReset": {
-				"name": "Réinit. depuis une Main",
+				"name": "Réinit. depuis une main",
 				"hint": "Détermine si les mains ont un bouton pour renvoyer tous les cartes dans leur paquet d'origine."
 			},
 			"showCard": {
