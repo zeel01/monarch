@@ -22,27 +22,38 @@
 		"label": {
 			"faces": "Faces",
 			"back": "Dos",
-			"magnify": "Afficher la carte en image. Appuyez sur MAJ pour la montrer aux joueurs.",
+			"magnify": "Afficher la carte en image. MAJ+clic pour la montrer aux joueurs.",
 			"discard": "Défausser",
+      "flipCard": "Retourner la carte",
 			"showCard": "Montrer la carte aux joueurs",
-			"consoleLog": "Afficher la carte dans la console",
+			"consoleLog": "Logger la carte sur la console",
 			"clearColorMarkers": "Supprimer les marqueurs colorés"
 		},
 		"settings": {
 			"label": "Configurer Monarch",
 			"title": "Paramètres de 🦋 Monarch",
-			"showSuit": {
-				"name": "Afficher le badge Couleur",
-				"hint": "Détermine si le badge Couleur est affiché ou non sur les cartes."
+			"enableSheets": {
+				"name": "Activer les feuilles 🦋 Monarch",
+				"hint": "Activer Monarch par défaut pour les feuilles.",
+				"enableAll": "Activer tous",
+				"all": "mains, paquets, piles et cartes",
+				"hand": "mains",
+				"deck": "paquets",
+				"pile": "piles",
+				"card": "cartes",
+				"notification": "Activé 🦋 Monarch comme feuille par défaut pour les {sheet}."
 			},
-			"showValue": {
-				"name": "Afficher le badge Valeur",
-				"hint": "Détermine si le badge Valeur est affiché ou non sur les cartes."
+			"world": {
+				"name": "Paramètres de monde",
+				"hint": "Ces paramètres s'appliquent à tous les joueurs."
 			},
-			"showType": {
-				"name": "Afficher le badge Type",
-				"hint": "Détermine si le badge Type est affiché ou non sur les cartes."
+			"client": {
+				"name": "Paramètres client",
+				"hint": "Ces paramètres s'appliquent à vous uniquement. Chaque joueur peut choisir sa propre configuration."
 			},
+			"showSuit": { "name": "Couleur" },
+			"showValue": { "name": "Valeur" },
+			"showType": {	"name": "Type" },
 			"handReset": {
 				"name": "Réinit. depuis une main",
 				"hint": "Détermine si les mains ont un bouton pour renvoyer tous les cartes dans leur deck d'origine."
@@ -58,6 +69,26 @@
 			"discardPile": {
 				"name": "Défausse",
 				"hint": "La pile contenant les cartes défaussées. Laisser vide pour désactiver l'option de défausser une carte."
+			},
+			"transparentHand": { "name": "Main" },
+			"transparentDeck": { "name": "Paquet" },
+			"transparentPile": { "name": "Pile" },
+			"fadeHand": { "name": "Main" },
+			"fadeDeck": { "name": "Paquet" },
+			"fadePile": { "name": "Pile" },
+			"groups": {
+				"badges": {
+					"name": "Montrer les badges de base",
+					"hint": "Détermine si des badges sont affichées pour les propriétés de base des cartes."
+				},
+				"transparent": {
+					"name": "Transparence",
+					"hint": "Active ou désactive la transparence de chaque type d'application."
+				},
+				"fade": {
+					"name": "Fondu de transparence",
+					"hint": "Active ou désactive le fondu de transparence sur chaque type d'application."
+				}
 			}
 		},
 		"aria": {

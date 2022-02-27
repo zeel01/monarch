@@ -45,11 +45,11 @@
 			},
 			"world": {
 				"name": "World Settings",
-				"hint": "Theses settings apply to all players."
+				"hint": "These settings apply to all players."
 			},
 			"client": {
 				"name": "Client Settings",
-				"hint": "Theses settings apply only to you. Each player may configure these on thier own."
+				"hint": "These settings apply only to you. Each player may configure these on thier own."
 			},
 			"showSuit": { "name": "Suit" },
 			"showValue": { "name": "Value" },
