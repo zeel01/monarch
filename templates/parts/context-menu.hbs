@@ -7,7 +7,9 @@
 				{{/each}}
 			</ul>
 		{{else}}
-			<li>{{> "modules/monarch/templates/parts/card-control.hbs" control=control card=card showLabel=true}}</li>
+			{{#unless control.hide}}
+				<li>{{> "modules/monarch/templates/parts/card-control.hbs" control=control card=card showLabel=true}}</li>
+			{{/unless}}
 		{{/if}}
 	{{/each}}
 </ul>
