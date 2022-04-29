@@ -81,9 +81,17 @@ This hook fires just before any Monarch sheet renders, the name will depend on w
 | `components.contextMenu` | `Array<CardControl>` | An array of controls to add to context menus. These are added to each card individually for piles. |
 | `components.appControls`~~ | `Array<AppControl>` | An array of controls to add to the application. These are added to the application for interacting with the pile itself. This property is ignored for the `Card` sheet, use `controls` |
 
-##### `clickMonarchCard`
+##### `clickMonarchCard`, `dblclickMonarchCard`, `contextmenuMonarchCard`, `hoverMonarchCard`
 
-This hook is fired whenever a user clicks on a card in one of the `Cards` sheets. Returning false from this hook will prevent the default action from being taken. The default action for cards in the hand sheet is to open the sheet for that card.
+One of these hooks is fired whenever a user interacts with a card in one of the `Cards` sheets. Returning false from these hooks will prevent the default action from being taken.
+
+###### Details
+| Hook | Event | Default Action |
+| ----- | ----- | ------------- |
+| `clickMonarchCard` | `click` | **Hand**: Opens the Card config sheet for the target Card. |
+| `dblclickMonarchCard` | `dblclick` | *none* |
+| `contextmenuMonarchCard` | `contextmenu` | *none* |
+| `hoverMonarchCard` | `mouseover` | *none* |
 
 ###### Parameters
 | Parameter | Type | Description |
@@ -92,16 +100,7 @@ This hook is fired whenever a user clicks on a card in one of the `Cards` sheets
 | `app` | `FormApplication` | The Monarch application object. |
 | `card` | `Card` | The card that was clicked. |
 
-##### `hoverMonarchCard`
-
-This hook is fired whenever a user hovers over a card in one of the `Cards` sheets. Returning false from this hook will prevent the default action from being taken.
-
-###### Parameters
-| Parameter | Type | Description |
-| --------- | ---- | ----------- |
-| `event` | `PointerEvent` | The pointer event that triggered the hover. |
-| `app` | `FormApplication` | The Monarch application object. |
-| `card` | `Card` | The card that was hovered over. |
+To access the HTML element representing the card, use the `event.currentTarget` property.
 
 #### Data Objects
 

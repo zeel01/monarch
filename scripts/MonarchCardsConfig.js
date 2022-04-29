@@ -58,7 +58,15 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 
 		// For each card in the pile
 		html.querySelectorAll(".card").forEach(card => {
-			card.addEventListener("contextmenu", event => this._onContextMenu(event, html, card));
+			// Handle common events with optional API hooks
+			card.addEventListener("click",
+				event => this._onEventWithHook(event, card, "clickMonarchCard",       this._cardClickAction));
+			card.addEventListener("dblclick",
+				event => this._onEventWithHook(event, card, "dblclickMonarchCard",    this._cardDblclickAction));
+			card.addEventListener("contextmenu",
+				event => this._onEventWithHook(event, card, "contextmenuMonarchCard", this._cardContextmenuAction));
+			card.addEventListener("mouseenter",
+				event => this._onEventWithHook(event, card, "hoverMonarchCard",       this._cardHoverAction));
 
 			// For each card control button
 			card.querySelectorAll(".card-control").forEach(button => {
@@ -79,8 +87,7 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 
 		// Clicking the card will open its sheet
 		html.querySelectorAll(".card").forEach(card => {
-			card.addEventListener("mouseenter", event => this._onHoverCard(event, card));
-			card.addEventListener("click", event => this._onClickCard(event, card));
+			
 		});
 	}
 
@@ -127,42 +134,6 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	}
 
 	/**
-	 * Handles the right click event.
-	 *
-	 * Displays a context menu for the targetted card.
-	 *
-	 * @param {PointerEvent} event - The click event
-	 * @param {HTMLElement}  html  - The element representing the application window
-	 * @param {HTMLElement}  card  - The element representing the card
-	 * @memberof MonarchCardsConfig
-	 */
-	_onContextMenu(event, html, card) {
-		html.querySelectorAll(".card").forEach(card => card.classList.remove("show-ctx"));
-		event.stopPropagation();
-		event.preventDefault();
-		card.classList.add("show-ctx");
-		const menu = card.querySelector(".context-menu");
-		menu.style.left = `${event.clientX}px`;
-		menu.style.top = `${event.clientY}px`;
-	}
-
-	/**
-	 * Handles click events on the card.
-	 *
-	 * @param {PointerEvent} event - The click event
-	 * @param {HTMLElement}  card  - The element representing the card
-	 * @memberof MonarchHand
-	 */
-	_onClickCard(event, card) {
-		event.stopPropagation();
-		const cardDocument = this.object.cards.get(card.dataset.cardId);
-		
-		const doDefault = Hooks.call("clickMonarchCard", event, this, cardDocument);
-
-		if (doDefault) this._cardClickAction(event, this, cardDocument);
-	}
-
-	/**
 	 * Action to perform when a card is clicked.
 	 *
 	 * @param {PointerEvent}    event - The click event
@@ -176,19 +147,37 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	}
 
 	/**
-	 * Handles click events on the card.
+	 * Action to perform when a card is double-clicked.
 	 *
-	 * @param {PointerEvent} event - The click event
-	 * @param {HTMLElement}  card  - The element representing the card
+	 * @param {PointerEvent}    event - The click event
+	 * @param {FormApplication} app   - The application object
+	 * @param {Card}            card  - The card object
+	 * @override
 	 * @memberof MonarchHand
 	 */
-	_onHoverCard(event, card) {
-		event.stopPropagation();
-		const cardDocument = this.object.cards.get(card.dataset.cardId);
-		
-		const doDefault = Hooks.call("hoverMonarchCard", event, this, cardDocument);
+	_cardDblclickAction(event, app, card) {
+		return;
+	}
 
-		if (doDefault) this._cardHoverAction(event, this, cardDocument);
+	/**
+	 * Action to perform when a card is right-clicked.
+	 *
+	 * Displays a context menu for the targetted card.
+	 *
+	 * @param {PointerEvent}    event - The click event
+	 * @param {FormApplication} app   - The application object
+	 * @param {Card}            card  - The card object
+	 * @memberof MonarchCardsConfig
+	 */
+	_cardContextmenuAction(event, app, card) {
+		const cardElement = event.currentTarget;
+		app.element[0].querySelectorAll(".card").forEach(card => card.classList.remove("show-ctx"));
+		event.stopPropagation();
+		event.preventDefault();
+		cardElement.classList.add("show-ctx");
+		const menu = cardElement.querySelector(".context-menu");
+		menu.style.left = `${event.clientX}px`;
+		menu.style.top = `${event.clientY}px`;
 	}
 
 	/**
@@ -202,5 +191,26 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 	 */
 	_cardHoverAction(event, app, card) {
 		return;
+	}
+
+	/**
+	 * Handles events that may optionally be overridden or augmented
+	 * by a Hook callback. A Hook may return a value of "false" to
+	 * prevent the default behaviour from being performed.
+	 *
+	 * @param {PointerEvent}      event         - The click event
+	 * @param {Card} 	          card          - The card object
+	 * @param {string}            hook          - The name of the hook to call
+	 * @param {function<boolean>} defaultAction - The default action to perform if the hook doesn't return false
+	 */
+	async _onEventWithHook(event, card, hook, defaultAction) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		const cardDocument = this.object.cards.get(card.dataset.cardId);
+
+		const doDefault = Hooks.call(hook, event, this, cardDocument);
+
+		if (doDefault) defaultAction.call(this, event, this, cardDocument);
 	}
 }
