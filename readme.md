@@ -80,6 +80,7 @@ This hook fires just before any Monarch sheet renders, the name will depend on w
 | `components.markers` | `Array<CardMarker>` | An array of markers to add to the application. These are added to each card individually for piles. |
 | `components.contextMenu` | `Array<CardControl>` | An array of controls to add to context menus. These are added to each card individually for piles. |
 | `components.appControls`~~ | `Array<AppControl>` | An array of controls to add to the application. These are added to the application for interacting with the pile itself. This property is ignored for the `Card` sheet, use `controls` |
+| `componets.cardClasses` | `Array<string\|stringCallback>` | An array of CSS classes, or functions which return CSS classes, which are applied to individual cards. |
 
 ##### `clickMonarchCard`, `dblclickMonarchCard`, `contextmenuMonarchCard`, `hoverMonarchCard`
 
@@ -318,6 +319,22 @@ By default a marker will show a white dot, using the `fa fas-circle` icon. By sp
 The last property of `CardMarker` is `show`. Here, we define `show` as a function that takes a card as a parameter and checks for a flag within it. If that flag is true, the icon will be shown as a marker on the card. This function is called for each card in the hand, so each card can have this marker configured individually.
 
 ![A hand sheet with a custom radioactive marker.](examples/guide-custom-marker.png)
+
+#### Creating a Custom Card Style
+
+By utilizing the `components.cardClasses` array, we can add CSS classes to each card in a Cards sheet. This array can contain strings, or it can contain functions which, like the `class` properties on Controls and Markers, will be called for each card individually and passed that cards data. This allows for selectively adding classes to particular cards, which can then be styled as needed.
+
+This can be used for things like adding a class specific to your module, classes that depend on properties of the card, or classes based on flags stored in the card data. For example, the below code might add classes which style cards with different suits differently, and cards with a `my-flag` set to to true might be styled with a colored overlay, shadow, or border to indicate their status.
+
+```js
+Hooks.on("getMonarchHandComponents", (monarch, components) => {
+    components.cardClasses.push(
+        "my-module-class",
+        (card) => `suit-${card.data.suit}`,
+        (card) => card.getFlag("my-module", "my-flag") ? "my-module-flagged" : ""
+    );
+});
+```
 
 #### Creating Custom Context Menus
 

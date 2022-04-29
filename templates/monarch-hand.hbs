@@ -2,7 +2,8 @@
 	<div>
 		<ol class="cards" style="--card-height: {{cardHeight}}px;">
 			{{#each cardData as |card|}}
-				<li class="card-wrapper" style="--card-width: {{card.width}}px;">
+				<li class="card-wrapper{{#each card.classes as |class|}} {{class}}{{/each}}"
+					style="--card-width: {{card.width}}px;">
 					<div class="card" data-card-id="{{card.id}}" style="--card-image: {{card.cssImage}};">
 						<figure class="tooltip-wrapper">
 							<section class="tooltip">

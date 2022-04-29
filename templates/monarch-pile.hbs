@@ -13,7 +13,8 @@
 		</header>
 		<ol class="cards" style="--card-height: {{cardHeight}}px; --max-width: {{cardWidth}}px;">
 			{{#each cardData as |card|}}
-				<li class="card" style="--card-width: {{card.width}}px;" data-card-id="{{card.id}}">
+				<li class="card{{#each card.classes as |class|}} {{class}}{{/each}}"
+					style="--card-width: {{card.width}}px;" data-card-id="{{card.id}}">
 					<section class="face">
 						<img class="card-face" data-src="{{card.img}}" alt="{{card.name}}" height="48">
 					</section>

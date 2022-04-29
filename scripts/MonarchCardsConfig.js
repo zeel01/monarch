@@ -43,6 +43,7 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsCon
 			data.cardData[i].contextMenu = this.applyCardControls(card, data.contextMenu, this.object);
 			data.cardData[i].badges      = this.applyCardBadges(card, data.badges, this.object);
 			data.cardData[i].markers     = this.applyCardMarkers(card, data.markers, this.object);
+			data.cardData[i].classes     = this.applyCardClasses(card, data.cardClasses, this.object);
 		});
 	}
 

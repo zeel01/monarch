@@ -7,15 +7,17 @@ import { Controls, Badges, Markers } from "./Components.js";
  * @typedef {import("./Components.js").CardBadge} CardBadge
  * @typedef {import("./Components.js").CardMarker} CardMarker
  * @typedef {import("./Components.js").AppControl} AppControl
+ * @typedef {import("./Components.js").stringCallback} stringCallback
  */
 
 /**
- * @typedef  {Object} Components              An object containing the component arrays
- * @property {Array<CardBadge>}   badges      - The badges to display for each card
- * @property {Array<CardControl>} controls    - The controls to display for each card
- * @property {Array<CardMarker>}  markers     - The markers to display for each card
- * @property {Array<CardControl>} contextMenu - The controls to display for a card's context menu
- * @property {Array<AppControl>}  appControls - The controls to display on the application
+ * @typedef  {Object} Components                         An object containing the component arrays
+ * @property {Array<CardBadge>}              badges      - The badges to display for each card
+ * @property {Array<CardControl>}            controls    - The controls to display for each card
+ * @property {Array<CardMarker>}             markers     - The markers to display for each card
+ * @property {Array<CardControl>}            contextMenu - The controls to display for a card's context menu
+ * @property {Array<AppControl>}             appControls - The controls to display on the application
+ * @property {Array<string|stringCallback>}  cardClasses - CSS classes to apply to each card
  */
 
 /** 
@@ -185,6 +187,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 		return [];
 	}
 
+	/** @type {Array<string|stringCallback>} */
+	get cardClasses() {
+		return [];
+	}
+
 	
 	/**
 	 * Generate the data for controls on the provided card.
@@ -304,6 +311,18 @@ const MonarchApplicationMixin = Base => class extends Base {
 	}
 
 	/**
+	 * Generates the classes for a card.
+	 *
+	 * @param {Card}                         card      - The card to generate the classes for
+	 * @param {Array<string|stringCallback>} classes   - The classes to generate, either strings or functions that return strings
+	 * @param {Cards}                        container - The cards container
+	 * @return {Array<string>}
+	 */
+	applyCardClasses(card, classes, container) {
+		return classes.map(cardClass => utils.functionOrValue(cardClass, "")(card, container));
+	}
+
+	/**
 	 * Reduce a nested array of controls into a flat object of control functions.
 	 *
 	 * @param {Array<[string, Function]>} controls - Entries for each control function and its class
@@ -337,6 +356,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 		data.markers	 = this.markers;
 		data.contextMenu = this.contextMenu;
 		data.appControls = this.appControls;
+		data.cardClasses = this.cardClasses;
 
 		/** @type {Components} */
 		const components = {
@@ -344,7 +364,8 @@ const MonarchApplicationMixin = Base => class extends Base {
 			controls: data.controls,
 			markers: data.markers,
 			contextMenu: data.contextMenu,
-			appControls: data.appControls
+			appControls: data.appControls,
+			cardClasses: data.cardClasses
 		}
 
 		const chain = this.constructor._getInheritanceChain();

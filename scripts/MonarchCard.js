@@ -184,10 +184,11 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	 * @memberof MonarchCardsConfig
 	 */
 	applyComponents(data) {
-		data.data.controls = this.applyCardControls(this.object, data.controls, this.object.parent);
+		data.data.controls    = this.applyCardControls(this.object, data.controls, this.object.parent);
 		data.data.contextMenu = this.applyCardControls(this.object, data.contextMenu, this.object.parent);
-		data.data.badges = this.applyCardBadges(this.object, data.badges, this.object.parent);
-		data.data.markers = this.applyCardMarkers(this.object, data.markers, this.object.parent);
+		data.data.badges      = this.applyCardBadges(this.object, data.badges, this.object.parent);
+		data.data.markers     = this.applyCardMarkers(this.object, data.markers, this.object.parent);
+		data.data.classes     = this.applyCardClasses(this.object, data.cardClasses, this.object.parent);
 	}
 }
 
