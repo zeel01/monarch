@@ -43,7 +43,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 
 	/** @override */
 	async close(...args) {
-		utils.removePositon(this.object.uuid);
+		utils.removePosition(this.object.uuid);
 		return await super.close(...args);
 	}
 

@@ -49,7 +49,7 @@
 			},
 			"client": {
 				"name": "Client Settings",
-				"hint": "These settings apply only to you. Each player may configure these on thier own."
+				"hint": "These settings apply only to you. Each player may configure these on their own."
 			},
 			"showSuit": { "name": "Suit" },
 			"showValue": { "name": "Value" },

@@ -78,7 +78,7 @@ export function storeWindowPosition(uuid, position = {}) {
  * @param {string} uuid
  * @return {void} 
  */
-export function removePositon(uuid) {
+export function removePosition(uuid) {
 	if (!windowPositions[uuid]) return;
 
 	delete windowPositions[uuid];
