@@ -1,5 +1,5 @@
 {
-	"name": "monarch",
+	"id": "monarch",
 	"title": "🦋 Monarch",
 	"description": "A card UI fit for royalty.",
 	"author": "zeel",
@@ -11,9 +11,11 @@
 			"discord": "zeel#4200"
 		}
 	],
-	"version": "0.4.1",
-	"minimumCoreVersion": "9.236",
-	"compatibleCoreVersion": "9",
+	"version": "0.5.0",
+	"compatibility": {
+		"minimum": 13,
+		"verified": "13.350"
+	},
 	"socket": true,
 	"esmodules": [
 		"monarch.js"
