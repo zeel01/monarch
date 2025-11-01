@@ -7,7 +7,7 @@ import { Controls, Badges } from "./Components.js";
  * @typedef {import("./Components.js").CardBadge} CardBadge
  */
 
-export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
+export default class MonarchCard extends MonarchApplicationMixin(foundry.applications.sheets.CardConfig) {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			template: "modules/monarch/templates/monarch-card.hbs",
@@ -192,7 +192,7 @@ export default class MonarchCard extends MonarchApplicationMixin(CardConfig) {
 	}
 }
 
-class MonarchCardConfigDialog extends CardConfig {
+class MonarchCardConfigDialog extends foundry.applications.sheets.CardConfig {
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			width: 400,
@@ -211,7 +211,7 @@ class MonarchFaceConfig extends MonarchCardConfigDialog {
 	constructor(...args) {
 		super(...args);
 
-		this._getSubmitData = CardConfig.prototype._getSubmitData.bind(this);
+		this._getSubmitData = foundry.applications.sheets.CardConfig.prototype._getSubmitData.bind(this);
 	}
 }
 

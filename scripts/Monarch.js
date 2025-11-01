@@ -129,7 +129,7 @@ export default class Monarch {
 	 * @memberof Monarch
 	 */
 	static async preLoadTemplates() {
-		return loadTemplates([
+		return foundry.applications.handlebars.loadTemplates([
 			// Shared Partials
 			"modules/monarch/templates/parts/card-badge.hbs",
 			"modules/monarch/templates/parts/card-control.hbs",
@@ -172,25 +172,25 @@ export default class Monarch {
 	 * @memberof Monarch
 	 */
 	static registerSheets() {
-		DocumentSheetConfig
+		foundry.applications.apps.DocumentSheetConfig
 			.registerSheet(Cards, this.name, MonarchHand, {
 				label: game.i18n.localize("monarch.sheetTitle.myHand"),
 				types: ["hand"]
 			})
 
-		DocumentSheetConfig
+		foundry.applications.apps.DocumentSheetConfig
 			.registerSheet(Cards, this.name, MonarchDeck, {
 				label: game.i18n.localize("monarch.sheetTitle.deck"),
 				types: ["deck"]
 			})
 
-		DocumentSheetConfig
+		foundry.applications.apps.DocumentSheetConfig
 			.registerSheet(Cards, this.name, MonarchPile, {
 				label: game.i18n.localize("monarch.sheetTitle.pile"),
 				types: ["pile"]
 			})
 
-		DocumentSheetConfig
+		foundry.applications.apps.DocumentSheetConfig
 			.registerSheet(Card, this.name, MonarchCard, {
 				label: game.i18n.localize("monarch.sheetTitle.card")
 			})

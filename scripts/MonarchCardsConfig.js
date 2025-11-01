@@ -1,6 +1,6 @@
 import MonarchApplicationMixin from "./MonarchApplicationMixin.js";
 
-export default class MonarchCardsConfig extends MonarchApplicationMixin(CardsConfig) {
+export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.applications.sheets.CardsConfig) {
 	async getData(options) {
 		const data = await super.getData(options);
 

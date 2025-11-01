@@ -15,7 +15,7 @@ export default class MonarchSettings extends FormApplication {
 	 * @memberof MonarchSettings
 	 */
 	static get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "monarch-settings",
 			title: game.i18n.localize("monarch.settings.title"),
 			template: "./modules/monarch/templates/monarch-settings.hbs",

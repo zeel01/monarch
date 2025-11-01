@@ -28,11 +28,11 @@
 {{/inline}}
 {{#*inline "select"}}
 	<select name="{{setting.id}}" data-dtype="{{setting.type}}">
-		{{#select setting.value}}
+		{{#selectOptions setting.value}}
 		{{#each setting.choices as |name id|}}
 		<option value="{{id}}">{{localize name}}</option>
 		{{/each}}
-		{{/select}}
+		{{/selectOptions}}
 	</select>
 {{/inline}}
 {{#*inline "setting"}}
