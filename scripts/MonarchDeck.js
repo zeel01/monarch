@@ -8,16 +8,40 @@ import { Controls, Badges, AppControls } from "./Components.js";
  */
 
 export default class MonarchDeck extends MonarchCardsConfig {
-static get defaultOptions() {
-		return foundry.utils.mergeObject(super.defaultOptions, {
-			template: "modules/monarch/templates/monarch-deck.hbs",
-			classes: ["monarch", "monarch-deck", "sheet"],
-			dragDrop: [{ dragSelector: "ol.cards li.card", dropSelector: "ol.cards" }],
+	static DEFAULT_OPTIONS = {
+		form: {
+			submitOnClose: true
+		},
+		position: {
 			width: 660,
 			height: "auto",
-			resizable: true
-		})
+		},
+		window: {
+			icon: "fa-solid fa-cards"
+		},
+		classes: ["monarch", "monarch-deck", "sheet"],
+		dragDrop: [{ dragSelector: "ol.cards li.card", dropSelector: "ol.cards" }],
+		resizable: true
 	}
+
+	static PARTS = {
+		header: { template: "templates/cards/deck/header.hbs" },
+		tabs: { template: "templates/generic/tab-navigation.hbs" },
+		details: { template: "templates/cards/deck/details.hbs" },
+		cards: { template: "modules/monarch/templates/deck/cards.hbs", scrollable: ["ol[data-cards]"] },
+		footer: { template: "templates/generic/form-footer.hbs" }
+	};
+
+	static TABS = {
+		primary: {
+			tabs: [
+				{ id: "details", icon: "fa-solid fa-gears" },
+				{ id: "cards", icon: "fa-solid fa-id-badge" }
+			],
+			initial: "cards",
+			labelPrefix: "CARDS.TABS"
+		}
+	};
 
 	/** @type {Array<CardControl>} */
 	get controls() {

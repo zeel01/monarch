@@ -209,7 +209,7 @@ As an example we will create an info badge on the hand sheet indicating the numb
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
     components.badges.push({
         tooltip: "Current Face",
-        text: (card) => `Face: ${card.data.face}`,
+        text: (card) => `Face: ${card.face}`,
         class: "card-face-num"
     });
 });
@@ -310,7 +310,7 @@ Hooks.on("getMonarchHandComponents", (monarch, components) => {
         class: `marker-radioactive`,
         icon: "fas fa-radiation",
         color: "#EEEEEE",
-        show: (card) => card.data.flags.monarch.markers.radioactive
+        show: (card) => card.flags.monarch.markers.radioactive
     })
 });
 ```
@@ -330,7 +330,8 @@ This can be used for things like adding a class specific to your module, classes
 Hooks.on("getMonarchHandComponents", (monarch, components) => {
     components.cardClasses.push(
         "my-module-class",
-        (card) => `suit-${card.data.suit}`,
+        (card) => `suit-${card.suit}`,
+        (card) => `suit-${card.suit}`,
         (card) => card.getFlag("my-module", "my-flag") ? "my-module-flagged" : ""
     );
 });

@@ -37,13 +37,13 @@ const MonarchApplicationMixin = Base => class extends Base {
 	/** @override */
 	setPosition(...args) {
 		const position = super.setPosition(...args);
-		utils.storeWindowPosition(this.object.uuid, position);
+		utils.storeWindowPosition(this.document.uuid, position);
 		return position;
 	}
 
 	/** @override */
 	async close(...args) {
-		utils.removePosition(this.object.uuid);
+		utils.removePosition(this.document.uuid);
 		return await super.close(...args);
 	}
 
@@ -104,12 +104,12 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 */
 	_onSortCard(event, card) {
 		const li = event.target.closest("[data-card-id]");
-		const target = this.object.cards.get(li.dataset.cardId);
-		const siblings = this.object.cards.filter(c => c.id !== card.id);
+		const target = this.document.cards.get(li.dataset.cardId);
+		const siblings = this.document.cards.filter(c => c.id !== card.id);
 		const updateData = SortingHelpers.performIntegerSort(card, { target, siblings, sortBefore: false }).map(u => {
 			return { _id: u.target.id, sort: u.update.sort }
 		});
-		return this.object.updateEmbeddedDocuments("Card", updateData);
+		return this.document.updateEmbeddedDocuments("Card", updateData);
 	}
 
 	/** 
@@ -134,8 +134,8 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * @memberof MonarchApplicationMixin
 	 */
 	async _calcCardDimensions(card) {
-		let width = card.data.width ?? 0;
-		let height = card.data.height ?? 0;
+		let width = card.width ?? 0;
+		let height = card.height ?? 0;
 
 		if (!width || !height) {
 			if (!card.img) width = height = this.cardHeight;
@@ -346,49 +346,49 @@ const MonarchApplicationMixin = Base => class extends Base {
 		return controls;
 	}
 
-	async getData(...args) {
-		const data = await super.getData(...args);
+	async _prepareContext(...args) {
+		const context = await super._prepareContext(...args);
 
-		data.monarch = Monarch;
+		context.monarch = Monarch;
 
-		data.badges      = this.badges;
-		data.controls    = this.controls;
-		data.markers	 = this.markers;
-		data.contextMenu = this.contextMenu;
-		data.appControls = this.appControls;
-		data.cardClasses = this.cardClasses;
+		context.badges      = this.badges;
+		context.controls    = this.controls;
+		context.markers	 = this.markers;
+		context.contextMenu = this.contextMenu;
+		context.appControls = this.appControls;
+		context.cardClasses = this.cardClasses;
 
 		/** @type {Components} */
 		const components = {
-			badges: data.badges,
-			controls: data.controls,
-			markers: data.markers,
-			contextMenu: data.contextMenu,
-			appControls: data.appControls,
-			cardClasses: data.cardClasses
+			badges: context.badges,
+			controls: context.controls,
+			markers: context.markers,
+			contextMenu: context.contextMenu,
+			appControls: context.appControls,
+			cardClasses: context.cardClasses
 		}
 
-		const chain = this.constructor._getInheritanceChain();
-		chain.push({ name: "MonarchApplication" });
+		const chain = this.constructor.inheritanceChain();
+		// chain.push({ name: "MonarchApplication" });
 		for (let cls of chain) {
 			/**
 			 *
 			 * A hook that is called before this application is rendered which collects,
 			 * a set of badges and controls to display on the application.
 			 *
-			 * @param {FormApplication} app        - The application object
+			 * @param {ApplicationV2}   app        - The application object
 			 * @param {Components}      components - An object containing the component arrays
 			 */
 			Hooks.call(`get${cls.name}Components`, this, components);
 		}
 		
 		this._controlFns = {
-			...Object.fromEntries(data.controls.reduce(this.controlReducer.bind(this), [])),
-			...Object.fromEntries(data.contextMenu.reduce(this.controlReducer.bind(this), [])),
-			...Object.fromEntries(data.appControls.reduce(this.controlReducer.bind(this), [])),
+			...Object.fromEntries(context.controls.reduce(this.controlReducer.bind(this), [])),
+			...Object.fromEntries(context.contextMenu.reduce(this.controlReducer.bind(this), [])),
+			...Object.fromEntries(context.appControls.reduce(this.controlReducer.bind(this), [])),
 		}
 
-		return data;
+		return context;
 	}
 }
 

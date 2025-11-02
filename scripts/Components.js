@@ -108,8 +108,8 @@ export class Controls {
 			icon: "fas fa-caret-up",
 			class: "next-face",
 			disabled: (card) => !card.hasNextFace || !card.isOwner,
-			hide: (card) => card.data.faces?.length < 2,
-			onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : card.data.face + 1 })
+			hide: (card) => card.faces?.length < 2,
+			onclick: (event, card) => card.update({ face: card.face === null ? 0 : card.face + 1 })
 		}
 	}
 
@@ -120,8 +120,8 @@ export class Controls {
 			icon: "fas fa-caret-down",
 			class: "prev-face",
 			disabled: (card) => !card.hasPreviousFace || !card.isOwner,
-			hide: (card) => card.data.faces?.length < 2,
-			onclick: (event, card) => card.update({ face: card.data.face === 0 ? null : card.data.face - 1 })
+			hide: (card) => card.faces?.length < 2,
+			onclick: (event, card) => card.update({ face: card.face === 0 ? null : card.face - 1 })
 		}
 	}
 
@@ -131,9 +131,9 @@ export class Controls {
 			tooltip: "monarch.label.flipCard",
 			icon: "fas fa-sync-alt fa-rotate-270",
 			class: "flip-face",
-			disabled: (card) => !card.isOwner && card.data.faces.length,
-			hide: (card) => card.data.faces?.length > 1,
-			onclick: (event, card) => card.update({ face: card.data.face === null ? 0 : null })
+			disabled: (card) => !card.isOwner && card.faces.length,
+			hide: (card) => card.faces?.length > 1,
+			onclick: (event, card) => card.update({ face: card.face === null ? 0 : null })
 		}
 	}
 
@@ -331,7 +331,7 @@ export class Badges {
 	static get suit() {
 		return {
 			tooltip: "CARD.Suit",
-			text: card => card.data.suit,
+			text: card => card.suit,
 			class: "card-suit"
 		}
 	}
@@ -340,7 +340,7 @@ export class Badges {
 	static get value() {
 		return {
 			tooltip: "CARD.Value",
-			text: card => card.data.value,
+			text: card => card.value,
 			class: "card-value"
 		}
 	}
@@ -349,7 +349,7 @@ export class Badges {
 	static get type() {
 		return {
 			tooltip: "CARD.Type",
-			text: card => card.data.type,
+			text: card => card.type,
 			class: "card-type"
 		}
 	}
@@ -359,7 +359,7 @@ export class Badges {
 		return {
 			tooltip: "CARD.Drawn",
 			text: game.i18n.localize("CARD.Drawn"),
-			hide: (card) => !card.data.drawn,
+			hide: (card) => !card.drawn,
 			class: "card-drawn"
 		}
 	}
