@@ -8,16 +8,29 @@ import { Controls, AppControls } from "./Components.js";
  */
 
 export default class MonarchPile extends MonarchCardsConfig {
-	static get defaultOptions() {
-		return foundry.utils.mergeObject(super.defaultOptions, {
-			template: "modules/monarch/templates/monarch-pile.hbs",
-			classes: ["monarch", "monarch-pile", "sheet"],
-			dragDrop: [{ dragSelector: "ol.cards li.card", dropSelector: "ol.cards" }],
+	static DEFAULT_OPTIONS = {
+		form: {
+			submitOnClose: true
+		},
+		position: {
 			width: 660,
 			height: "auto",
-			resizable: true
-		})
+		},
+		window: {
+			icon: "fa-solid fa-cards"
+		},
+		classes: ["monarch", "monarch-pile", "sheet"],
+		dragDrop: [{ dragSelector: "ol.cards li.card", dropSelector: "ol.cards" }],
+		resizable: true
 	}
+
+	static PARTS = {
+		cards: {
+			template: "modules/monarch/templates/pile/pile.hbs",
+			root: true,
+			scrollable: ["ol[data-cards]"]
+		}
+	};
 
 	/** @type {Array<CardControl>} */
 	get controls() {

@@ -1,0 +1,31 @@
+<header class="sheet-header flexrow">
+	{{formInput fields.name value=source.name placeholder=fields.name.label aria=(object label=fields.name.label)}}
+</header>
+
+<section>
+	<header class="cards-header">
+		<a class="card-control sort-mode" title="{{localize " CARDS.SortMode"}}" data-action="toggleSort">
+			<i class="fas fa-sort fa-fw"></i>
+		</a>
+	</header>
+	<ol class="cards" style="--card-height: {{cardHeight}}px; --max-width: {{cardWidth}}px;">
+		{{#each cardData as |card|}}
+			<li class="card{{#each card.classes as |class|}} {{class}}{{/each}}"
+				style="--card-width: {{card.width}}px;" data-card-id="{{card.id}}">
+				<section class="face">
+					<img class="card-face" src="{{card.img}}" data-src="{{card.img}}" alt="{{card.name}}" height="48">
+				</section>
+				{{> "modules/monarch/templates/parts/card-hud.hbs" card=card}}
+				{{> "modules/monarch/templates/parts/context-menu.hbs" card=card}}
+			</li>
+		{{else}}
+			<li>
+				<p class="hint">{{localize "CARDS.NoCards"}}</p>
+			</li>
+		{{/each}}
+	</ol>
+</section>
+
+<!-- Sheet Footer -->
+{{#> "modules/monarch/templates/parts/footer.hbs" controls=appControls buttons=buttons}}
+{{/ "modules/monarch/templates/parts/footer.hbs"}}
