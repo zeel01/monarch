@@ -1,0 +1,11 @@
+<section class="card-display">
+	<img class="card-face" src="{{document.img}}" title="{{document.name}}" />{{~" "~}}
+	<a class="magnify" title="{{localize "monarch.label.magnify"}}">
+		<i class="fas fa-search-plus"></i>
+	</a>
+</section>
+
+{{!> "modules/monarch/templates/parts/card-hud.hbs" card=document}}
+{{!> "modules/monarch/templates/parts/context-menu.hbs" card=document}}
+
+

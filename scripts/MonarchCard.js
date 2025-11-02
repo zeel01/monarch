@@ -8,16 +8,30 @@ import { Controls, Badges } from "./Components.js";
  */
 
 export default class MonarchCard extends MonarchApplicationMixin(foundry.applications.sheets.CardConfig) {
-	static get defaultOptions() {
-		return foundry.utils.mergeObject(super.defaultOptions, {
-			template: "modules/monarch/templates/monarch-card.hbs",
-			classes: ["monarch", "monarch-card", "sheet", "trans"],
+	static DEFAULT_OPTIONS = {
+		form: {
+			submitOnClose: true,
+			closeOnSubmit: false
+		},
+		position: {
 			width: 250,
 			height: "auto",
-			resizable: true,
-			closeOnSubmit: false,
-			submitOnClose: true,
-		})
+		},
+		window: {
+			icon: "fa-solid fa-cards"
+		},
+		classes: ["monarch", "monarch-card", "sheet", "trans"],
+		resizable: true
+	}
+
+	static get PARTS() {
+		return {
+			header: { template: "modules/monarch/templates/card/header.hbs" },
+			display: { template: "modules/monarch/templates/card/display.hbs" },
+			hud: { template: "modules/monarch/templates/parts/card-hud.hbs" },
+			menu: { template: "modules/monarch/templates/parts/context-menu.hbs" },
+			data: { template: "modules/monarch/templates/card/data.hbs" },
+		};
 	}
 
 	/**
@@ -26,13 +40,11 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	 * @param {HTMLElement} html - The element representing the application window
 	 * @memberof MonarchCardsConfig
 	 */
-	activateListeners(html) {
-		super.activateListeners(html);
-		
-		new Draggable(this, html, html.find(".card-display")[0], false);
-		
+	_onRender(context, options) {
+		super._onRender(context, options);
+		let html = this.element;
 
-		html = html[0];
+		new foundry.applications.ux.Draggable.implementation(this, html, html.querySelector(".card-display"), false);
 
 		html.querySelector(".card-display .magnify")
 			.addEventListener("click", this._onDisplay.bind(this));
@@ -56,13 +68,16 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	 */
 	_onDisplay(event) {
 		event.stopPropagation();
-		const cardDocument = this.object;
+		const cardDocument = this.document;
 
-		const popout = new ImagePopout(cardDocument.img, {
-			title: cardDocument.data.name,
-			uuid: cardDocument.data.uuid,
+		const popout = new foundry.applications.apps.ImagePopout({
+			src: cardDocument.img,
+			uuid: cardDocument.uuid,
 			shareable: true,
-			editable: true
+			editable: true,
+			window: {
+				title: cardDocument.name,
+			}
 		}).render(true);
 
 		if (event.shiftKey) popout.shareImage();
@@ -83,10 +98,10 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 
 		switch (configRef) {
 			case "faces":
-				configApp = new MonarchFaceConfig(this.object);
+				configApp = new MonarchFaceConfig(this.document);
 				break;
 			case "back":
-				configApp = new MonarchBackConfig(this.object);
+				configApp = new MonarchBackConfig(this.document);
 				break;
 		}
 
@@ -109,7 +124,7 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 		if (button.dataset.disabled) return;
 		button.classList.forEach(className => {
 			if (this._controlFns[className])
-				this._controlFns[className](event, this.object, this.object.parent);
+				this._controlFns[className](event, this.document, this.document.parent);
 		});
 	}
 
@@ -150,7 +165,7 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	_getHeaderButtons() {
 		const buttons = super._getHeaderButtons();
 
-		if (this.object.source.isOwner) {
+		if (this.document.source.isOwner) {
 			buttons.unshift({
 				class: "save",
 				icon: "fas fa-save",
@@ -167,28 +182,30 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 		this._getSubmitData = DocumentSheet.prototype._getSubmitData.bind(this);
 	}
 
-	async getData() {
-		const data = await super.getData();
+	async _prepareContext() {
+		const context = await super._prepareContext();
 
-		data.editable = this.object.source.isOwner;
+		context.editable = this.document.source.isOwner;
 
-		this.applyComponents(data);
+		this.applyComponents(context);
 
-		return data;
+		context.card = context.document;
+
+		return context;
 	}
 
 	/**
 	 * Construct all the data for each component for this card.
 	 *
-	 * @param {Object} data - The data for rendering the application template.
+	 * @param {Object} context - The data for rendering the application template.
 	 * @memberof MonarchCardsConfig
 	 */
-	applyComponents(data) {
-		data.data.controls    = this.applyCardControls(this.object, data.controls, this.object.parent);
-		data.data.contextMenu = this.applyCardControls(this.object, data.contextMenu, this.object.parent);
-		data.data.badges      = this.applyCardBadges(this.object, data.badges, this.object.parent);
-		data.data.markers     = this.applyCardMarkers(this.object, data.markers, this.object.parent);
-		data.data.classes     = this.applyCardClasses(this.object, data.cardClasses, this.object.parent);
+	applyComponents(context) {
+		context.controls    = this.applyCardControls(this.document, context.controls, this.document.parent);
+		context.contextMenu = this.applyCardControls(this.document, context.contextMenu, this.document.parent);
+		context.badges      = this.applyCardBadges(this.document, context.badges, this.document.parent);
+		context.markers     = this.applyCardMarkers(this.document, context.markers, this.document.parent);
+		context.classes     = this.applyCardClasses(this.document, context.cardClasses, this.document.parent);
 	}
 }
 
