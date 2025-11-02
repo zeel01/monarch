@@ -1,0 +1,18 @@
+<section>
+	<ol class="cards" style="--card-height: {{cardHeight}}px;">
+		{{#each cardData as |card|}}
+			<li class="card-wrapper{{#each card.classes as |class|}} {{class}}{{/each}}"
+				style="--card-width: {{card.width}}px;">
+				<div class="card" data-card-id="{{card.id}}" style="--card-image: {{card.cssImage}};">
+					<figure class="tooltip-wrapper">
+						<section class="tooltip">
+							<h4 class="card-name">{{card.name}}</h4>
+						</section>
+					</figure>
+					{{> "modules/monarch/templates/parts/card-hud.hbs" card=card}}
+					{{> "modules/monarch/templates/parts/context-menu.hbs" card=card}}
+				</div>
+			</li>
+		{{/each}}
+	</ol>
+</section>

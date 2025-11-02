@@ -29,7 +29,7 @@ export default class MonarchDeck extends MonarchCardsConfig {
 		tabs: { template: "templates/generic/tab-navigation.hbs" },
 		details: { template: "templates/cards/deck/details.hbs" },
 		cards: { template: "modules/monarch/templates/deck/cards.hbs", scrollable: ["ol[data-cards]"] },
-		footer: { template: "modules/monarch/templates/deck/footer.hbs" }
+		footer: { template: "modules/monarch/templates/parts/footer.hbs" }
 	};
 
 	static TABS = {
