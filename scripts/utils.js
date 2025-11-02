@@ -49,7 +49,7 @@ async function restoreWindow([uuid, position]) {
 	if (!object) return;
 
 	position.height = "auto";
-	object.sheet.render(true, position);
+	object.sheet.render(true, { position });
 }
 
 
