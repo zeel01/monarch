@@ -8,7 +8,7 @@ declare module "scripts/utils" {
         height: number;
         scale: number;
     }): Promise<void>;
-    export function removePositon(uuid: string): void;
+    export function removePosition(uuid: string): void;
     export function getImageDimensions(path: string): Promise<{
         width: number;
         height: number;
@@ -108,38 +108,86 @@ declare module "scripts/MonarchApplicationMixin" {
     export type CardBadge = import("scripts/Components").CardBadge;
     export type CardMarker = import("scripts/Components").CardMarker;
     export type AppControl = import("scripts/Components").AppControl;
+    export type stringCallback = import("scripts/Components").stringCallback;
     export type Components = {
         badges: Array<CardBadge>;
         controls: Array<CardControl>;
         markers: Array<CardMarker>;
         contextMenu: Array<CardControl>;
         appControls: Array<AppControl>;
+        cardClasses: Array<string | stringCallback>;
     };
     function MonarchApplicationMixin(Base: any): any;
 }
 declare module "scripts/MonarchCardsConfig" {
     export default class MonarchCardsConfig {
-        getData(options: any): Promise<any>;
-        applyComponents(data: any): void;
-        activateListeners(html: HTMLElement): void;
+        _prepareContext(options: any): Promise<any>;
+        applyComponents(context: any): void;
+        _onRender(context: any, options: any): void;
         _onControl(event: PointerEvent, button: HTMLAnchorElement, card: HTMLElement): void;
         _onAppControl(event: PointerEvent, button: HTMLButtonElement): void;
-        _onContextMenu(event: PointerEvent, html: HTMLElement, card: HTMLElement): void;
-        _onClickCard(event: PointerEvent, card: HTMLElement): void;
         override _cardClickAction(event: PointerEvent, app: FormApplication, card: Card): void;
-        _onHoverCard(event: PointerEvent, card: HTMLElement): void;
+        override _cardDblclickAction(event: PointerEvent, app: FormApplication, card: Card): void;
+        _cardContextmenuAction(event: PointerEvent, app: FormApplication, card: Card): void;
         override _cardHoverAction(event: PointerEvent, app: FormApplication, card: Card): void;
+        _onEventWithHook(event: PointerEvent, card: Card, hook: string, defaultAction: any): Promise<void>;
     }
 }
 declare module "scripts/MonarchDeck" {
     export default class MonarchDeck extends MonarchCardsConfig {
-        static get defaultOptions(): any;
+        static DEFAULT_OPTIONS: {
+            form: {
+                submitOnClose: boolean;
+            };
+            position: {
+                width: number;
+                height: string;
+            };
+            window: {
+                icon: string;
+            };
+            classes: string[];
+            dragDrop: {
+                dragSelector: string;
+                dropSelector: string;
+            }[];
+            resizable: boolean;
+        };
+        static PARTS: {
+            header: {
+                template: string;
+            };
+            tabs: {
+                template: string;
+            };
+            details: {
+                template: string;
+            };
+            cards: {
+                template: string;
+                scrollable: string[];
+            };
+            footer: {
+                template: string;
+            };
+        };
+        static TABS: {
+            primary: {
+                tabs: {
+                    id: string;
+                    icon: string;
+                }[];
+                initial: string;
+                labelPrefix: string;
+            };
+        };
         get controls(): import("scripts/Components").CardControl[];
         get badges(): import("scripts/Components").CardBadge[];
         get appControls(): import("scripts/Components").AppControl[];
         get classOptions(): {
             [x: string]: boolean;
         };
+        _preparePartContext(partId: any, context: any, options: any): Promise<any>;
     }
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
@@ -148,7 +196,34 @@ declare module "scripts/MonarchDeck" {
 }
 declare module "scripts/MonarchPile" {
     export default class MonarchPile extends MonarchCardsConfig {
-        static get defaultOptions(): any;
+        static DEFAULT_OPTIONS: {
+            form: {
+                submitOnClose: boolean;
+            };
+            position: {
+                width: number;
+                height: string;
+            };
+            window: {
+                icon: string;
+            };
+            classes: string[];
+            dragDrop: {
+                dragSelector: string;
+                dropSelector: string;
+            }[];
+            resizable: boolean;
+        };
+        static PARTS: {
+            cards: {
+                template: string;
+                root: boolean;
+                scrollable: string[];
+            };
+            footer: {
+                template: string;
+            };
+        };
         get controls(): import("scripts/Components").CardControl[];
         get appControls(): import("scripts/Components").AppControl[];
         get classOptions(): {
@@ -162,7 +237,34 @@ declare module "scripts/MonarchPile" {
 }
 declare module "scripts/MonarchHand" {
     export default class MonarchHand extends MonarchCardsConfig {
-        static get defaultOptions(): any;
+        static DEFAULT_OPTIONS: {
+            form: {
+                submitOnClose: boolean;
+            };
+            position: {
+                width: number;
+                height: string;
+            };
+            window: {
+                icon: string;
+            };
+            classes: string[];
+            dragDrop: {
+                dragSelector: string;
+                dropSelector: string;
+            }[];
+            resizable: boolean;
+        };
+        static PARTS: {
+            cards: {
+                template: string;
+                root: boolean;
+                scrollable: string[];
+            };
+            footer: {
+                template: string;
+            };
+        };
         _getHeaderButtons(): any;
         override _onCardControl(event: any): Promise<any>;
         get classOptions(): {
@@ -180,9 +282,40 @@ declare module "scripts/MonarchHand" {
 }
 declare module "scripts/MonarchCard" {
     export default class MonarchCard {
-        static get defaultOptions(): any;
+        static DEFAULT_OPTIONS: {
+            form: {
+                submitOnClose: boolean;
+                closeOnSubmit: boolean;
+            };
+            position: {
+                width: number;
+                height: string;
+            };
+            window: {
+                icon: string;
+            };
+            classes: string[];
+            resizable: boolean;
+        };
+        static get PARTS(): {
+            header: {
+                template: string;
+            };
+            display: {
+                template: string;
+            };
+            hud: {
+                template: string;
+            };
+            menu: {
+                template: string;
+            };
+            data: {
+                template: string;
+            };
+        };
         constructor(...args: any[]);
-        activateListeners(html: HTMLElement): void;
+        _onRender(context: any, options: any): void;
         _onDisplay(event: PointerEvent): void;
         _onConfigButton(event: PointerEvent): void;
         _onControl(event: PointerEvent, button: HTMLAnchorElement): void;
@@ -190,8 +323,8 @@ declare module "scripts/MonarchCard" {
         get controls(): import("scripts/Components").CardControl[];
         override _getHeaderButtons(): any;
         _getSubmitData: any;
-        getData(): Promise<any>;
-        applyComponents(data: any): void;
+        _prepareContext(): Promise<any>;
+        applyComponents(context: any): void;
     }
     export type CardControl = import("scripts/Components").CardControl;
     export type CardBadge = import("scripts/Components").CardBadge;
