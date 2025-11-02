@@ -29,12 +29,6 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.
 		return context;
 	}
 
-	async _preparePartContext(partId, context, options) {
-		const partContext = await super._preparePartContext(partId, context, options);
-		if (partId in partContext.tabs) partContext.tab = partContext.tabs[partId];
-		return partContext;
-	}
-
 	/**
 	 * Construct all the data for each component per-card.
 	 *

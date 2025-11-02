@@ -137,6 +137,7 @@ export default class Monarch {
 			"modules/monarch/templates/parts/control-block.hbs",
 			"modules/monarch/templates/parts/context-menu.hbs",
 			"modules/monarch/templates/parts/app-controls.hbs",
+			"modules/monarch/templates/parts/footer.hbs",
 			"modules/monarch/templates/parts/card-hud.hbs"
 		]);
 	}

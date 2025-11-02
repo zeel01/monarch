@@ -29,7 +29,7 @@ export default class MonarchDeck extends MonarchCardsConfig {
 		tabs: { template: "templates/generic/tab-navigation.hbs" },
 		details: { template: "templates/cards/deck/details.hbs" },
 		cards: { template: "modules/monarch/templates/deck/cards.hbs", scrollable: ["ol[data-cards]"] },
-		footer: { template: "templates/generic/form-footer.hbs" }
+		footer: { template: "modules/monarch/templates/deck/footer.hbs" }
 	};
 
 	static TABS = {
@@ -84,5 +84,11 @@ export default class MonarchDeck extends MonarchCardsConfig {
 			"trans": Monarch.settings.transparentDeck,
 			"no-fade": !Monarch.settings.fadeDeck
 		};
+	}
+
+	async _preparePartContext(partId, context, options) {
+		const partContext = await super._preparePartContext(partId, context, options);
+		if (partId in partContext.tabs) partContext.tab = partContext.tabs[partId];
+		return partContext;
 	}
 }
