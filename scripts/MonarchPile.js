@@ -26,7 +26,7 @@ export default class MonarchPile extends MonarchCardsConfig {
 
 	static PARTS = {
 		cards: {
-			template: "modules/monarch/templates/pile/pile.hbs",
+			template: "modules/monarch/templates/pile.hbs",
 			root: true,
 			scrollable: ["ol[data-cards]"]
 		},

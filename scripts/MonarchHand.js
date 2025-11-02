@@ -27,11 +27,11 @@ export default class MonarchHand extends MonarchCardsConfig {
 
 	static PARTS = {
 		cards: {
-			template: "modules/monarch/templates/hand/hand.hbs",
+			template: "modules/monarch/templates/hand.hbs",
 			root: true,
 			scrollable: ["ol[data-cards]"]
 		},
-		footer: { template: "modules/monarch/templates/hand/hand-footer.hbs" }
+		footer: { template: "modules/monarch/templates/hand-footer.hbs" }
 	};
 
 	/**
