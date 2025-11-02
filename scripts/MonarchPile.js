@@ -29,7 +29,8 @@ export default class MonarchPile extends MonarchCardsConfig {
 			template: "modules/monarch/templates/pile/pile.hbs",
 			root: true,
 			scrollable: ["ol[data-cards]"]
-		}
+		},
+		footer: { template: "modules/monarch/templates/parts/footer.hbs" }
 	};
 
 	/** @type {Array<CardControl>} */
