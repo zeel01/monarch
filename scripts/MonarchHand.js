@@ -73,7 +73,7 @@ export default class MonarchHand extends MonarchCardsConfig {
 			"no-fade": !Monarch.settings.fadeHand
 		};
 	}
-	
+
 	/**
 	 * Add a class to the target element when a drag event enters it.
 	 *

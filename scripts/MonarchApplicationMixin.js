@@ -55,12 +55,15 @@ const MonarchApplicationMixin = Base => class extends Base {
 	constructor(...args) {
 		super(...args);
 
-		this._optClasses = this.options.classes;
-		delete this.options.classes;
+		this._options = this.options;
+		const app = this;
 
-		Object.defineProperty(this.options, "classes", {
-			get: () => this.classes
-		});
+		this.options = {
+			...this._options,
+			get classes() {
+				return app.classes;
+			}
+		}
 	}
 
 	/**
@@ -69,7 +72,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 */
 	get classes() {
 		return [
-			...this._optClasses,
+			...this._options.classes,
 			...Object.entries(this.classOptions)
 				.filter(([key, value]) => value)
 				.map(([key, value]) => key)
