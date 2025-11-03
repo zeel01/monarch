@@ -145,13 +145,13 @@ declare module "scripts/MonarchDeck" {
             };
             window: {
                 icon: string;
+                resizable: boolean;
             };
             classes: string[];
             dragDrop: {
                 dragSelector: string;
                 dropSelector: string;
             }[];
-            resizable: boolean;
         };
         static PARTS: {
             header: {
@@ -206,13 +206,13 @@ declare module "scripts/MonarchPile" {
             };
             window: {
                 icon: string;
+                resizable: boolean;
             };
             classes: string[];
             dragDrop: {
                 dragSelector: string;
                 dropSelector: string;
             }[];
-            resizable: boolean;
         };
         static PARTS: {
             cards: {
@@ -247,13 +247,13 @@ declare module "scripts/MonarchHand" {
             };
             window: {
                 icon: string;
+                resizable: boolean;
             };
             classes: string[];
             dragDrop: {
                 dragSelector: string;
                 dropSelector: string;
             }[];
-            resizable: boolean;
         };
         static PARTS: {
             cards: {
@@ -293,9 +293,9 @@ declare module "scripts/MonarchCard" {
             };
             window: {
                 icon: string;
+                resizable: boolean;
             };
             classes: string[];
-            resizable: boolean;
         };
         static get PARTS(): {
             header: {

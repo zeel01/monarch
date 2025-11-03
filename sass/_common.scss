@@ -23,6 +23,7 @@
 	input[type="date"],
 	input[type="time"] {
 		color: white;
+		background: none;
 		padding: 2px;
 		height: unset;
 		border: none;
@@ -180,7 +181,7 @@
 			flex-direction: row;
 		}
 	}
-	.card.show-ctx, form.editable.show-ctx {
+	.card.show-ctx, .standard-form.editable.show-ctx {
 		.context-menu {
 			display: flex;
 		}
