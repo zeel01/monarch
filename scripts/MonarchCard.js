@@ -186,10 +186,9 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 		const context = await super._prepareContext();
 
 		context.editable = this.document.source.isOwner;
+		context.card = context.document;
 
 		this.applyComponents(context);
-
-		context.card = context.document;
 
 		return context;
 	}
@@ -201,11 +200,11 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	 * @memberof MonarchCardsConfig
 	 */
 	applyComponents(context) {
-		context.controls    = this.applyCardControls(this.document, context.controls, this.document.parent);
-		context.contextMenu = this.applyCardControls(this.document, context.contextMenu, this.document.parent);
-		context.badges      = this.applyCardBadges(this.document, context.badges, this.document.parent);
-		context.markers     = this.applyCardMarkers(this.document, context.markers, this.document.parent);
-		context.classes     = this.applyCardClasses(this.document, context.cardClasses, this.document.parent);
+		context.card.controls    = this.applyCardControls(this.document, context.controls, this.document.parent);
+		context.card.contextMenu = this.applyCardControls(this.document, context.contextMenu, this.document.parent);
+		context.card.badges      = this.applyCardBadges(this.document, context.badges, this.document.parent);
+		context.card.markers     = this.applyCardMarkers(this.document, context.markers, this.document.parent);
+		context.card.classes     = this.applyCardClasses(this.document, context.cardClasses, this.document.parent);
 	}
 }
 
