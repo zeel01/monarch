@@ -294,6 +294,14 @@ declare module "scripts/MonarchCard" {
             window: {
                 icon: string;
                 resizable: boolean;
+                controls: {
+                    class: string;
+                    action: string;
+                    icon: string;
+                    label: string;
+                    ownership: any;
+                    visible: () => any;
+                }[];
             };
             classes: string[];
         };
@@ -315,13 +323,13 @@ declare module "scripts/MonarchCard" {
             };
         };
         constructor(...args: any[]);
-        _onRender(context: any, options: any): void;
+        _onFirstRender(context: ApplicationRenderContext, options: RenderOptions): Promise<void>;
+        _onRender(context: ApplicationRenderContext, options: RenderOptions): Promise<void>;
         _onDisplay(event: PointerEvent): void;
         _onConfigButton(event: PointerEvent): void;
         _onControl(event: PointerEvent, button: HTMLAnchorElement): void;
         _onContextMenu(event: PointerEvent): void;
         get controls(): import("scripts/Components").CardControl[];
-        override _getHeaderButtons(): any;
         _getSubmitData: any;
         _prepareContext(): Promise<any>;
         applyComponents(context: any): void;

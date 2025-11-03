@@ -19,7 +19,19 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 		},
 		window: {
 			icon: "fa-solid fa-cards",
-			resizable: true
+			resizable: true,
+			controls: [
+				{
+					class: "save",
+					action: "save",
+					icon: "fas fa-save",
+					label: "Save",
+					ownership: CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER,
+					visible: function () {
+						return this.document.source.isOwner;
+					}
+				}
+			]
 		},
 		classes: ["monarch", "monarch-card", "sheet", "trans"],
 	}
@@ -35,13 +47,47 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	}
 
 	/**
-	 * Attach event handlers to the application.
+	 * Attach event handlers to the application on first render.
 	 *
-	 * @param {HTMLElement} html - The element representing the application window
+	 * @param {ApplicationRenderContext}  context - The data for rendering the application template.
+	 * @param {RenderOptions}             options - Additional options passed to the render call.
 	 * @memberof MonarchCardsConfig
 	 */
-	_onRender(context, options) {
-		super._onRender(context, options);
+	async _onFirstRender(context, options) {
+		await super._onFirstRender(context, options);
+
+		const saveButton = this.window.controlsDropdown.querySelector("[data-action=save] button");
+
+		if (saveButton) {
+			const li = saveButton.parentElement;
+			const label = saveButton.querySelector(".control-label");
+
+			saveButton.addEventListener("click", (event) => {
+				console.log("Save button clicked");
+				event.stopPropagation();
+				this.submit();
+			});
+
+			saveButton.className = li.className;
+			saveButton.dataset.action = li.dataset.action;
+			saveButton.dataset.tooltip = label.textContent;
+			saveButton.ariaLabel = label.textContent;
+
+			label.remove();
+			this.window.header.querySelector("button[data-action=toggleControls]")?.before(saveButton);
+			li.	remove();
+		}
+	}
+
+	/**
+	 * Attach event handlers to the application.
+	 *
+	 * @param {ApplicationRenderContext}  context - The data for rendering the application template.
+	 * @param {RenderOptions}             options - Additional options passed to the render call.
+	 * @memberof MonarchCardsConfig
+	 */
+	async _onRender(context, options) {
+		await super._onRender(context, options);
 		let html = this.element;
 
 		new foundry.applications.ux.Draggable.implementation(this, html, html.querySelector(".card-display"), false);
@@ -159,21 +205,6 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 				]
 			}
 		];
-	}
-
-	/** @override */
-	_getHeaderButtons() {
-		const buttons = super._getHeaderButtons();
-
-		if (this.document.source.isOwner) {
-			buttons.unshift({
-				class: "save",
-				icon: "fas fa-save",
-				onclick: this._onSubmit.bind(this)
-			});
-		}
-
-		return buttons;
 	}
 
 	constructor(...args) {
