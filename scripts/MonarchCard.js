@@ -18,10 +18,10 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 			height: "auto",
 		},
 		window: {
-			icon: "fa-solid fa-cards"
+			icon: "fa-solid fa-cards",
+			resizable: true
 		},
 		classes: ["monarch", "monarch-card", "sheet", "trans"],
-		resizable: true
 	}
 
 	static get PARTS() {

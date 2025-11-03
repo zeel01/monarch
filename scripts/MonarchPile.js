@@ -17,11 +17,11 @@ export default class MonarchPile extends MonarchCardsConfig {
 			height: "auto",
 		},
 		window: {
-			icon: "fa-solid fa-cards"
+			icon: "fa-solid fa-cards",
+			resizable: true
 		},
 		classes: ["monarch", "monarch-pile", "sheet"],
 		dragDrop: [{ dragSelector: "ol.cards li.card", dropSelector: "ol.cards" }],
-		resizable: true
 	}
 
 	static PARTS = {
