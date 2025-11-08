@@ -63,6 +63,10 @@
 		cursor: pointer;
 	}
 
+	&.cards-config ol.cards > li:first-of-type {
+		margin-top: 0;
+	}
+
 	.card-control {
 		padding: .3em .25em .2em .25em;
 
