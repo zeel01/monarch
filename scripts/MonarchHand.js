@@ -96,6 +96,19 @@ export default class MonarchHand extends MonarchCardsConfig {
 		target.classList.remove("drag-over");
 	}
 
+	/**
+	 * Attach event handlers to the application.
+	 *
+	 * @param {HTMLElement} html - The element representing the application window
+	 * @memberof MonarchCardsConfig
+	 */
+	_onRender(context, options) {
+		super._onRender(context, options);
+		const menu = this.window.controls;
+		menu.classList.remove("fa-ellipsis-vertical");
+		menu.classList.add("fa-ellipsis");
+	}
+
 	/** @type {Array<CardControl>} */
 	get controls() {
 		return [
