@@ -302,6 +302,7 @@ declare module "scripts/MonarchCard" {
                     ownership: any;
                     visible: () => any;
                 }[];
+                contentClasses: string[];
             };
             classes: string[];
         };

@@ -98,7 +98,7 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.
 	 * Handles clicks on card controls
 	 *
 	 * Delegates the click event to the appropriate handler found in the `_controlFns` object,
-	 * and passses the appropirate arguments.
+	 * and passes the appropriate arguments.
 	 *
 	 * @param {PointerEvent}      event  - The click event
 	 * @param {HTMLAnchorElement} button - The element that was clicked
@@ -108,7 +108,6 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.
 	 */
 	_onControl(event, button, card) {
 		const cardDocument = this.document.cards.get(card.dataset.cardId);
-		event.stopPropagation();
 		if (button.dataset.disabled) return;
 		button.classList.forEach(className => {
 			if (this._controlFns[className])

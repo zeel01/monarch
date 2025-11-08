@@ -31,7 +31,8 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 						return this.document.source.isOwner;
 					}
 				}
-			]
+			],
+			contentClasses: ["card"]
 		},
 		classes: ["monarch", "monarch-card", "sheet", "trans"],
 	}
@@ -55,6 +56,7 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	 */
 	async _onFirstRender(context, options) {
 		await super._onFirstRender(context, options);
+
 
 		const saveButton = this.window.controlsDropdown.querySelector("[data-action=save] button");
 
@@ -158,7 +160,7 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	 * Handles clicks on card controls
 	 *
 	 * Delegates the click event to the appropriate handler found in the `_controlFns` object,
-	 * and passses the appropirate arguments.
+	 * and passes the appropriate arguments.
 	 *
 	 * @param {PointerEvent}      event  - The click event
 	 * @param {HTMLAnchorElement} button - The element that was clicked
@@ -166,7 +168,6 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	 * @memberof MonarchCardsConfig
 	 */
 	_onControl(event, button) {
-		event.stopPropagation();
 		if (button.dataset.disabled) return;
 		button.classList.forEach(className => {
 			if (this._controlFns[className])
@@ -183,11 +184,12 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	 * @memberof MonarchCardsConfig
 	 */
 	_onContextMenu(event) {
-		this.form.classList.remove("show-ctx");
+		console.log("Context menu opened", this);
+		this.window.content.classList.remove("show-ctx");
 		event.stopPropagation();
 		event.preventDefault();
-		this.form.classList.add("show-ctx");
-		const menu = this.form.querySelector(".context-menu");
+		this.window.content.classList.add("show-ctx");
+		const menu = this.window.content.querySelector(".context-menu");
 		menu.style.left = `${event.clientX}px`;
 		menu.style.top = `${event.clientY}px`;
 	}

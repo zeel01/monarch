@@ -1,5 +1,5 @@
-.window-app.monarch-deck,
-.window-app.monarch-pile {
+.application.monarch-deck,
+.application.monarch-pile {
 	padding: 6px;
 	transition: background-color .5s, box-shadow .5s;
 	border-radius: 6px;
@@ -12,6 +12,7 @@
 	&.no-fade, &:hover {
 		&.trans {
 			background-color: rgba(0, 0, 0, 0.8);
+			--backdrop-blur: 4px;
 		}
 		box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
 	}

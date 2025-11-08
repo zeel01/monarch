@@ -1,4 +1,4 @@
-.window-app.monarch-hand {
+.application.monarch-hand {
 	&.trans .window-resizable-handle {
 		opacity: 0;
 		transition: opacity .5s;
@@ -11,7 +11,7 @@
 	}
 }
 
-.window-app.monarch-hand:not(.minimized) {
+.application.monarch-hand:not(.minimized) {
 	flex-direction: row;
 	align-items: start;
 	padding: 6px;
@@ -25,6 +25,7 @@
 	&.no-fade, &:hover {
 		&.trans {
 			background-color: rgba(0, 0, 0, 0.2);
+			--backdrop-blur: 4px;
 		}
 		box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 
