@@ -28,6 +28,7 @@
 			"back": "Reverso",
 			"magnify": "Mostrar imagen de la carta. Presione Mayús para mostrar a los jugadores",
 			"discard": "Descartar",
+			"flipCard": "Voltear",
 			"showCard": "Mostrar a los jugadores",
 			"consoleLog": "Enviar 'Carta' a la consola",
 			"clearColorMarkers": "Quitar marcadores de color"
@@ -35,18 +36,28 @@
 		"settings": {
 			"label": "Configuración de Monarch",
 			"title": "🦋 Ajustes de Monarch",
-			"showSuit": {
-				"name": "Mostrar identificador del palo",
-				"hint": "Si se debe mostrar el identificador del palo de las cartas"
+			"enableSheets": {
+				"name": "Habilitar hojas 🦋 Monarch",
+				"hint": "Pone por defecto las hojas de Monarch",
+				"enableAll": "Habilitar todas",
+				"all": "todas las cartas",
+				"hand": "Mano",
+				"deck": "Mazo",
+				"pile": "Pila",
+				"card": "Carta",
+				"notification": "Ajustado 🦋 Monarch como hojas por defecto para {sheet}"
 			},
-			"showValue": {
-				"name": "Mostrar identificador de valor",
-				"hint": "Si se debe mostrar el identificador del valor de las cartas"
+			"world": {
+				"name": "Ajustes del mundo",
+				"hint": "Estos ajustes se aplican a todos los jugadores"
 			},
-			"showType": {
-				"name": "Mostrar identificador de tipo",
-				"hint": "Si se debe mostrar el identificador de tipo de las cartas"
+			"client": {
+				"name": "Ajustes del cliente",
+				"hint": "Estos ajustes se te aplican únicamente a ti. Cada jugador puede configurarlos independientemente"
 			},
+			"showSuit": { "name": "Palo" },
+			"showValue": { "name": "Valor" },
+			"showType": { "name": "Tipo" },
 			"handReset": {
 				"name": "Botón de reinicio",
 				"hint": "Si se debe mostrar un botón de reiniciar en la mano para enviar todas las cartas de vuelta al mazo"
@@ -62,6 +73,26 @@
 			"discardPile": {
 				"name": "Pila de descartes",
 				"hint": "La pila que se usa para descartes. Deje en blanco para deshabilitar esta opción"
+			},
+			"transparentHand": { "name": "Mano" },
+			"transparentDeck": { "name": "Mazo" },
+			"transparentPile": { "name": "Pila" },
+			"fadeHand": { "name": "Mano" },
+			"fadeDeck": { "name": "Mazo" },
+			"fadePile": { "name": "Pila" },
+			"groups": {
+				"badges": {
+					"name": "Mostrar insignias básicas",
+					"hint": "Si se quieren mostrar insignias en las propiedades básicas de las cartas"
+				},
+				"transparent": {
+					"name": "Recursos transparentes",
+					"hint": "Habilita la transparencia para cada tipo de recurso"
+				},
+				"fade": {
+					"name": "Recursos con desvanecimiento",
+					"hint": "Habilita el desvanecimiento para cada tipo de recurso"
+				}
 			}
 		},
 		"aria": {
