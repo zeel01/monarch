@@ -61,8 +61,8 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 		const saveButton = this.window.controlsDropdown.querySelector("[data-action=save] button");
 
 		if (saveButton) {
-			const li = saveButton.parentElement;
-			const label = saveButton.querySelector(".control-label");
+			const listItemElement = saveButton.parentElement;
+			const labelElement = saveButton.querySelector(".control-label");
 
 			saveButton.addEventListener("click", (event) => {
 				console.log("Save button clicked");
@@ -70,14 +70,14 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 				this.submit();
 			});
 
-			saveButton.className = li.className;
-			saveButton.dataset.action = li.dataset.action;
-			saveButton.dataset.tooltip = label.textContent;
-			saveButton.ariaLabel = label.textContent;
+			saveButton.className = listItemElement.className;
+			saveButton.dataset.action = listItemElement.dataset.action;
+			saveButton.dataset.tooltip = labelElement.textContent;
+			saveButton.ariaLabel = labelElement.textContent;
 
-			label.remove();
+			labelElement.remove();
 			this.window.header.querySelector("button[data-action=toggleControls]")?.before(saveButton);
-			li.	remove();
+			listItemElement.remove();
 		}
 	}
 
@@ -170,8 +170,8 @@ export default class MonarchCard extends MonarchApplicationMixin(foundry.applica
 	_onControl(event, button) {
 		if (button.dataset.disabled) return;
 		button.classList.forEach(className => {
-			if (this._controlFns[className])
-				this._controlFns[className](event, this.document, this.document.parent);
+			if (this._controlClickHandlers[className])
+				this._controlClickHandlers[className](event, this.document, this.document.parent);
 		});
 	}
 

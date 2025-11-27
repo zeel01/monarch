@@ -36,48 +36,48 @@ export default class MonarchSettings extends FormApplication {
 	 */
 	getData() {
 		// All settings
-		const all = Object.entries(Monarch.settingDefinitions);
+		const allSettingEntries = Object.entries(Monarch.settingDefinitions);
 
 		// Settings expanded with all the relevant data
-		const expanded = all.map(([key, def]) => ({
-			...def,
+		const expandedSettingData = allSettingEntries.map(([key, settingDefinition]) => ({
+			...settingDefinition,
 			id: key,
-			type: def.type.name,
-			scope: def.scope ?? "world",
+			type: settingDefinition.type.name,
+			scope: settingDefinition.scope ?? "world",
 			name: game.i18n.localize(`monarch.settings.${key}.name`),
 			hint: game.i18n.localize(`monarch.settings.${key}.hint`),
 			value: Monarch.settings[key],
-			choices: def.getChoices ? def.getChoices() : undefined
+			choices: settingDefinition.getChoices ? settingDefinition.getChoices() : undefined
 		}));
 
 		// Settings that are grouped
-		const grouped = expanded.filter(setting => setting.group);
+		const groupedSettings = expandedSettingData.filter(setting => setting.group);
 		
 		// Settings that aren't grouped
-		const settings = expanded.filter(setting => !setting.group);
+		const ungroupedSettings = expandedSettingData.filter(setting => !setting.group);
 
 		// Setting groups
-		const groups = {};
-		grouped.forEach(setting => {
-			const group = setting.group;
-			if (!groups[group]) {
-				groups[group] = {
+		const settingGroups = {};
+		groupedSettings.forEach(setting => {
+			const groupName = setting.group;
+			if (!settingGroups[groupName]) {
+				settingGroups[groupName] = {
 					scope: setting.scope,
 					type: setting.type,
-					name: game.i18n.localize(`monarch.settings.groups.${group}.name`),
-					hint: game.i18n.localize(`monarch.settings.groups.${group}.hint`),
+					name: game.i18n.localize(`monarch.settings.groups.${groupName}.name`),
+					hint: game.i18n.localize(`monarch.settings.groups.${groupName}.hint`),
 					settings: []
 				}
 			}
 
-			groups[group].settings.push(setting);
+			settingGroups[groupName].settings.push(setting);
 		});
 
-		const worldSettings = settings.filter(setting => setting.scope == "world");	
-		const clientSettings = settings.filter(setting => setting.scope == "client");
+		const worldSettings = ungroupedSettings.filter(setting => setting.scope == "world");	
+		const clientSettings = ungroupedSettings.filter(setting => setting.scope == "client");
 
-		const worldGroups = Object.values(groups).filter(group => group.scope == "world");
-		const clientGroups = Object.values(groups).filter(group => group.scope == "client");
+		const worldGroups = Object.values(settingGroups).filter(settingGroup => settingGroup.scope == "world");
+		const clientGroups = Object.values(settingGroups).filter(settingGroup => settingGroup.scope == "client");
 
 		return {
 			isGM: game.user.isGM,
@@ -111,9 +111,9 @@ export default class MonarchSettings extends FormApplication {
 	 * @memberof MonarchSettings
 	 */
 	async _onSubmit(...args) {
-		const ret = await super._onSubmit(...args);
+		const submitResult = await super._onSubmit(...args);
 		await Monarch.refreshSheetsAll();
-		return ret;
+		return submitResult;
 	}
 
 	/**

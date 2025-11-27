@@ -32,7 +32,7 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 *
 	 * @type {Object<string, Function>}
 	 */
-	_controlFns = [];
+	_controlClickHandlers = [];
 
 	/** @override */
 	setPosition(...args) {
@@ -90,9 +90,9 @@ const MonarchApplicationMixin = Base => class extends Base {
 	async _render(force, options) {
 		await super._render(force, options);
 		if (options.updateClasses) {
-			const el = this._element[0];
-			el.classList.remove(...Object.keys(this.classOptions));
-			el.classList.add(...this.classes);
+			const applicationElement = this._element[0];
+			applicationElement.classList.remove(...Object.keys(this.classOptions));
+			applicationElement.classList.add(...this.classes);
 		}
 	}
 
@@ -106,11 +106,11 @@ const MonarchApplicationMixin = Base => class extends Base {
 	 * @private
 	 */
 	_onSortCard(event, card) {
-		const li = event.target.closest("[data-card-id]");
-		const target = this.document.cards.get(li.dataset.cardId);
-		const siblings = this.document.cards.filter(c => c.id !== card.id);
-		const updateData = SortingHelpers.performIntegerSort(card, { target, siblings, sortBefore: false }).map(u => {
-			return { _id: u.target.id, sort: u.update.sort }
+		const cardListItem = event.target.closest("[data-card-id]");
+		const targetCard = this.document.cards.get(cardListItem.dataset.cardId);
+		const siblingCards = this.document.cards.filter(siblingCard => siblingCard.id !== card.id);
+		const updateData = SortingHelpers.performIntegerSort(card, { target: targetCard, siblings: siblingCards, sortBefore: false }).map(sortUpdate => {
+			return { _id: sortUpdate.target.id, sort: sortUpdate.update.sort }
 		});
 		return this.document.updateEmbeddedDocuments("Card", updateData);
 	}
@@ -371,9 +371,9 @@ const MonarchApplicationMixin = Base => class extends Base {
 			cardClasses: context.cardClasses
 		}
 
-		const chain = this.constructor.inheritanceChain();
-		// chain.push({ name: "MonarchApplication" });
-		for (let cls of chain) {
+		const inheritanceChain = this.constructor.inheritanceChain();
+		// inheritanceChain.push({ name: "MonarchApplication" });
+		for (let parentClass of inheritanceChain) {
 			/**
 			 *
 			 * A hook that is called before this application is rendered which collects,
@@ -382,10 +382,10 @@ const MonarchApplicationMixin = Base => class extends Base {
 			 * @param {ApplicationV2}   app        - The application object
 			 * @param {Components}      components - An object containing the component arrays
 			 */
-			Hooks.call(`get${cls.name}Components`, this, components);
+			Hooks.call(`get${parentClass.name}Components`, this, components);
 		}
 		
-		this._controlFns = {
+		this._controlClickHandlers = {
 			...Object.fromEntries(context.controls.reduce(this.controlReducer.bind(this), [])),
 			...Object.fromEntries(context.contextMenu.reduce(this.controlReducer.bind(this), [])),
 			...Object.fromEntries(context.appControls.reduce(this.controlReducer.bind(this), [])),

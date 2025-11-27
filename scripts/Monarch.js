@@ -149,13 +149,13 @@ export default class Monarch {
 	 * @memberof Monarch
 	 */
 	static registerSettings() {
-		Object.entries(this.settingDefinitions).forEach(([key, def]) => {
-			game.settings.register(Monarch.name, key, {
-				...def,
-				scope: def.scope ?? "world",
+		Object.entries(this.settingDefinitions).forEach(([settingKey, settingDefinition]) => {
+			game.settings.register(Monarch.name, settingKey, {
+				...settingDefinition,
+				scope: settingDefinition.scope ?? "world",
 				config: false,
-				name: `monarch.settings.${key}.name`,
-				hint: `monarch.settings.${key}.hint`
+				name: `monarch.settings.${settingKey}.name`,
+				hint: `monarch.settings.${settingKey}.hint`
 			});
 		})
 

@@ -38,14 +38,14 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.
 	applyComponents(context) {
 		context.appControls = this.applyApplicationControls(context.appControls, this.document);
 
-		let i = 0;
+		let cardIndex = 0;
 		context.document.cards.forEach(card => {
-			context.cardData[i].controls    = this.applyCardControls(card, context.controls, this.document);
-			context.cardData[i].contextMenu = this.applyCardControls(card, context.contextMenu, this.document);
-			context.cardData[i].badges      = this.applyCardBadges(card, context.badges, this.document);
-			context.cardData[i].markers     = this.applyCardMarkers(card, context.markers, this.document);
-			context.cardData[i].classes     = this.applyCardClasses(card, context.cardClasses, this.document);
-			i++;
+			context.cardData[cardIndex].controls    = this.applyCardControls(card, context.controls, this.document);
+			context.cardData[cardIndex].contextMenu = this.applyCardControls(card, context.contextMenu, this.document);
+			context.cardData[cardIndex].badges      = this.applyCardBadges(card, context.badges, this.document);
+			context.cardData[cardIndex].markers     = this.applyCardMarkers(card, context.markers, this.document);
+			context.cardData[cardIndex].classes     = this.applyCardClasses(card, context.cardClasses, this.document);
+			cardIndex++;
 		});
 	}
 
@@ -83,9 +83,9 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.
 		});
 
 		// Handle drag and drop events
-		html.querySelectorAll(".card-wrapper").forEach(wrap => {
-			wrap.addEventListener("dragenter", this._onDragEnter.bind(this));
-			wrap.addEventListener("dragleave", this._onDragLeave.bind(this));
+		html.querySelectorAll(".card-wrapper").forEach(cardWrapper => {
+			cardWrapper.addEventListener("dragenter", this._onDragEnter.bind(this));
+			cardWrapper.addEventListener("dragleave", this._onDragLeave.bind(this));
 		});
 
 		// Clicking the card will open its sheet
@@ -110,8 +110,8 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.
 		const cardDocument = this.document.cards.get(card.dataset.cardId);
 		if (button.dataset.disabled) return;
 		button.classList.forEach(className => {
-			if (this._controlFns[className])
-				this._controlFns[className](event, cardDocument, this.document);
+			if (this._controlClickHandlers[className])
+				this._controlClickHandlers[className](event, cardDocument, this.document);
 		});
 	}
 	
@@ -130,8 +130,8 @@ export default class MonarchCardsConfig extends MonarchApplicationMixin(foundry.
 		event.stopPropagation();
 		if (button.disabled) return;
 		button.classList.forEach(className => {
-			if (this._controlFns[className])
-				this._controlFns[className](event, this, this.document);
+			if (this._controlClickHandlers[className])
+				this._controlClickHandlers[className](event, this, this.document);
 		});
 	}
 
